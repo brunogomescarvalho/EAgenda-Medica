@@ -3,9 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Dominio", "3-Dominio", "{7579E69C-8998-43F9-BDE1-E2DF2FB124BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.Dominio", "EAgendaMedica.Dominio\EAgendaMedica.Dominio.csproj", "{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876} = {7579E69C-8998-43F9-BDE1-E2DF2FB124BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D081F9A-CE4A-4C5E-B3B9-D6D796E9C776}
