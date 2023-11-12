@@ -1,24 +1,17 @@
-﻿using EAgendaMedica.Dominio.ModuloCirurgia;
-using EAgendaMedica.Dominio.ModuloConsulta;
-using Taikandi;
+﻿using EAgendaMedica.Dominio.Compartilhado;
+using EAgendaMedica.Dominio.Copartilhado;
 
 namespace EAgendaMedica.Dominio.ModuloMedico
 {
-    public class Medico
+    public class Medico : EntidadeBase<Medico>
     {
-        public Guid Id { get; set; }
-
         public string CRM { get; set; }
-
         public string Nome { get; set; }
-
-        public List<Cirurgia> Cirurgias { get; set; }
-
-        public List<Consulta> Consultas { get; set; }
+        public List<Atividade> Atividades { get; set; }
 
         public Medico()
         {
-            Id = SequentialGuid.NewGuid();
+            Atividades = new List<Atividade>();
         }
 
     }

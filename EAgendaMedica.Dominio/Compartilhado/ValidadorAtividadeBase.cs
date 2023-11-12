@@ -1,8 +1,6 @@
-﻿using EAgendaMedica.Dominio.Copartilhado;
-
-namespace EAgendaMedica.Dominio.Compartilhado
+﻿namespace EAgendaMedica.Dominio.Compartilhado
 {
-    public class ValidadorAtividadeBase<T> : AbstractValidator<Atividade<T>> where T : Atividade<T>
+    public class ValidadorAtividadeBase<T> : AbstractValidator<Atividade> where T : Atividade
     {
         public ValidadorAtividadeBase()
         {
