@@ -2,13 +2,13 @@
 
 namespace EAgendaMedica.Infra.Compartilhado
 {
-    internal class RepositorioBase<T> : IRepositorio<T> where T : EntidadeBase<T>
+    public class RepositorioAtividadeBase<T> : IRepositorio<T> where T : Atividade
     {
         protected DbSet<T> registros;
 
         private readonly EAgendaMedicaDBContext dbContext;
 
-        public RepositorioBase(IContextoPersistencia contextoPersistencia)
+        public RepositorioAtividadeBase(IContextoPersistencia contextoPersistencia)
         {
             dbContext = (EAgendaMedicaDBContext)contextoPersistencia;
 

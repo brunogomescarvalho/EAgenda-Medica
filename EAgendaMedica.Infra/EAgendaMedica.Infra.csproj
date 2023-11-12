@@ -17,8 +17,4 @@
     <ProjectReference Include="..\EAgendaMedica.Dominio\EAgendaMedica.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RepositorioConsulta\" />
-  </ItemGroup>
-
 </Project>

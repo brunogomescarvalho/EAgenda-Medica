@@ -1,6 +1,6 @@
 ﻿namespace EAgendaMedica.Dominio.Compartilhado
 {
-    public interface IRepositorio<T> where T : EntidadeBase<T>
+    public interface IRepositorio<T>
     {
         Task Inserir(T registro);
 

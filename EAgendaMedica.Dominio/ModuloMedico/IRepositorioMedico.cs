@@ -2,7 +2,7 @@
 
 namespace EAgendaMedica.Dominio
 {
-    internal interface IRepositorioMedico
+    public interface IRepositorioMedico : IRepositorio<Medico>
     {
        Task <Medico> SelecionarPorCRM(string crm);
     }

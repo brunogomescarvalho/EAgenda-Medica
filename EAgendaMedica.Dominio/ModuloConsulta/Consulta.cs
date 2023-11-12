@@ -7,6 +7,7 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
     {
         public Guid MedicoId { get; set; }
         public Medico Medico { get; set; }
+
     }
 }
 
