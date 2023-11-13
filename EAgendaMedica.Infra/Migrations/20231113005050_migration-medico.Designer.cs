@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EAgendaMedica.Infra.Migrations
 {
     [DbContext(typeof(EAgendaMedicaDBContext))]
-    [Migration("20231113004031_migration-medico")]
+    [Migration("20231113005050_migration-medico")]
     partial class migrationmedico
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,11 @@ namespace EAgendaMedica.Infra.Migrations
 
                     b.Property<string>("CRM")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -47,13 +47,13 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("74d7d3e7-7227-41d2-bb69-f0f22b0d089f"),
+                            Id = new Guid("9c792efe-118d-448b-82f4-700cef800309"),
                             CRM = "12345-SC",
                             Nome = "Médico 1"
                         },
                         new
                         {
-                            Id = new Guid("9e4c827c-9279-4ea7-8fb7-3b911068273a"),
+                            Id = new Guid("ba23668e-e59e-4ca0-8e7a-3ab654f48882"),
                             CRM = "67890-SC",
                             Nome = "Médico 2"
                         });

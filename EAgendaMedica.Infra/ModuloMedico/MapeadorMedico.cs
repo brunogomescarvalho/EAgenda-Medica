@@ -11,13 +11,14 @@ namespace EAgendaMedica.Infra.ModuloMedico
 
             builder.Property(x => x.Id).ValueGeneratedNever().IsRequired();
 
-            builder.Property(x => x.CRM)
+            builder.Property(x => x.CRM).HasColumnType("varchar(30)")
               .IsRequired();
 
             builder.HasIndex(x => x.CRM)
                 .IsUnique();
 
-            builder.Property(e => e.Nome).IsRequired();
+            builder.Property(e => e.Nome).HasColumnType("varchar(100)")
+                .IsRequired();
 
             builder.HasData(
                  new Medico { Id = Guid.NewGuid(), CRM = "12345-SC", Nome = "Médico 1" },

@@ -4,6 +4,7 @@ using EAgendaMedica.Infra.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EAgendaMedica.Infra.Migrations
 {
     [DbContext(typeof(EAgendaMedicaDBContext))]
-    partial class EAgendaMedicaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231113010629_migration-consulta")]
+    partial class migrationconsulta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
