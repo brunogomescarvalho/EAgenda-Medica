@@ -11,6 +11,19 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
         {
             Medicos = new List<Medico>();
         }
+
+        public void AdicionarEquipeMedica(List<Medico> medicos)
+        {
+            Medicos.AddRange(medicos);
+
+            Medicos.ForEach(m => { m.AdicionarCirurgia(this); });
+        }
+
+        public void AdicionarMedico(Medico medico)
+        {
+            Medicos.Add(medico);
+            medico.AdicionarCirurgia(this);
+        }
     }
 }
 

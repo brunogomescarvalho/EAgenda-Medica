@@ -16,7 +16,7 @@ namespace EAgendaMedica.Infra.ModuloConsulta
             builder.Property(x => x.Data).IsRequired();
 
             builder.HasOne(x => x.Medico)
-                      .WithMany()
+                      .WithMany(x=>x.Consultas)
                       .IsRequired()
                       .HasForeignKey(x => x.MedicoId)
                       .OnDelete(DeleteBehavior.NoAction);
@@ -24,3 +24,5 @@ namespace EAgendaMedica.Infra.ModuloConsulta
 
     }
 }
+
+

@@ -4,7 +4,7 @@ using EAgendaMedica.Infra.Compartilhado;
 
 namespace EAgendaMedica.Infra.ModuloMedico
 {
-    internal class RepositorioMedico : IRepositorioMedico
+    public class RepositorioMedico : IRepositorioMedico
     {
         protected DbSet<Medico> registros;
 
@@ -26,22 +26,24 @@ namespace EAgendaMedica.Infra.ModuloMedico
         public async Task<List<Medico>> SelecionarTodos()
         {
             return await registros
-                .Include(x => x.Atividades)              
+                .Include(x => x.Consultas)
+                .Include(x => x.Cirurgias)
                 .ToListAsync();
         }
 
         public async Task<Medico> SelecionarPorId(Guid id)
         {
             return await registros.Where(x => x.Id == id)
-                .Include(x => x.Id)              
+                .Include(x => x.Id)
                 .FirstAsync();
         }
 
         public async Task<Medico> SelecionarPorCRM(string crm)
         {
             return await registros.Where(x => x.CRM == crm)
-                .Include(x => x.Atividades)               
-                .FirstAsync();
+                 .Include(x => x.Consultas)
+                 .Include(x => x.Cirurgias)
+                 .FirstAsync();
         }
 
         public void Excluir(Medico registro)
@@ -52,6 +54,15 @@ namespace EAgendaMedica.Infra.ModuloMedico
         public void Editar(Medico registro)
         {
             registros.Update(registro);
+        }
+
+        public async Task<List<Medico>> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal)
+        {
+            return await registros.Where(x =>
+                 x.TodasAtividades().Any(atividade =>
+                 atividade.Data >= dataInicial && atividade.Data <= dataFinal))
+                .OrderBy(x => x.TotalDeAtendimentos).Take(10)
+                .ToListAsync();
         }
     }
 }

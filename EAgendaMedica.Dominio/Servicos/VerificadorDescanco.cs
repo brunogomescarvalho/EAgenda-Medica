@@ -32,7 +32,7 @@ namespace EAgendaMedica.Dominio.Servicos
 
         public bool Verificar(Medico medico)
         {
-            var atividades = medico.Atividades.FindAll(x => x.Data.Date == atividade.Data.Date).ToList();
+            var atividades = medico.TodasAtividades().FindAll(x => x.Data.Date == atividade.Data.Date).ToList();
 
             var registroAnterior = atividades
            .Where(x => x.HoraTermino.Ticks < atividade.HoraInicio.Ticks)

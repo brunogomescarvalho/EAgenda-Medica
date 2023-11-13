@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EAgendaMedica.Infra.Migrations
 {
     [DbContext(typeof(EAgendaMedicaDBContext))]
-    [Migration("20231113010629_migration-consulta")]
-    partial class migrationconsulta
+    [Migration("20231113014809_migrations")]
+    partial class migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,40 @@ namespace EAgendaMedica.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CirurgiaMedico", b =>
+                {
+                    b.Property<Guid>("CirurgiasId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MedicosId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CirurgiasId", "MedicosId");
+
+                    b.HasIndex("MedicosId");
+
+                    b.ToTable("TB_Medico_TB_Cirurgia", (string)null);
+                });
+
+            modelBuilder.Entity("EAgendaMedica.Dominio.ModuloCirurgia.Cirurgia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("HoraInicio")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("HoraTermino")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Cirurgia", (string)null);
+                });
 
             modelBuilder.Entity("EAgendaMedica.Dominio.ModuloConsulta.Consulta", b =>
                 {
@@ -71,27 +105,47 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1ccb16b9-b816-48ea-a94a-1f19e26a51dc"),
+                            Id = new Guid("b2eba290-c993-4016-9142-95008e5c0c65"),
                             CRM = "12345-SC",
                             Nome = "Médico 1"
                         },
                         new
                         {
-                            Id = new Guid("2365707a-de2a-409a-905e-9ffbc77116cc"),
+                            Id = new Guid("8b07e2af-a2df-4b04-8fed-2a71f4cb7006"),
                             CRM = "67890-SC",
                             Nome = "Médico 2"
                         });
                 });
 
+            modelBuilder.Entity("CirurgiaMedico", b =>
+                {
+                    b.HasOne("EAgendaMedica.Dominio.ModuloCirurgia.Cirurgia", null)
+                        .WithMany()
+                        .HasForeignKey("CirurgiasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EAgendaMedica.Dominio.ModuloMedico.Medico", null)
+                        .WithMany()
+                        .HasForeignKey("MedicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EAgendaMedica.Dominio.ModuloConsulta.Consulta", b =>
                 {
                     b.HasOne("EAgendaMedica.Dominio.ModuloMedico.Medico", "Medico")
-                        .WithMany()
+                        .WithMany("Consultas")
                         .HasForeignKey("MedicoId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Medico");
+                });
+
+            modelBuilder.Entity("EAgendaMedica.Dominio.ModuloMedico.Medico", b =>
+                {
+                    b.Navigation("Consultas");
                 });
 #pragma warning restore 612, 618
         }

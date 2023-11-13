@@ -1,6 +1,7 @@
 ﻿namespace EAgendaMedica.Dominio.ModuloCirurgia
 {
-    public interface IRepositorioCirurgia
+    public interface IRepositorioCirurgia : IRepositorioAtividadeBase<Cirurgia>
     {
+
     }
 }

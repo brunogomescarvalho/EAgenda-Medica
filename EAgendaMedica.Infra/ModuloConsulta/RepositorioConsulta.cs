@@ -1,7 +1,5 @@
-﻿using EAgendaMedica.Dominio.Compartilhado;
-using EAgendaMedica.Dominio.ModuloConsulta;
+﻿using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Infra.Compartilhado;
-
 
 namespace EAgendaMedica.Infra.ModuloConsulta
 {
@@ -11,5 +9,12 @@ namespace EAgendaMedica.Infra.ModuloConsulta
         {
             
         }
+
+        public override async Task<List<Consulta>> SelecionarTodos()
+        {
+            return await registros.Include(x=>x.Medico).ToListAsync();
+        }
+
+
     }
 }

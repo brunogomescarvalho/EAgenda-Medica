@@ -1,4 +1,3 @@
-using EAgendaMedica.Dominio.Copartilhado;
 using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
@@ -29,6 +28,8 @@ namespace EAgendaUnitTests
             verificador.VerificarMedico(medico).Should().BeTrue();
         }
 
+  
+
         private static void Arrange(Medico medico)
         {
             var consultas = new List<Consulta>
@@ -57,8 +58,8 @@ namespace EAgendaUnitTests
                 item.Medico = medico;
             }
 
-            medico.Atividades.AddRange(cirurgias);
-            medico.Atividades.AddRange(consultas);
+            medico.Cirurgias.AddRange(cirurgias);
+            medico.Consultas.AddRange(consultas);
         }
     }
 }

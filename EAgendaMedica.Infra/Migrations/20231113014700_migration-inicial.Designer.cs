@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EAgendaMedica.Infra.Migrations
 {
     [DbContext(typeof(EAgendaMedicaDBContext))]
-    [Migration("20231113003524_migration-inicial")]
+    [Migration("20231113014700_migration-inicial")]
     partial class migrationinicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

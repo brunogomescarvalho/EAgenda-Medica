@@ -8,6 +8,12 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
         public Guid MedicoId { get; set; }
         public Medico Medico { get; set; }
 
+        public void AdicionarMedico(Medico medico)
+        {
+            Medico = medico;
+            MedicoId = Medico.Id;
+            medico.AdicionarConsulta(this);
+        }
     }
 }
 

@@ -8,5 +8,12 @@ namespace EAgendaMedica.Infra.ModuloCirurgia
         public RepositorioCirurgia(IContextoPersistencia contextoPersistencia) : base(contextoPersistencia)
         {
         }
+
+        public override async Task<List<Cirurgia>> SelecionarTodos()
+        {
+            return await registros.Include(x => x.Medicos).ToListAsync();
+        }      
     }
 }
+
+
