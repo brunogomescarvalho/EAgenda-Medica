@@ -13,6 +13,7 @@
             string connectionString = configuration.GetConnectionString("SqlServer");
 
             var optionsBuilder = new DbContextOptionsBuilder<EAgendaMedicaDBContext>();
+
             optionsBuilder.UseSqlServer(connectionString);
 
             return new EAgendaMedicaDBContext(optionsBuilder.Options);
