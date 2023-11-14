@@ -1,5 +1,4 @@
-﻿using EAgendaMedica.Dominio.Copartilhado;
-using EAgendaMedica.Dominio.ModuloMedico;
+﻿using EAgendaMedica.Dominio.ModuloMedico;
 
 namespace EAgendaMedica.Dominio.ModuloCirurgia
 {
@@ -12,7 +11,7 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
             Medicos = new List<Medico>();
         }
 
-        public Cirurgia(DateTime data, TimeSpan horaInicio, double duracao) : base(data, horaInicio, duracao)
+        public Cirurgia(DateTime data, TimeSpan horaInicio, int duracao) : base(data, horaInicio, duracao)
         {
         }
 

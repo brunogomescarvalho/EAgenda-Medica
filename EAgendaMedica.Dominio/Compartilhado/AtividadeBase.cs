@@ -27,9 +27,9 @@ namespace EAgendaMedica.Dominio.Compartilhado
             }
         }
 
-        public double DuracaoEmMinutos
+        public int DuracaoEmMinutos
         {
-            get => (DataInicio - DataTermino).TotalMinutes;
+            get => duracaoEmMinutos;
             set
             {
                 duracaoEmMinutos = value;
@@ -46,9 +46,9 @@ namespace EAgendaMedica.Dominio.Compartilhado
 
         private DateTime dataHoraTermino;
 
-        private double duracaoEmMinutos;
+        private int duracaoEmMinutos;
 
-        public Atividade(DateTime data, TimeSpan horaInicio, double duracao) : this()
+        public Atividade(DateTime data, TimeSpan horaInicio, int duracao) : this()
         {
             this.DataInicio = data;
             this.HoraInicio = horaInicio;
