@@ -5,19 +5,25 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Dominio", "3-Dominio", "{7579E69C-8998-43F9-BDE1-E2DF2FB124BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.Dominio", "EAgendaMedica.Dominio\EAgendaMedica.Dominio.csproj", "{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.Dominio", "EAgendaMedica.Dominio\EAgendaMedica.Dominio.csproj", "{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infra", "4-Infra", "{D4284229-8A9A-470C-9C68-E4434CE75730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.Infra", "EAgendaMedica.Infra\EAgendaMedica.Infra.csproj", "{E270408B-4047-48CC-A084-FA4942865AF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.Infra", "EAgendaMedica.Infra\EAgendaMedica.Infra.csproj", "{E270408B-4047-48CC-A084-FA4942865AF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaUnitTests", "EAgendaUnitTests\EAgendaUnitTests.csproj", "{AF52A23A-C181-40A5-A0C8-7E0CF6268B08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaUnitTests", "EAgendaUnitTests\EAgendaUnitTests.csproj", "{AF52A23A-C181-40A5-A0C8-7E0CF6268B08}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Testes", "5-Testes", "{4E804C22-2951-49F6-89FE-E6A22C249CBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-ConsoleApp", "0-ConsoleApp", "{144CFAF2-598E-4550-8B7C-5556499847DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.ConsoleApp", "EAgendaMedica.ConsoleApp\EAgendaMedica.ConsoleApp.csproj", "{B527DA26-FACE-4B06-B119-0C17E4891F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.ConsoleApp", "EAgendaMedica.ConsoleApp\EAgendaMedica.ConsoleApp.csproj", "{B527DA26-FACE-4B06-B119-0C17E4891F47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesUnitarios", "TestesUnitarios", "{2AA4D0A7-7A9E-4C29-A847-88DD913FCB21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesIntegracao", "TestesIntegracao", "{0D421FE4-C814-461D-B988-28BB34452A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.TestesIntegracao", "EAgendaMedica.TestesIntegracao\EAgendaMedica.TestesIntegracao.csproj", "{83F099F8-1A56-44F3-A711-09C51A5EABA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,10 @@ Global
 		{B527DA26-FACE-4B06-B119-0C17E4891F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B527DA26-FACE-4B06-B119-0C17E4891F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B527DA26-FACE-4B06-B119-0C17E4891F47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,8 +58,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6AF2D9C4-4CD2-40EB-9D16-321FEF9D0876} = {7579E69C-8998-43F9-BDE1-E2DF2FB124BB}
 		{E270408B-4047-48CC-A084-FA4942865AF6} = {D4284229-8A9A-470C-9C68-E4434CE75730}
-		{AF52A23A-C181-40A5-A0C8-7E0CF6268B08} = {4E804C22-2951-49F6-89FE-E6A22C249CBE}
+		{AF52A23A-C181-40A5-A0C8-7E0CF6268B08} = {2AA4D0A7-7A9E-4C29-A847-88DD913FCB21}
 		{B527DA26-FACE-4B06-B119-0C17E4891F47} = {144CFAF2-598E-4550-8B7C-5556499847DA}
+		{2AA4D0A7-7A9E-4C29-A847-88DD913FCB21} = {4E804C22-2951-49F6-89FE-E6A22C249CBE}
+		{0D421FE4-C814-461D-B988-28BB34452A11} = {4E804C22-2951-49F6-89FE-E6A22C249CBE}
+		{83F099F8-1A56-44F3-A711-09C51A5EABA8} = {0D421FE4-C814-461D-B988-28BB34452A11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D081F9A-CE4A-4C5E-B3B9-D6D796E9C776}

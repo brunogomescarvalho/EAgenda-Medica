@@ -2,7 +2,7 @@
 
 namespace EAgendaMedica.Infra.Compartilhado
 {
-    public class RepositorioAtividadeBase<T> : IRepositorio<T>, IRepositorioAtividadeBase<T> where T : Atividade
+    public class RepositorioAtividadeBase<T> : IRepositorioAtividadeBase<T> where T : Atividade
     {
         protected DbSet<T> registros;
 

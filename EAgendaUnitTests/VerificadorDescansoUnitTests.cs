@@ -10,7 +10,7 @@ namespace EAgendaUnitTests
     public class VerificadorDescansoUnitTests
     {
         [TestMethod]
-        public void Deve_Retornar_True()
+        public void Deve_Retornar_ListaVazia_SemComflitos()
         {
             var medico = new Medico { Id = Guid.NewGuid(), CRM = "12345-SC", Nome = "Médico 1" };
 
@@ -18,14 +18,14 @@ namespace EAgendaUnitTests
 
             var consulta = new Consulta();
             {
-                consulta.Data = new DateTime(2023, 11, 12, 10, 25, 0);
+                consulta.Data = new DateTime(2023, 11, 12, 10, 26, 0);
                 consulta.HoraInicio = consulta.Data.TimeOfDay;
                 consulta.HoraTermino = consulta.Data.AddMinutes(20).TimeOfDay;
             }
 
-            var verificador = new VerificadorDescanco<Consulta>(consulta);
+            var verificador = new VerificadorDescanso(consulta);
 
-            verificador.VerificarMedico(medico).Should().BeTrue();
+            verificador.VerificarMedico(medico).Should().BeEmpty();
         }
 
   

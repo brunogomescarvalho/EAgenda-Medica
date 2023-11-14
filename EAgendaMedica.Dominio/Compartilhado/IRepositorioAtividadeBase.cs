@@ -1,6 +1,6 @@
 ﻿namespace EAgendaMedica.Dominio.Compartilhado
 {
-    public interface IRepositorioAtividadeBase<T> where T : Atividade
+    public interface IRepositorioAtividadeBase<T>: IRepositorio<T> where T : Atividade
     {
         Task<List<T>> SelecionarProximos30Dias();
 

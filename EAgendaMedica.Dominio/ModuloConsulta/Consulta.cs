@@ -1,5 +1,5 @@
-﻿using EAgendaMedica.Dominio.Copartilhado;
-using EAgendaMedica.Dominio.ModuloMedico;
+﻿using EAgendaMedica.Dominio.ModuloMedico;
+using EAgendaMedica.Dominio.Servicos;
 
 namespace EAgendaMedica.Dominio.ModuloConsulta
 {
@@ -13,6 +13,11 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
             Medico = medico;
             MedicoId = Medico.Id;
             medico.AdicionarConsulta(this);
+        }
+
+        public List<Atividade> VerificarDescansoMedico()
+        {
+            return new VerificadorDescanso(this).VerificarMedico(Medico);
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
 using EAgendaMedica.Dominio.ModuloConsulta;
+using EAgendaMedica.Dominio.ModuloMedico;
 
 namespace EAgendaMedica.ConsoleApp
 {
@@ -17,23 +18,29 @@ namespace EAgendaMedica.ConsoleApp
 
         static async Task Main(string[] args)
         {
-            dbContext = IniciarContexto();
+            //dbContext = IniciarContexto();
 
-            resConsulta = new RepositorioConsulta(dbContext);
-            resCirurgia = new RepositorioCirurgia(dbContext);
-            resMed = new RepositorioMedico(dbContext);
+            //resConsulta = new RepositorioConsulta(dbContext);
+            //resCirurgia = new RepositorioCirurgia(dbContext);
+            //resMed = new RepositorioMedico(dbContext);
 
-            //GerarAlgunsDados(dbContext);
+            ////GerarAlgunsDados(dbContext);
 
-            Console.Clear();
+            //Console.Clear();
 
-            await ListarCirurgias();
+            //await ListarCirurgias();
 
-            BuscarUmMedicoPorCrm();
+            //BuscarUmMedicoPorCrm();
 
-            await ListarOsMedicos();
+            //await ListarOsMedicos();
 
-            await ListarConsultas();
+            //await ListarConsultas();
+
+
+            var at = new Atividade2(DateTime.Now, TimeSpan.Parse("10:00"), 60);
+
+            var aa = at;
+
 
         }
 
@@ -49,6 +56,8 @@ namespace EAgendaMedica.ConsoleApp
 
             return dbContext;
         }
+
+
 
         private static void AtualizarBancoDados(DbContext db)
         {
@@ -164,6 +173,59 @@ namespace EAgendaMedica.ConsoleApp
 
             else
                 Console.WriteLine("fail...");
+        }
+    }
+
+    public class Atividade2
+    {
+        public Guid Id { get; set; }
+
+
+        public DateTime Data
+        {
+            get => data;
+            set
+            {
+                data = value.Date;
+            }
+        }
+
+        public TimeSpan HoraInicio
+        {
+            get => horaInicio;
+            set
+            {
+                data = data.Add(value);
+                horaInicio = value;
+            }
+        }
+
+        public double DuracaoEmMinutos
+        {
+            get => duracaoEmMinutos;
+            set
+            {
+                duracaoEmMinutos = value;
+                dataHoraTermino = data.AddMinutes(duracaoEmMinutos);
+            }
+        }
+
+        public TimeSpan HoraTermino { get => DataHoraTermino.TimeOfDay; }
+        public DateTime DataHoraTermino { get => dataHoraTermino; }
+
+        private TimeSpan horaInicio;
+
+        private DateTime data;
+
+        private DateTime dataHoraTermino;
+
+        private double duracaoEmMinutos;
+
+        public Atividade2(DateTime data, TimeSpan horaInicio, double duracao)
+        {
+            this.Data = data;
+            this.HoraInicio = horaInicio;
+            this.DuracaoEmMinutos = duracao;
         }
     }
 }
