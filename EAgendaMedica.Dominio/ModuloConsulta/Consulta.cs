@@ -8,6 +8,13 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
         public Guid MedicoId { get; set; }
         public Medico Medico { get; set; }
 
+        public Consulta(DateTime data, TimeSpan horaInicio, double duracao) : base(data, horaInicio, duracao)
+        {
+        }
+        public Consulta()
+        {
+            Medico = new Medico();
+        }
         public void AdicionarMedico(Medico medico)
         {
             Medico = medico;

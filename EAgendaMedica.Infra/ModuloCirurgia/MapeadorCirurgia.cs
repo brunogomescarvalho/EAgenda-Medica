@@ -15,9 +15,10 @@ namespace EAgendaMedica.Infra.ModuloCirurgia
                 .WithMany(c => c.Cirurgias)
                 .UsingEntity(c => c.ToTable("TB_Medico_TB_Cirurgia"));
 
-            builder.Property(c => c.HoraTermino).HasColumnType("bigint").IsRequired();
+            builder.Property(c => c.DuracaoEmMinutos).IsRequired();
             builder.Property(c => c.HoraInicio).HasColumnType("bigint").IsRequired();
-            builder.Property(c => c.Data).IsRequired();
+            builder.Property(c => c.DataInicio).IsRequired();
+      
 
 
         }

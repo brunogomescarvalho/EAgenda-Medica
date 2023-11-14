@@ -6,6 +6,7 @@ using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
+using EAgendaMedica.Dominio.Compartilhado;
 
 namespace EAgendaMedica.ConsoleApp
 {
@@ -37,9 +38,17 @@ namespace EAgendaMedica.ConsoleApp
             //await ListarConsultas();
 
 
-            var at = new Atividade2(DateTime.Now, TimeSpan.Parse("10:00"), 60);
+            var at = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 60);
 
-            var aa = at;
+          
+
+
+           
+
+           
+
+
+            
 
 
         }
@@ -85,9 +94,9 @@ namespace EAgendaMedica.ConsoleApp
             var consulta = new Consulta()
             {
                 Id = Guid.NewGuid(),
-                Data = DateTime.Now,
+                DataInicio = DateTime.Now,
                 HoraInicio = TimeSpan.Parse("10:00"),
-                HoraTermino = TimeSpan.Parse("12:00"),
+               // HoraTermino = TimeSpan.Parse("12:00"),
             };
             var med = resMed.SelecionarPorCRM("12345-SC").Result;
             consulta.AdicionarMedico(med);
@@ -102,9 +111,9 @@ namespace EAgendaMedica.ConsoleApp
             var cirurgia = new Cirurgia()
             {
                 Id = Guid.NewGuid(),
-                Data = DateTime.Now,
+                DataInicio = DateTime.Now,
                 HoraInicio = TimeSpan.Parse("10:00"),
-                HoraTermino = TimeSpan.Parse("12:00"),
+               // HoraTermino = TimeSpan.Parse("12:00"),
             };
 
             var med = resMed.SelecionarPorCRM("12345-SC").Result;
@@ -202,7 +211,7 @@ namespace EAgendaMedica.ConsoleApp
 
         public double DuracaoEmMinutos
         {
-            get => duracaoEmMinutos;
+            get => (DataHoraTermino - Data).TotalMinutes;
             set
             {
                 duracaoEmMinutos = value;

@@ -42,13 +42,13 @@ namespace EAgendaMedica.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("HoraInicio")
-                        .HasColumnType("bigint");
+                    b.Property<double>("DuracaoEmMinutos")
+                        .HasColumnType("float");
 
-                    b.Property<long>("HoraTermino")
+                    b.Property<long>("HoraInicio")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -61,13 +61,13 @@ namespace EAgendaMedica.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("HoraInicio")
-                        .HasColumnType("bigint");
+                    b.Property<double>("DuracaoEmMinutos")
+                        .HasColumnType("float");
 
-                    b.Property<long>("HoraTermino")
+                    b.Property<long>("HoraInicio")
                         .HasColumnType("bigint");
 
                     b.Property<Guid>("MedicoId")
@@ -103,13 +103,13 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b2eba290-c993-4016-9142-95008e5c0c65"),
+                            Id = new Guid("37d5aeff-01d1-42b4-9997-6fd727149773"),
                             CRM = "12345-SC",
                             Nome = "Médico 1"
                         },
                         new
                         {
-                            Id = new Guid("8b07e2af-a2df-4b04-8fed-2a71f4cb7006"),
+                            Id = new Guid("4ecf1db8-b329-4bd5-b911-46560a09490c"),
                             CRM = "67890-SC",
                             Nome = "Médico 2"
                         });

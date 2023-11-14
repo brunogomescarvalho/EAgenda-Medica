@@ -22,9 +22,9 @@ namespace EAgendaMedica.TestesIntegracao.ModuloConsulta
 
             var consulta = new Consulta()
             {
-                Data = DateTime.Now,
+                DataInicio = DateTime.Now,
                 HoraInicio = TimeSpan.Parse("10:00:00"),
-                HoraTermino = TimeSpan.Parse("11:00:00"),
+                //HoraTermino = TimeSpan.Parse("11:00:00"),
                 Medico = medico
             };
 

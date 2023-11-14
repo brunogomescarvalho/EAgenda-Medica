@@ -11,10 +11,10 @@ namespace EAgendaMedica.Infra.ModuloConsulta
 
             builder.Property(x => x.Id).ValueGeneratedNever().IsRequired();
 
-            builder.Property(x => x.HoraTermino).HasColumnType("bigint").IsRequired();
+            builder.Property(x => x.DuracaoEmMinutos).IsRequired();
             builder.Property(x => x.HoraInicio).HasColumnType("bigint").IsRequired();
-            builder.Property(x => x.Data).IsRequired();
-
+            builder.Property(x => x.DataInicio).IsRequired();
+           
             builder.HasOne(x => x.Medico)
                       .WithMany(x=>x.Consultas)
                       .IsRequired()

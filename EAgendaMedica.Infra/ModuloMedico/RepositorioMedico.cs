@@ -60,7 +60,7 @@ namespace EAgendaMedica.Infra.ModuloMedico
         {
             return await registros.Where(x =>
                  x.TodasAtividades().Any(atividade =>
-                 atividade.Data >= dataInicial && atividade.Data <= dataFinal))
+                 atividade.DataInicio >= dataInicial && atividade.DataInicio <= dataFinal))
                 .OrderBy(x => x.TotalDeAtendimentos).Take(10)
                 .ToListAsync();
         }

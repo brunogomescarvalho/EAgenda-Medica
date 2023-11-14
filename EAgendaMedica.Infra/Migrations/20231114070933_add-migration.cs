@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EAgendaMedica.Infra.Migrations
 {
-    public partial class migrations : Migration
+    public partial class addmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,9 +14,9 @@ namespace EAgendaMedica.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraInicio = table.Column<long>(type: "bigint", nullable: false),
-                    HoraTermino = table.Column<long>(type: "bigint", nullable: false)
+                    DuracaoEmMinutos = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +42,9 @@ namespace EAgendaMedica.Infra.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraInicio = table.Column<long>(type: "bigint", nullable: false),
-                    HoraTermino = table.Column<long>(type: "bigint", nullable: false)
+                    DuracaoEmMinutos = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,12 +83,12 @@ namespace EAgendaMedica.Infra.Migrations
             migrationBuilder.InsertData(
                 table: "TB_Medico",
                 columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("8b07e2af-a2df-4b04-8fed-2a71f4cb7006"), "67890-SC", "Médico 2" });
+                values: new object[] { new Guid("37d5aeff-01d1-42b4-9997-6fd727149773"), "12345-SC", "Médico 1" });
 
             migrationBuilder.InsertData(
                 table: "TB_Medico",
                 columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("b2eba290-c993-4016-9142-95008e5c0c65"), "12345-SC", "Médico 1" });
+                values: new object[] { new Guid("4ecf1db8-b329-4bd5-b911-46560a09490c"), "67890-SC", "Médico 2" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Consulta_MedicoId",

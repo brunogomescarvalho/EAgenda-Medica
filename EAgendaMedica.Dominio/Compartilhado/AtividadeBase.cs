@@ -8,41 +8,57 @@ namespace EAgendaMedica.Dominio.Compartilhado
     {
         public Guid Id { get; set; }
 
-
-        private DateTime data;
-
-        public DateTime Data
+        public DateTime DataInicio
         {
             get => data;
             set
             {
-                this.dataHoraTermino = data.AddMinutes(DuracaoEmMinutos);
+                data = value.Date;
             }
         }
 
         public TimeSpan HoraInicio
         {
-            get => this.horaInicio;
-            set => data = new DateTime(data.Date.Ticks + horaInicio.Ticks);
-        }
-        public TimeSpan HoraTermino { get; set; }
-        public DateTime DataHoraTermino
-        {
-            get => this.dataHoraTermino = data.AddMinutes(DuracaoEmMinutos);
+            get => horaInicio;
+            set
+            {
+                data = data.Add(value);
+                horaInicio = value;
+            }
         }
 
-        private DateTime dataHoraTermino;
+        public double DuracaoEmMinutos
+        {
+            get => (DataInicio - DataTermino).TotalMinutes;
+            set
+            {
+                duracaoEmMinutos = value;
+                dataHoraTermino = data.AddMinutes(duracaoEmMinutos);
+            }
+        }
+
+        public TimeSpan HoraTermino { get => DataTermino.TimeOfDay; }
+        public DateTime DataTermino { get => dataHoraTermino; }
+
         private TimeSpan horaInicio;
 
-        public double DuracaoEmMinutos { get; set; }
+        private DateTime data;
+
+        private DateTime dataHoraTermino;
+
+        private double duracaoEmMinutos;
+
+        public Atividade(DateTime data, TimeSpan horaInicio, double duracao) : this()
+        {
+            this.DataInicio = data;
+            this.HoraInicio = horaInicio;
+            this.DuracaoEmMinutos = duracao;
+        }
 
         public Atividade()
         {
             Id = SequentialGuid.NewGuid();
         }
-
-
-
 
     }
 }

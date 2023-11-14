@@ -45,7 +45,7 @@ namespace EAgendaMedica.Dominio.Servicos
 
         public List<Atividade> EhValido(Medico medico)
         {
-            var atividades = medico.TodasAtividades().FindAll(x => x.Data.Date == atividadeParaVerificar.Data.Date).ToList();
+            var atividades = medico.TodasAtividades().FindAll(x => x.DataInicio.Date == atividadeParaVerificar.DataInicio.Date).ToList();
 
             ObterRegistroAnterior(atividades);
 
@@ -89,7 +89,7 @@ namespace EAgendaMedica.Dominio.Servicos
                 inicioValido = diferencaInicio.TotalMinutes >= TempoAposConsulta;
 
             if (atividadeParaVerificar is Cirurgia)
-                finalValido = diferencaFim.TotalMinutes >= registroPosterior.Data.Ticks; //xxxxxxxxxxxxxxxxxxxxxxx
+                finalValido = diferencaFim.TotalMinutes >= registroPosterior.DataInicio.Ticks; //xxxxxxxxxxxxxxxxxxxxxxx
 
             else
                 finalValido = diferencaFim.TotalMinutes >= TempoAposConsulta;

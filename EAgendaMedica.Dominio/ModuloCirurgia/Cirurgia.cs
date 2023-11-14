@@ -12,6 +12,10 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
             Medicos = new List<Medico>();
         }
 
+        public Cirurgia(DateTime data, TimeSpan horaInicio, double duracao) : base(data, horaInicio, duracao)
+        {
+        }
+
         public void AdicionarEquipeMedica(List<Medico> medicos)
         {
             Medicos.AddRange(medicos);
