@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EAgendaMedica.Infra.Migrations
 {
     [DbContext(typeof(EAgendaMedicaDBContext))]
-    [Migration("20231114070933_add-migration")]
+    [Migration("20231114155047_add-migration")]
     partial class addmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,8 +47,8 @@ namespace EAgendaMedica.Infra.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DuracaoEmMinutos")
-                        .HasColumnType("float");
+                    b.Property<int>("DuracaoEmMinutos")
+                        .HasColumnType("int");
 
                     b.Property<long>("HoraInicio")
                         .HasColumnType("bigint");
@@ -66,8 +66,8 @@ namespace EAgendaMedica.Infra.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DuracaoEmMinutos")
-                        .HasColumnType("float");
+                    b.Property<int>("DuracaoEmMinutos")
+                        .HasColumnType("int");
 
                     b.Property<long>("HoraInicio")
                         .HasColumnType("bigint");
@@ -105,13 +105,13 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("37d5aeff-01d1-42b4-9997-6fd727149773"),
+                            Id = new Guid("3847ec6e-4915-4312-8039-94c8430accca"),
                             CRM = "12345-SC",
                             Nome = "Médico 1"
                         },
                         new
                         {
-                            Id = new Guid("4ecf1db8-b329-4bd5-b911-46560a09490c"),
+                            Id = new Guid("79765eb3-1e2c-4195-b2f6-569796034eb3"),
                             CRM = "67890-SC",
                             Nome = "Médico 2"
                         });

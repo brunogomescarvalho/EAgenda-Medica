@@ -16,7 +16,7 @@ namespace EAgendaMedica.Infra.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraInicio = table.Column<long>(type: "bigint", nullable: false),
-                    DuracaoEmMinutos = table.Column<double>(type: "float", nullable: false)
+                    DuracaoEmMinutos = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace EAgendaMedica.Infra.Migrations
                     MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraInicio = table.Column<long>(type: "bigint", nullable: false),
-                    DuracaoEmMinutos = table.Column<double>(type: "float", nullable: false)
+                    DuracaoEmMinutos = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,12 +83,12 @@ namespace EAgendaMedica.Infra.Migrations
             migrationBuilder.InsertData(
                 table: "TB_Medico",
                 columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("37d5aeff-01d1-42b4-9997-6fd727149773"), "12345-SC", "Médico 1" });
+                values: new object[] { new Guid("3847ec6e-4915-4312-8039-94c8430accca"), "12345-SC", "Médico 1" });
 
             migrationBuilder.InsertData(
                 table: "TB_Medico",
                 columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("4ecf1db8-b329-4bd5-b911-46560a09490c"), "67890-SC", "Médico 2" });
+                values: new object[] { new Guid("79765eb3-1e2c-4195-b2f6-569796034eb3"), "67890-SC", "Médico 2" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Consulta_MedicoId",
