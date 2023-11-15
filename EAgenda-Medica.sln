@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesIntegracao", "TestesI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.TestesIntegracao", "EAgendaMedica.TestesIntegracao\EAgendaMedica.TestesIntegracao.csproj", "{83F099F8-1A56-44F3-A711-09C51A5EABA8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Aplicacao", "2-Aplicacao", "{638B01EC-69EC-4080-83AB-494704CDF621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.Aplicacao", "EAgendaMedica.Aplicacao\EAgendaMedica.Aplicacao.csproj", "{B7809D7B-B981-458B-8B8D-C79C4FD54470}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,10 @@ Global
 		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83F099F8-1A56-44F3-A711-09C51A5EABA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7809D7B-B981-458B-8B8D-C79C4FD54470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7809D7B-B981-458B-8B8D-C79C4FD54470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7809D7B-B981-458B-8B8D-C79C4FD54470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7809D7B-B981-458B-8B8D-C79C4FD54470}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +71,7 @@ Global
 		{2AA4D0A7-7A9E-4C29-A847-88DD913FCB21} = {4E804C22-2951-49F6-89FE-E6A22C249CBE}
 		{0D421FE4-C814-461D-B988-28BB34452A11} = {4E804C22-2951-49F6-89FE-E6A22C249CBE}
 		{83F099F8-1A56-44F3-A711-09C51A5EABA8} = {0D421FE4-C814-461D-B988-28BB34452A11}
+		{B7809D7B-B981-458B-8B8D-C79C4FD54470} = {638B01EC-69EC-4080-83AB-494704CDF621}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D081F9A-CE4A-4C5E-B3B9-D6D796E9C776}

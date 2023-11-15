@@ -33,17 +33,21 @@ namespace EAgendaMedica.Infra.ModuloMedico
 
         public async Task<Medico> SelecionarPorId(Guid id)
         {
-            return await registros.Where(x => x.Id == id)
+            var medico = await registros.Where(x => x.Id == id)
                 .Include(x => x.Id)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
+
+            return medico!;
         }
 
         public async Task<Medico> SelecionarPorCRM(string crm)
         {
-            return await registros.Where(x => x.CRM == crm)
+            var medico = await registros.Where(x => x.CRM == crm)
                  .Include(x => x.Consultas)
                  .Include(x => x.Cirurgias)
-                 .FirstAsync();
+                 .FirstOrDefaultAsync();
+
+            return medico!;
         }
 
         public void Excluir(Medico registro)
@@ -56,13 +60,16 @@ namespace EAgendaMedica.Infra.ModuloMedico
             registros.Update(registro);
         }
 
-        public async Task<List<Medico>> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal)
+        public List<Medico> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
-            return await registros.Where(x =>
-                 x.TodasAtividades().Any(atividade =>
-                 atividade.DataInicio >= dataInicial && atividade.DataInicio <= dataFinal))
-                .OrderBy(x => x.TotalDeAtendimentos).Take(10)
-                .ToListAsync();
+            var medicosComRegistros = registros.AsEnumerable()
+            .OrderByDescending(x => x.TotalDeAtendimentos)
+            .Where(m => m.TodasAtividades()
+            .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataInicio <= dataFinal))
+            .Take(10)
+            .ToList();
+
+            return medicosComRegistros;
         }
     }
 }

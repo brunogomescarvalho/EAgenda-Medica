@@ -9,16 +9,14 @@ namespace EAgendaUnitTests
     [TestClass]
     public class VerificadorDescansoUnitTests
     {
-        DateTime hoje = DateTime.Now;
+        private readonly DateTime hoje = DateTime.Now;
 
-        TimeSpan dezHoras = TimeSpan.Parse("10:00");
-        TimeSpan dozeHoras = TimeSpan.Parse("12:00");
-        TimeSpan quatorzeHoras = TimeSpan.Parse("14:00");
-        TimeSpan dezesseisHoras = TimeSpan.Parse("16:00");
-        TimeSpan dezoitoHoras = TimeSpan.Parse("18:00");
-        TimeSpan vinteHoras = TimeSpan.Parse("20:00");
+        private readonly TimeSpan dezHoras = TimeSpan.Parse("10:00");
+        private readonly TimeSpan dozeHoras = TimeSpan.Parse("12:00");
+        private readonly TimeSpan quatorzeHoras = TimeSpan.Parse("14:00");
+        private readonly TimeSpan vinteHoras = TimeSpan.Parse("20:00");
 
-        Medico medico = new Medico("Medico1", "12345-SC");
+        private readonly Medico medico = new Medico("Medico1", "12345-SC");
 
 
         [TestMethod]

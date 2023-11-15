@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
 using EAgendaMedica.Dominio.ModuloConsulta;
-using EAgendaMedica.Dominio.ModuloMedico;
-using EAgendaMedica.Dominio.Compartilhado;
 
 namespace EAgendaMedica.ConsoleApp
 {
-    public class Program
+    public partial class Program
     {
         private static EAgendaMedicaDBContext dbContext = null!;
         private static RepositorioConsulta resConsulta = null!;
@@ -19,23 +17,32 @@ namespace EAgendaMedica.ConsoleApp
 
         static async Task Main(string[] args)
         {
-            //dbContext = IniciarContexto();
+            dbContext = IniciarContexto();
 
-            //resConsulta = new RepositorioConsulta(dbContext);
-            //resCirurgia = new RepositorioCirurgia(dbContext);
-            //resMed = new RepositorioMedico(dbContext);
+            resConsulta = new RepositorioConsulta(dbContext);
+            resCirurgia = new RepositorioCirurgia(dbContext);
+            resMed = new RepositorioMedico(dbContext);
 
-            ////GerarAlgunsDados(dbContext);
+            var gerador = new GeradorDeMassaDados(dbContext);
 
-            //Console.Clear();
+            await gerador.GerarMassaDeDados();
 
-            //await ListarCirurgias();
+            await MostrarDados();
+        }
 
-            //BuscarUmMedicoPorCrm();
+        private static async Task MostrarDados()
+        {
+            Console.Clear();
 
-            //await ListarOsMedicos();
+            await ListarCirurgias();
 
-            //await ListarConsultas();   
+            BuscarUmMedicoPorCrm();
+
+            await ListarOsMedicos();
+
+            await ListarConsultas();
+
+            ListarMedicosOrdemAtendimento();
         }
 
         private static EAgendaMedicaDBContext IniciarContexto()
@@ -68,42 +75,14 @@ namespace EAgendaMedica.ConsoleApp
         }
 
 
-        private static async void GerarAlgunsDados(EAgendaMedicaDBContext dbContext)
-        {
-            await AddCirurgia();
-            await AddConsulta();
-        }
-
-        private static async Task AddConsulta()
-        {         
-            var med = resMed.SelecionarPorCRM("12345-SC").Result;
-
-            var consulta = new Consulta(DateTime.Now, TimeSpan.Parse("10:00"), 240, med);
-
-            consulta.AdicionarMedico(med);
-
-            await resConsulta.Inserir(consulta);
-
-            dbContext.SaveChanges();
-        }
-
-        private static async Task AddCirurgia()
-        {
-            var med = resMed.SelecionarPorCRM("12345-SC").Result;
-
-            var cirurgia = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 240, new List<Medico>() { med });
-          
-            await resCirurgia.Inserir(cirurgia);
-
-            dbContext.SaveChanges();
-        }
-
         private static void BuscarUmMedicoPorCrm()
         {
             Console.WriteLine("\n---Buscar Médico Por Crm---");
 
-            var med = resMed.SelecionarPorCRM("12345-SC").Result;
-            Console.WriteLine(med + " " + "nr atividades:" + med.TodasAtividades().Count);
+            var med = resMed.SelecionarPorCRM("1230-SC").Result;
+
+            if (med != null)
+                Console.WriteLine(med + " " + "nr atividades:" + med.TodasAtividades().Count);
 
         }
 
@@ -133,7 +112,7 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item.Id + " " + item.Medicos[0]);
+                    Console.WriteLine(new Cirurgia(item.Id, item.DataInicio, item.HoraInicio, item.DuracaoEmMinutos, item.Medicos));
                 }
             }
 
@@ -150,12 +129,30 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (Consulta item in lista)
                 {
-                    Console.WriteLine(item.Id + " " + item.Medico);
+                    Console.WriteLine(new Consulta(item.Id, item.DataInicio, item.HoraInicio, item.DuracaoEmMinutos, item.Medico));
                 }
             }
 
             else
                 Console.WriteLine("fail...");
         }
+
+        public static void ListarMedicosOrdemAtendimento()
+        {
+            Console.WriteLine("\n---Listagem Médicos Ordem Atendimento---");
+            var lista = resMed.SelecionarComMaisAtendimentosNoPeriodo(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5));
+
+            if (lista.Any())
+            {
+                foreach (var item in lista)
+                {
+                    Console.WriteLine(item + $" - Total: {item.TotalDeAtendimentos} atividades ");
+                }
+            }
+
+            else
+                Console.WriteLine("fail...");
+        }
+
     }
 }

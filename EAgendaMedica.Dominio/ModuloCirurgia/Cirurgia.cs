@@ -22,6 +22,15 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
             Medicos = medicos;
         }
 
+        public Cirurgia(Guid id, DateTime data, TimeSpan horaInicio, int duracao, List<Medico> medicos)
+        {
+            Id = id;
+            DataInicio = data;
+            HoraInicio = horaInicio;
+            DuracaoEmMinutos = duracao;
+            Medicos = medicos;
+        }
+
         public void AdicionarEquipeMedica(List<Medico> medicos)
         {
             this.medicos ??= new List<Medico>();
@@ -49,6 +58,13 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
             }
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            var passouDaMeiaNoite = $"Data: {DataInicio:d} - {HoraInicio} -- Término: {DataTermino:d} - {HoraTermino} -- Equipe: {Medicos.Count} médico{(Medicos.Count == 1 ? "" : "s")}";
+
+            return DataInicio.Date != DataTermino.Date ? passouDaMeiaNoite : $"Data: {DataInicio:d} -  Inicio {HoraInicio} -- Término: {HoraTermino} -- Equipe: {Medicos.Count}  médico{(Medicos.Count == 1 ? "" : "s")}";
         }
 
         public override bool Equals(object? obj)

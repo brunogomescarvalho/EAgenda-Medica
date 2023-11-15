@@ -5,7 +5,7 @@ using EAgendaMedica.Dominio.ModuloMedico;
 
 namespace EAgendaMedica.Dominio.Servicos
 {
-    public class VerificadorDescanso : AbstractValidator<Atividade>
+    public class VerificadorDescanso
     {
 
         private readonly Atividade atividadeParaVerificar;

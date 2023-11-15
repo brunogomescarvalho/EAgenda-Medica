@@ -6,6 +6,6 @@ namespace EAgendaMedica.Dominio
     {
         Task<Medico> SelecionarPorCRM(string crm);
 
-        Task<List<Medico>> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal);
+        List<Medico>SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal);
     }
 }
