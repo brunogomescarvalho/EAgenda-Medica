@@ -1,4 +1,5 @@
 ﻿using EAgendaMedica.Dominio.ModuloMedico;
+using EAgendaMedica.Dominio.Servicos;
 
 namespace EAgendaMedica.Dominio.ModuloCirurgia
 {
@@ -15,7 +16,7 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
         }
 
         public Cirurgia() { }
-     
+
         public Cirurgia(DateTime data, TimeSpan horaInicio, int duracao, List<Medico> medicos) : base(data, horaInicio, duracao)
         {
             Medicos = medicos;
@@ -23,7 +24,7 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
 
         public void AdicionarEquipeMedica(List<Medico> medicos)
         {
-            this.medicos = new List<Medico>();
+            this.medicos ??= new List<Medico>();
 
             foreach (var medico in medicos)
             {
@@ -35,6 +36,19 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
                 }
             }
 
+        }
+
+        public bool VerificarDescansoMedico()
+        {
+            var verificador = new VerificadorDescanso(this);
+
+            foreach (var item in medicos)
+            {
+                if (verificador.Verificar(item) == false)
+                    return false;
+            }
+
+            return true;
         }
 
         public override bool Equals(object? obj)

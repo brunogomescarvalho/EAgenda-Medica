@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace EAgendaMedica.Infra.Compartilhado
+﻿namespace EAgendaMedica.Infra.Compartilhado
 {
     public class EAgendaMedicaContextFactory : IDesignTimeDbContextFactory<EAgendaMedicaDBContext>
     {

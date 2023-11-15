@@ -30,9 +30,9 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
             medico.AdicionarConsulta(this);
         }
 
-        public List<Atividade> VerificarDescansoMedico()
+        public bool VerificarDescansoMedico()
         {
-            return new VerificadorDescanso(this).VerificarMedico(Medico);
+            return new VerificadorDescanso(this).Verificar(Medico);
         }
 
         public override bool Equals(object? obj)

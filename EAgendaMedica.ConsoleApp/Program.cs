@@ -35,22 +35,7 @@ namespace EAgendaMedica.ConsoleApp
 
             //await ListarOsMedicos();
 
-            //await ListarConsultas();
-
-
-          //  var at = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 60);
-
-          
-
-
-           
-
-           
-
-
-            
-
-
+            //await ListarConsultas();   
         }
 
         private static EAgendaMedicaDBContext IniciarContexto()
@@ -90,15 +75,11 @@ namespace EAgendaMedica.ConsoleApp
         }
 
         private static async Task AddConsulta()
-        {
-            var consulta = new Consulta()
-            {
-                Id = Guid.NewGuid(),
-                DataInicio = DateTime.Now,
-                HoraInicio = TimeSpan.Parse("10:00"),
-               // HoraTermino = TimeSpan.Parse("12:00"),
-            };
+        {         
             var med = resMed.SelecionarPorCRM("12345-SC").Result;
+
+            var consulta = new Consulta(DateTime.Now, TimeSpan.Parse("10:00"), 240, med);
+
             consulta.AdicionarMedico(med);
 
             await resConsulta.Inserir(consulta);
@@ -108,17 +89,10 @@ namespace EAgendaMedica.ConsoleApp
 
         private static async Task AddCirurgia()
         {
-            var cirurgia = new Cirurgia()
-            {
-                Id = Guid.NewGuid(),
-                DataInicio = DateTime.Now,
-                HoraInicio = TimeSpan.Parse("10:00"),
-               // HoraTermino = TimeSpan.Parse("12:00"),
-            };
-
             var med = resMed.SelecionarPorCRM("12345-SC").Result;
-          //  cirurgia.AdicionarMedico(med);
 
+            var cirurgia = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 240, new List<Medico>() { med });
+          
             await resCirurgia.Inserir(cirurgia);
 
             dbContext.SaveChanges();
@@ -182,59 +156,6 @@ namespace EAgendaMedica.ConsoleApp
 
             else
                 Console.WriteLine("fail...");
-        }
-    }
-
-    public class Atividade2
-    {
-        public Guid Id { get; set; }
-
-
-        public DateTime Data
-        {
-            get => data;
-            set
-            {
-                data = value.Date;
-            }
-        }
-
-        public TimeSpan HoraInicio
-        {
-            get => horaInicio;
-            set
-            {
-                data = data.Add(value);
-                horaInicio = value;
-            }
-        }
-
-        public double DuracaoEmMinutos
-        {
-            get => (DataHoraTermino - Data).TotalMinutes;
-            set
-            {
-                duracaoEmMinutos = value;
-                dataHoraTermino = data.AddMinutes(duracaoEmMinutos);
-            }
-        }
-
-        public TimeSpan HoraTermino { get => DataHoraTermino.TimeOfDay; }
-        public DateTime DataHoraTermino { get => dataHoraTermino; }
-
-        private TimeSpan horaInicio;
-
-        private DateTime data;
-
-        private DateTime dataHoraTermino;
-
-        private double duracaoEmMinutos;
-
-        public Atividade2(DateTime data, TimeSpan horaInicio, double duracao)
-        {
-            this.Data = data;
-            this.HoraInicio = horaInicio;
-            this.DuracaoEmMinutos = duracao;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EAgendaMedica.Dominio.ModuloCirurgia;
+using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
 
 
@@ -17,35 +18,18 @@ namespace EAgendaMedica.Dominio.Servicos
 
         private const int TempoAposConsulta = 20;
 
+        private bool tempoInicialValido = true;
+
+        private bool tempoFinalValido = true;
+
         public VerificadorDescanso(Atividade atividade)
         {
             this.atividadeParaVerificar = atividade;
         }
 
-
-        public List<Atividade> VerificarMedico(Medico medico)
+        public bool Verificar(Medico medico)
         {
-            return EhValido(medico);
-        }
-
-        public List<Atividade> VerificarEquipeMedica(List<Medico> medicos)
-        {
-            List<Atividade> conflitos;
-
-            foreach (var item in medicos)
-            {
-                conflitos = EhValido(item);
-
-                if (conflitos.Any())
-                    return conflitos;
-            }
-
-            return null!;
-        }
-
-        public List<Atividade> EhValido(Medico medico)
-        {
-            var atividades = medico.TodasAtividades().FindAll(x => x.DataInicio.Date == atividadeParaVerificar.DataInicio.Date).ToList();
+            var atividades = medico.AtividadesDoDia(atividadeParaVerificar.DataInicio);
 
             ObterRegistroAnterior(atividades);
 
@@ -54,56 +38,50 @@ namespace EAgendaMedica.Dominio.Servicos
             return LocalizarConflitos();
         }
 
-
-
         private void ObterRegistroPosterior(List<Atividade> atividades)
         {
-            registroPosterior = atividades
-          .Where(x => x.HoraInicio.Ticks > atividadeParaVerificar.HoraTermino.Ticks)
-          .OrderBy(x => Math.Abs((x.HoraInicio - atividadeParaVerificar.HoraTermino).Ticks))
-          .First();
+            registroPosterior = atividades.Where(x => x.HoraInicio >= atividadeParaVerificar.HoraTermino && x.Equals(atividadeParaVerificar) == false)
+             .OrderBy(x => x.HoraInicio).FirstOrDefault()!;
         }
 
         private void ObterRegistroAnterior(List<Atividade> atividades)
         {
-            registroAnterior = atividades
-          .Where(x => x.HoraTermino.Ticks < atividadeParaVerificar.HoraInicio.Ticks)
-          .OrderBy(x => Math.Abs((x.HoraTermino - atividadeParaVerificar.HoraInicio).Ticks))
-          .First();
+            registroAnterior = atividades.Where(x => x.HoraTermino <= atividadeParaVerificar.HoraInicio && x.Equals(atividadeParaVerificar) == false)
+             .OrderBy(x => x.HoraTermino).FirstOrDefault()!;
         }
 
-        private List<Atividade> LocalizarConflitos()
+        private bool LocalizarConflitos()
         {
-            var atividadesEmConflitos = new List<Atividade>();
+            VerificarInicio();
 
-            TimeSpan diferencaInicio = atividadeParaVerificar.HoraInicio - registroAnterior.HoraTermino;
-            TimeSpan diferencaFim = registroPosterior.HoraInicio - atividadeParaVerificar.HoraTermino;
+            VerificarTermino();
 
-            bool inicioValido;
-            bool finalValido;
+            return tempoInicialValido && tempoFinalValido;
 
-            if (registroAnterior is Cirurgia)
-                inicioValido = diferencaInicio.TotalMinutes >= TempoAposCirurgia;
+        }
 
-            else
-                inicioValido = diferencaInicio.TotalMinutes >= TempoAposConsulta;
+        private void VerificarInicio()
+        {
+            if (registroAnterior != null)
+            {
+                var tempo = registroAnterior is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-            if (atividadeParaVerificar is Cirurgia)
-                finalValido = diferencaFim.TotalMinutes >= registroPosterior.DataInicio.Ticks; //xxxxxxxxxxxxxxxxxxxxxxx
+                var diferenca = atividadeParaVerificar.HoraInicio.Subtract(registroAnterior.HoraTermino).TotalMinutes;
 
-            else
-                finalValido = diferencaFim.TotalMinutes >= TempoAposConsulta;
+                tempoInicialValido = diferenca > tempo;
+            }
+        }
 
-            if (!finalValido)
-                atividadesEmConflitos.Add(registroPosterior);
+        private void VerificarTermino()
+        {
+            if (registroPosterior != null)
+            {
+                var tempo = atividadeParaVerificar is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-            if (!inicioValido)
-                atividadesEmConflitos.Add(registroAnterior);
+                var diferenca = registroPosterior.HoraInicio.Subtract(atividadeParaVerificar.HoraTermino).TotalMinutes;
 
-            if (finalValido && inicioValido)
-                return null!;
-
-            return atividadesEmConflitos;
+                tempoFinalValido = diferenca > tempo;
+            }
 
         }
     }

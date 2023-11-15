@@ -53,6 +53,11 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             return list;
         }
 
+        public List<Atividade> AtividadesDoDia(DateTime data)
+        {
+            return TodasAtividades().FindAll(x => x.DataInicio.Date == data.Date);
+        }
+
         public override string ToString()
         {
             return $"CRM: {CRM} - Nome: {Nome}";

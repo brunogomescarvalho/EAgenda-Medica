@@ -48,8 +48,6 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         }
 
-
-
         private static void AtualizarBancoDados(DbContext db)
         {
             var migracoesPendentes = db.Database.GetPendingMigrations();
@@ -63,9 +61,7 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         [TestMethod]
         public async Task AoCriarOBancoDeDados_DeveGerarDoisCadastros()
-        {
-           
-
+        {       
             var medicos = await repositorioMedico.SelecionarTodos();
 
             medicos.Count.Should().Be(2);
