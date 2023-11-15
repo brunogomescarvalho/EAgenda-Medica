@@ -1,19 +1,24 @@
 using EAgendaMedica.Dominio;
+using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Infra.Compartilhado;
+using EAgendaMedica.Infra.ModuloCirurgia;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
-using FizzWare.NBuilder;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EAgendaMedica.TestesIntegracao.Compartilhado
 {
+    [TestClass]
     public class TestsIntegracaoBase
     {
 
         protected EAgendaMedicaDBContext dbContext;
 
         protected IRepositorioConsulta repositorioConsulta;
+
+        protected IRepositorioCirurgia repositorioCirurgia;
 
         protected IRepositorioMedico repositorioMedico;
 
@@ -25,22 +30,22 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
             this.repositorioMedico = new RepositorioMedico(dbContext);
 
-            BuilderSetup.SetCreatePersistenceMethod<Consulta>(async (p) =>
-            {
-                await repositorioConsulta.Inserir(p);
-                await dbContext.SaveChangesAsync();
-            });
+            this.repositorioCirurgia = new RepositorioCirurgia(dbContext);
+
         }
 
         public EAgendaMedicaDBContext ObterContext()
         {
-            string connectionString = @"Data Source = (LOCALDB)\MSSQLLOCALDB; Initial Catalog = EAgendaMedicaDBTests; Integrated Security = True;";
+            string[] args = new string[] { "Testing" };
 
-            var optionsBuilder = new DbContextOptionsBuilder<EAgendaMedicaDBContext>();
+            var dbContextFactory = new EAgendaMedicaContextFactory();
 
-            optionsBuilder.UseSqlServer(connectionString);
+            var dbContext = dbContextFactory.CreateDbContext(args);
 
-            return new EAgendaMedicaDBContext(optionsBuilder.Options);
+            AtualizarBancoDados(dbContext);
+
+            return dbContext;
+
         }
 
 
@@ -53,6 +58,17 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
             {
                 db.Database.Migrate();
             }
+        }
+
+
+        [TestMethod]
+        public async Task AoCriarOBancoDeDados_DeveGerarDoisCadastros()
+        {
+           
+
+            var medicos = await repositorioMedico.SelecionarTodos();
+
+            medicos.Count.Should().Be(2);
         }
     }
 }

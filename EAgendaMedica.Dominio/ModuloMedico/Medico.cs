@@ -20,13 +20,25 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             Consultas = new List<Consulta>();
         }
 
+        public Medico(string nome, string crm) : this()
+        {
+            Nome = nome;
+            CRM = crm;
+        }
+
         public void AdicionarCirurgia(Cirurgia cirurgia)
         {
+            if (cirurgia == null || Cirurgias.Contains(cirurgia))
+                return;
+
             Cirurgias.Add(cirurgia);
         }
 
         public void AdicionarConsulta(Consulta consulta)
         {
+            if (consulta == null || Consultas.Contains(consulta))
+                return;
+
             Consultas.Add(consulta);
         }
 

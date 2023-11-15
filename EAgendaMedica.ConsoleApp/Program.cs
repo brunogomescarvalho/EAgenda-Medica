@@ -38,7 +38,7 @@ namespace EAgendaMedica.ConsoleApp
             //await ListarConsultas();
 
 
-            var at = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 60);
+          //  var at = new Cirurgia(DateTime.Now, TimeSpan.Parse("10:00"), 60);
 
           
 
@@ -117,7 +117,7 @@ namespace EAgendaMedica.ConsoleApp
             };
 
             var med = resMed.SelecionarPorCRM("12345-SC").Result;
-            cirurgia.AdicionarMedico(med);
+          //  cirurgia.AdicionarMedico(med);
 
             await resCirurgia.Inserir(cirurgia);
 

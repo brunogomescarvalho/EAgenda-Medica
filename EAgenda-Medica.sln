@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesUnitarios", "TestesUn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesIntegracao", "TestesIntegracao", "{0D421FE4-C814-461D-B988-28BB34452A11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.TestesIntegracao", "EAgendaMedica.TestesIntegracao\EAgendaMedica.TestesIntegracao.csproj", "{83F099F8-1A56-44F3-A711-09C51A5EABA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.TestesIntegracao", "EAgendaMedica.TestesIntegracao\EAgendaMedica.TestesIntegracao.csproj", "{83F099F8-1A56-44F3-A711-09C51A5EABA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

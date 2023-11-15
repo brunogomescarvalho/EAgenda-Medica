@@ -1,4 +1,6 @@
-﻿namespace EAgendaMedica.Infra.Compartilhado
+﻿using Microsoft.Extensions.Configuration;
+
+namespace EAgendaMedica.Infra.Compartilhado
 {
     public class EAgendaMedicaContextFactory : IDesignTimeDbContextFactory<EAgendaMedicaDBContext>
     {
@@ -10,13 +12,23 @@
 
             var configuration = builder.Build();
 
-            string connectionString = configuration.GetConnectionString("SqlServer");
+            string connectionString;
 
             var optionsBuilder = new DbContextOptionsBuilder<EAgendaMedicaDBContext>();
 
-            optionsBuilder.UseSqlServer(connectionString);
+            if (args.Any(arg => arg == "Testing"))
+            {
+                connectionString = "SqlServerTests";
+            }
+            else
+            {
+               connectionString = "SqlServer";
+            }
+
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString(connectionString));
 
             return new EAgendaMedicaDBContext(optionsBuilder.Options);
+
         }
     }
 }
