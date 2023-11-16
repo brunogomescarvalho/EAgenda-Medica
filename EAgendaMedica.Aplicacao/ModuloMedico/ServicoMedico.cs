@@ -95,6 +95,13 @@ namespace EAgendaMedica.Aplicacao.ModuloMedico
 
         }
 
+        public Result<List<Medico>> SelecionarTop10(DateTime dataInicial, DateTime dataFinal)
+        {
+            var medicos = repositorioMedico.SelecionarComMaisAtendimentosNoPeriodo(dataInicial, dataFinal);
+
+            return medicos;
+        }
+
         protected virtual Result Validar(Medico obj)
         {
             var validador = new ValidadorMedico();
