@@ -1,6 +1,7 @@
 using EAgendaMedica.Dominio;
 using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloConsulta;
+using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.Infra.Compartilhado;
 using EAgendaMedica.Infra.ModuloCirurgia;
 using EAgendaMedica.Infra.ModuloConsulta;
@@ -22,6 +23,8 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         protected IRepositorioMedico repositorioMedico;
 
+        private bool primeiroUpdate = false;
+
         public TestsIntegracaoBase()
         {
             this.dbContext = ObterContext();
@@ -31,6 +34,8 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
             this.repositorioMedico = new RepositorioMedico(dbContext);
 
             this.repositorioCirurgia = new RepositorioCirurgia(dbContext);
+
+            LimparTabelas(dbContext);
 
         }
 
@@ -48,23 +53,38 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         }
 
-        private static void AtualizarBancoDados(DbContext db)
+        private async void AtualizarBancoDados(DbContext db)
         {
             var migracoesPendentes = db.Database.GetPendingMigrations();
 
             if (migracoesPendentes.Any())
             {
                 db.Database.Migrate();
+
+                primeiroUpdate = true;
+
+                await AoCriarOBancoDeDados_DeveGerarDoisCadastros();
             }
         }
 
 
         [TestMethod]
         public async Task AoCriarOBancoDeDados_DeveGerarDoisCadastros()
-        {       
-            var medicos = await repositorioMedico.SelecionarTodos();
+        {
+            if (primeiroUpdate == true)
+            {
+                var medicos = await repositorioMedico.SelecionarTodos();
 
-            medicos.Count.Should().Be(2);
+                medicos.Count.Should().Be(2);
+            }
+        }
+
+        private static void LimparTabelas(EAgendaMedicaDBContext dbContext)
+        {
+            dbContext.Set<Consulta>().RemoveRange(dbContext.Set<Consulta>());
+            dbContext.Set<Cirurgia>().RemoveRange(dbContext.Set<Cirurgia>());
+            dbContext.Set<Medico>().RemoveRange(dbContext.Set<Medico>());
+            dbContext.SaveChanges();
         }
     }
 }

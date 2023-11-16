@@ -9,6 +9,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             RuleFor(x => x.Nome).MinimumLength(3);
 
             RuleFor(x => x.CRM).Custom(ValidarCRM);
+
         }
 
         private void ValidarCRM(string crm, ValidationContext<Medico> context)

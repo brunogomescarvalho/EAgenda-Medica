@@ -11,7 +11,6 @@ namespace EAgendaMedica.TestesIntegracao.ModuloConsulta
         public ConsultaOrmTestes() : base()
         {
             this.dbContext.RemoveRange(this.dbContext.Set<Consulta>());
-
         }
 
 
@@ -24,7 +23,7 @@ namespace EAgendaMedica.TestesIntegracao.ModuloConsulta
             {
                 DataInicio = DateTime.Now,
                 HoraInicio = TimeSpan.Parse("10:00:00"),
-                //HoraTermino = TimeSpan.Parse("11:00:00"),
+                DuracaoEmMinutos = 120,
                 Medico = medico
             };
 
@@ -34,7 +33,7 @@ namespace EAgendaMedica.TestesIntegracao.ModuloConsulta
 
             repositorioConsulta.SelecionarTodos().Result.Should().HaveCount(1);
 
-
         }
+
     }
 }
