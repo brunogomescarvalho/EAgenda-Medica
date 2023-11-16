@@ -25,9 +25,13 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
 
         public void AdicionarMedico(Medico medico)
         {
-            MedicoId = medico.Id;
-            this.medico = medico;
-            medico.AdicionarConsulta(this);
+            if (medico != null)
+            {
+                MedicoId = medico.Id;
+                this.medico = medico;
+                medico.AdicionarConsulta(this);
+            }
+
         }
 
         public Consulta(Guid id, DateTime data, TimeSpan horaInicio, int duracao, Medico medico)

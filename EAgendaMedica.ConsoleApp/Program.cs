@@ -23,11 +23,16 @@ namespace EAgendaMedica.ConsoleApp
             resCirurgia = new RepositorioCirurgia(dbContext);
             resMed = new RepositorioMedico(dbContext);
 
+          //  await GerarMassaDeDados();
+
+            await MostrarDados();
+        }
+
+        private static async Task GerarMassaDeDados()
+        {
             var gerador = new GeradorDeMassaDados(dbContext);
 
             await gerador.GerarMassaDeDados();
-
-            await MostrarDados();
         }
 
         private static async Task MostrarDados()
