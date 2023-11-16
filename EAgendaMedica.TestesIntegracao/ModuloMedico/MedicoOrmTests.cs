@@ -4,11 +4,6 @@ using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.TestesIntegracao.Compartilhado;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EAgendaMedica.TestesIntegracao.ModuloMedico
 {
@@ -48,20 +43,109 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
             foreach (var item in atividades)
             {
                 if (item is Cirurgia cirurgia)
-                   await repositorioCirurgia.Inserir(cirurgia);
+                    await repositorioCirurgia.Inserir(cirurgia);
 
                 else
                     await repositorioConsulta.Inserir((Consulta)item);
 
             }
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             var medicosMaisAtividades = repositorioMedico.SelecionarComMaisAtendimentosNoPeriodo(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(2));
 
             medicosMaisAtividades[0].Should().Be(medico3);
 
             medicosMaisAtividades.Count.Should().Be(3); //o método traz somente médicos que possuem algum atendimento, médicos 4 e 5, não possuem...
+        }
+
+        [TestMethod]
+        public async Task Deve_Cadastrar_Novo_Medico()
+        {
+            var medico = new Medico("medico", "12345-SC");
+
+            await repositorioMedico.Inserir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            var medicoBuscados = await repositorioMedico.SelecionarTodos();
+
+            medicoBuscados[0].Should().BeSameAs(medico);
+        }
+
+        [TestMethod]
+        public async Task Deve_Selecionar_Medico_Por_Crm()
+        {
+            var medico = new Medico("medico", "12345-SC");
+
+            await repositorioMedico.Inserir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            var medicoBuscado = await repositorioMedico.SelecionarPorCRM("12345-SC");
+
+            medicoBuscado.Should().BeSameAs(medico);
+        }
+
+        [TestMethod]
+        public async Task Deve_Selecionar_Medico_Por_Id()
+        {
+            var medico = new Medico("medico", "12345-SC");
+
+            var id = medico.Id;
+
+            await repositorioMedico.Inserir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            var medicoBuscado = await repositorioMedico.SelecionarPorId(id);
+
+            medicoBuscado.Should().BeSameAs(medico);
+        }
+
+
+        [TestMethod]
+        public async Task Deve_Editar_Medico()
+        {
+            var medico = new Medico("medico", "12345-SC");
+
+            var id = medico.Id;
+
+            await repositorioMedico.Inserir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            var medicoBuscado = await repositorioMedico.SelecionarPorId(id);
+
+            medicoBuscado.Nome = "Nome Editado";
+
+            repositorioMedico.Editar(medicoBuscado);
+
+            dbContext.SaveChanges();
+
+            var medicoEditado = await repositorioMedico.SelecionarPorId(id);
+
+            medicoEditado.Nome.Should().Be("Nome Editado");
+        }
+
+        [TestMethod]
+        public async Task Deve_Deletar_Medico() 
+        {
+            var medico = new Medico("medico", "12345-SC");
+
+            await repositorioMedico.Inserir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            repositorioMedico.Excluir(medico);
+
+            await dbContext.SaveChangesAsync();
+
+            var medicos = await  repositorioMedico.SelecionarTodos();
+
+            medicos.Count.Should().Be(0);
+
+
         }
     }
 }

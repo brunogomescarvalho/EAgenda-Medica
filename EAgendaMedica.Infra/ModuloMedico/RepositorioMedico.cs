@@ -26,15 +26,14 @@ namespace EAgendaMedica.Infra.ModuloMedico
         public async Task<List<Medico>> SelecionarTodos()
         {
             return await registros
-                .Include(x => x.Consultas)
-                .Include(x => x.Cirurgias)
                 .ToListAsync();
         }
 
         public async Task<Medico> SelecionarPorId(Guid id)
         {
             var medico = await registros.Where(x => x.Id == id)
-                .Include(x => x.Id)
+                .Include(x => x.Cirurgias)
+                .Include(x=>x.Consultas)
                 .FirstOrDefaultAsync();
 
             return medico!;
