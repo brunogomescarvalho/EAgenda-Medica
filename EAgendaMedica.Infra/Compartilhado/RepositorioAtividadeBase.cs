@@ -27,7 +27,9 @@ namespace EAgendaMedica.Infra.Compartilhado
 
         public virtual async Task<T> SelecionarPorId(Guid id)
         {
-            return await registros.Where(x => x.Id == id).FirstAsync();
+            var registro = await registros.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            return registro!;
         }
 
         public virtual void Excluir(T registro)

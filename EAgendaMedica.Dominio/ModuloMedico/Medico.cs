@@ -11,7 +11,8 @@ namespace EAgendaMedica.Dominio.ModuloMedico
         public string Nome { get; set; }
         public List<Cirurgia> Cirurgias { get; set; }
         public List<Consulta> Consultas { get; set; }
-        public int HorasTrabalhadas {  get; set; }
+        public int HorasTrabalhadasPorPeriodo { get; private set; }
+        public int HorasTotaisTrabalhadas { get => ObterHorasTrabalhadas(); }
 
 
         public Medico()
@@ -45,7 +46,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
 
         public List<Atividade> TodasAtividades()
         {
-            var list = new List<Atividade>();
+            var list = new List<Atividade>() { };
 
             list.AddRange(Cirurgias);
 
@@ -61,12 +62,19 @@ namespace EAgendaMedica.Dominio.ModuloMedico
 
         public int ObterHorasTrabalhadasPorPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
-            HorasTrabalhadas = TodasAtividades()
+            HorasTrabalhadasPorPeriodo = TodasAtividades()
 
            .Where(x => x.DataInicio >= dataInicial && x.DataTermino <= dataFinal)
-           .Select(x => x.DuracaoEmMinutos).Sum();
 
-            return HorasTrabalhadas;
+           .Select(x => x.DuracaoEmMinutos).Sum() / 60;
+
+            return HorasTrabalhadasPorPeriodo;
+
+        }
+
+        private int ObterHorasTrabalhadas()
+        {
+            return TodasAtividades().Select(x => x.DuracaoEmMinutos).Sum() / 60;
         }
 
         public override string ToString()

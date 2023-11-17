@@ -23,7 +23,7 @@ namespace EAgendaMedica.ConsoleApp
             resCirurgia = new RepositorioCirurgia(dbContext);
             resMed = new RepositorioMedico(dbContext);
 
-          //  await GerarMassaDeDados();
+            await GerarMassaDeDados();
 
             await MostrarDados();
         }
@@ -87,7 +87,7 @@ namespace EAgendaMedica.ConsoleApp
             var med = resMed.SelecionarPorCRM("1230-SC").Result;
 
             if (med != null)
-                Console.WriteLine(med + " " + "nr atividades:" + med.TodasAtividades().Count);
+                Console.WriteLine(med + " " + "nr atividades:" + med.TodasAtividades().Count + " Total Horas Trabalhadas" + med.HorasTotaisTrabalhadas);
 
         }
 
@@ -100,7 +100,7 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (var item in medicos)
                 {
-                    Console.WriteLine(item + " " + "nr atividades:" + item.TodasAtividades().Count);
+                    Console.WriteLine(item + " " + "nr atividades:" + item.TodasAtividades().Count + " Total Horas Trabalhadas" + item.HorasTotaisTrabalhadas);
                 }
             }
 
@@ -144,15 +144,20 @@ namespace EAgendaMedica.ConsoleApp
 
         public static void ListarMedicosOrdemAtendimento()
         {
-            Console.WriteLine("\n---Listagem Médicos Ordem Atendimento---");
 
-            var lista = resMed.SelecionarComMaisAtendimentosNoPeriodo(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5));
+            var dataInicio = DateTime.Now.AddDays(-5);
+
+            var dataFim = DateTime.Now.AddDays(5);
+
+            Console.WriteLine($"\n---Listagem Médicos Ordem Atendimento---Período {dataInicio:d} -  {dataFim:d}");
+
+            var lista = resMed.SelecionarComMaisAtendimentosNoPeriodo(dataInicio, dataFim);
 
             if (lista.Any())
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item + " " + item.HorasTrabalhadas);
+                    Console.WriteLine(item + " " + "Horas:" + item.HorasTrabalhadasPorPeriodo);
                 }
             }
 

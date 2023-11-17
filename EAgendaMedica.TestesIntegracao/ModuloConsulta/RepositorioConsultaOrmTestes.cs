@@ -109,5 +109,37 @@ namespace EAgendaMedica.TestesIntegracao.ModuloConsulta
             consultas.Count.Should().Be(0);
         }
 
+        [TestMethod]
+        public async Task Deve_BuscarConsultas_De_Um_Medico()
+        {
+            var medico0 = new Medico("medico0", "12345-SC"); // medico escolhido
+            var medico1 = new Medico("medico1", "22345-SC");
+            var medico2 = new Medico("medico2", "32345-SC");
+            var medico3 = new Medico("medico3", "42345-SC");
+            var medico4 = new Medico("medico4", "52345-SC");
+
+            var medicos = new List<Medico>() { medico0, medico1, medico2, medico3, medico4 };
+
+            medicos.ForEach(me => repositorioMedico.Inserir(me));
+
+            var consultas = new List<Consulta>()
+            {
+                new Consulta(DateTime.Now, TimeSpan.Parse("12:00"), 170, medico1),
+                new Consulta(DateTime.Now, TimeSpan.Parse("14:01"), 160, medico2),
+                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico3),
+                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico0) //consulta com o medico
+            };
+
+            consultas.ForEach(async (x) => await repositorioConsulta.Inserir(x));
+
+            await dbContext.SalvarDados();
+
+            var atendimento = await repositorioConsulta.ObterConsultasPorMedico("12345-SC");
+
+            atendimento[0].Should().BeEquivalentTo(consultas[3]);
+
+            atendimento.Count.Should().Be(1);
+
+        }
     }
 }

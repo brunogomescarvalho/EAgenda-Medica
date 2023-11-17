@@ -63,9 +63,9 @@ namespace EAgendaMedica.Infra.ModuloMedico
         {
             return registros
            .AsEnumerable()
-           .Where(x => x.TodasAtividades()
-           .Any(x => x.DataInicio >= dataInicial && x.DataTermino <= dataFinal))
-           .OrderByDescending(x => x.ObterHorasTrabalhadasPorPeriodo(dataInicial, dataFinal))
+           .Where(medico => medico.TodasAtividades()
+           .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataTermino <= dataFinal))
+           .OrderByDescending(medico => medico.ObterHorasTrabalhadasPorPeriodo(dataInicial, dataFinal))
            .Take(10)
            .ToList();
 

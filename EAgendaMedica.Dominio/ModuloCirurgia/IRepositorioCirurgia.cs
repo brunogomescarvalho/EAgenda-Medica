@@ -2,6 +2,6 @@
 {
     public interface IRepositorioCirurgia : IRepositorioAtividadeBase<Cirurgia>
     {
-
+        Task<List<Cirurgia>> ObterCirurgiasPorMedico(string CRM);
     }
 }

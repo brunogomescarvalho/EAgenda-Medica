@@ -1,4 +1,5 @@
 ﻿using EAgendaMedica.Dominio.ModuloCirurgia;
+using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.TestesIntegracao.Compartilhado;
 using FizzWare.NBuilder;
@@ -132,6 +133,37 @@ namespace EAgendaMedica.TestesIntegracao.ModuloCirurgia
             cirurgiasParaEssaSemana.Count.Should().Be(3);
 
             cirurgiasParaEssaSemana.Should().BeEquivalentTo(semanaAtual);
+        }
+
+        [TestMethod]
+        public async Task Deve_BuscarCirurgias_De_Um_Medico()
+        {
+            var medico0 = new Medico("medico0", "12345-SC"); // medico escolhido
+            var medico1 = new Medico("medico1", "22345-SC");
+            var medico2 = new Medico("medico2", "32345-SC");
+            var medico3 = new Medico("medico3", "42345-SC");
+            var medico4 = new Medico("medico4", "52345-SC");
+
+            var medicos = new List<Medico>() { medico0, medico1, medico2, medico3 };
+
+            medicos.ForEach(me => repositorioMedico.Inserir(me));
+
+            var Cirurgias = new List<Cirurgia>()
+            {
+                new Cirurgia(DateTime.Now, TimeSpan.Parse("12:00"), 170, new List<Medico>(){medico4}), // registro com medico diferente
+                new Cirurgia(DateTime.Now, TimeSpan.Parse("14:01"), 160, medicos),
+                new Cirurgia(DateTime.Now, TimeSpan.Parse("15:02"), 150, medicos),
+                new Cirurgia(DateTime.Now, TimeSpan.Parse("15:02"), 150, medicos) 
+            };
+
+            Cirurgias.ForEach(async (x) => await repositorioCirurgia.Inserir(x));
+
+            await dbContext.SalvarDados();
+
+            var atendimento = await repositorioCirurgia.ObterCirurgiasPorMedico("12345-SC");
+
+            atendimento.Count.Should().Be(3);
+
         }
     }
 }

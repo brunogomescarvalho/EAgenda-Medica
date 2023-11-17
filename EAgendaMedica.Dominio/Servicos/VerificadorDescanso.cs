@@ -1,13 +1,10 @@
-﻿using EAgendaMedica.Dominio.ModuloCirurgia;
-using EAgendaMedica.Dominio.ModuloConsulta;
+﻿using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
-
 
 namespace EAgendaMedica.Dominio.Servicos
 {
     public class VerificadorDescanso
     {
-
         private readonly Atividade atividadeParaVerificar;
 
         Atividade registroAnterior = null!;
@@ -17,10 +14,6 @@ namespace EAgendaMedica.Dominio.Servicos
         private const int TempoAposCirurgia = 240;
 
         private const int TempoAposConsulta = 20;
-
-        private bool tempoInicialValido = true;
-
-        private bool tempoFinalValido = true;
 
         public VerificadorDescanso(Atividade atividade)
         {
@@ -35,7 +28,7 @@ namespace EAgendaMedica.Dominio.Servicos
 
             ObterRegistroPosterior(atividades);
 
-            return LocalizarConflitos();
+            return VerificarInicio() && VerificarTermino();
         }
 
         private void ObterRegistroPosterior(List<Atividade> atividades)
@@ -50,17 +43,7 @@ namespace EAgendaMedica.Dominio.Servicos
              .OrderBy(x => x.HoraTermino).FirstOrDefault()!;
         }
 
-        private bool LocalizarConflitos()
-        {
-            VerificarInicio();
-
-            VerificarTermino();
-
-            return tempoInicialValido && tempoFinalValido;
-
-        }
-
-        private void VerificarInicio()
+        private bool VerificarInicio()
         {
             if (registroAnterior != null)
             {
@@ -68,11 +51,13 @@ namespace EAgendaMedica.Dominio.Servicos
 
                 var diferenca = atividadeParaVerificar.HoraInicio.Subtract(registroAnterior.HoraTermino).TotalMinutes;
 
-                tempoInicialValido = diferenca > tempo;
+                return diferenca > tempo;
             }
+
+            return true;
         }
 
-        private void VerificarTermino()
+        private bool VerificarTermino()
         {
             if (registroPosterior != null)
             {
@@ -80,9 +65,9 @@ namespace EAgendaMedica.Dominio.Servicos
 
                 var diferenca = registroPosterior.HoraInicio.Subtract(atividadeParaVerificar.HoraTermino).TotalMinutes;
 
-                tempoFinalValido = diferenca > tempo;
+                return diferenca > tempo;
             }
-
+            return true;
         }
     }
 }

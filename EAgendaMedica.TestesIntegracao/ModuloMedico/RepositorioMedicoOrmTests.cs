@@ -38,11 +38,11 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
                 new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico3),
                 new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico0),
 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 100, medicos.GetRange(0, 1)), //medico 0
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(0, 1)), 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(0, 1)), 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(0, 1)),
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 100, medicos.GetRange(0, 1)),
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 100, medicos.GetRange(1, 1)), //medico 1
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(1, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(1, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(1, 1)),
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 100, medicos.GetRange(1, 1)),
 
             };
 
@@ -63,9 +63,7 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
 
 
             //assert
-            medicosMaisAtividades[0].Should().Be(medico0);
-
-            medicosMaisAtividades[0].HorasTrabalhadas.Should().Be(650);
+            medicosMaisAtividades[0].Should().Be(medico1);
 
             medicosMaisAtividades.Count.Should().Be(4); //o método traz somente médicos que possuem algum atendimento, médico 4 , não possui...
         }

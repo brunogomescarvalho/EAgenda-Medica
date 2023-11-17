@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServicoUnitTestes
 {
-    internal class ServicoMedicoUnitTests
+    public class ServicoMedicoUnitTests
     {
+        //TODO implementar servico testes medico
     }
 }

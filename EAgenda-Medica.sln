@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.Aplicacao", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestesAplicacao", "TestesAplicacao", "{602A4185-7B4F-416B-A54D-285223102EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAgendaMedica.AplicacaoUnitTests", "EAgendaMedica.AplicacaoUnitTests\EAgendaMedica.AplicacaoUnitTests.csproj", "{C962508C-0A75-42A3-9410-A6747D4CCB87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAgendaMedica.AplicacaoUnitTests", "EAgendaMedica.AplicacaoUnitTests\EAgendaMedica.AplicacaoUnitTests.csproj", "{C962508C-0A75-42A3-9410-A6747D4CCB87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Distribuicao", "1 - Distribuicao", "{D8F98D2C-DEA1-42F2-83C3-647E11A59147}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
