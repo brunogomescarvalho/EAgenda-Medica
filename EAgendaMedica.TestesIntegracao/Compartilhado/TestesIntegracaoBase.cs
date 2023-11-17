@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EAgendaMedica.TestesIntegracao.Compartilhado
 {
     [TestClass]
-    public class TestsIntegracaoBase
+    public class TestesIntegracaoBase
     {
 
         protected EAgendaMedicaDBContext dbContext;
@@ -25,7 +25,7 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         private bool primeiroUpdate = false;
 
-        public TestsIntegracaoBase()
+        public TestesIntegracaoBase()
         {
             this.dbContext = ObterContext();
 

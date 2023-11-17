@@ -2,6 +2,7 @@
 using EAgendaMedica.Dominio.Copartilhado;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using FluentResults;
+using Serilog;
 
 namespace EAgendaMedica.Aplicacao.ModuloConsulta
 {
@@ -47,6 +48,28 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
 
         }
 
+        public async Task<Result> Excluir(Consulta consulta)
+        {
+            repositorioConsulta.Excluir(consulta);
+
+            await contextoPersistencia.SalvarDados();
+
+            return Result.Ok();
+        }
+
+        public async Task<Result<Consulta>> SelecionarPorId(Guid id)
+        {
+            var consulta = await repositorioConsulta.SelecionarPorId(id);
+
+            if (consulta == null)
+            {
+                Log.Logger.Warning("consulta {consultaId} não encontrada", id);
+
+                return Result.Fail("Consulta não encontrada");
+            }
+
+            return Result.Ok(consulta);
+        }
         public async Task<Result<List<Consulta>>> SelecionarTodos()
         {
             var consultas = await repositorioConsulta.SelecionarTodos();

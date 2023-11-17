@@ -5,7 +5,6 @@ using EAgendaMedica.Aplicacao.ModuloMedico;
 using Moq;
 using FluentResults.Extensions.FluentAssertions;
 using FluentAssertions;
-using FluentValidation.Results;
 
 namespace EAgendaMedica.AplicacaoUnitTests
 {
@@ -16,8 +15,6 @@ namespace EAgendaMedica.AplicacaoUnitTests
 
         ServicoMedico servicoMedico;
 
-        Mock<ValidadorMedico> validadorMock;
-
         Mock<IContextoPersistencia> contexto;
 
         public ServicoMedicoUnitTests()
@@ -25,9 +22,7 @@ namespace EAgendaMedica.AplicacaoUnitTests
             repositorioMoq = new Mock<IRepositorioMedico>();
 
             contexto = new Mock<IContextoPersistencia>();
-
-            validadorMock = new Mock<ValidadorMedico>();
-
+        
             servicoMedico = new ServicoMedico(repositorioMoq.Object, contexto.Object);
         }
 
@@ -96,6 +91,28 @@ namespace EAgendaMedica.AplicacaoUnitTests
             result.Result.Should().BeFailure();
 
             repositorioMoq.Verify(x => x.Editar(medico), Times.Never);
+        }
+
+
+        [TestMethod]
+        public void Deve_Retornar_Fail_Se_Medico_nao_for_Localizado_Por_CRM()
+        {
+            var medico =  servicoMedico.SelecionarPorCRM("123");
+
+            medico.Result.Should().BeFailure();
+
+            medico.Result.Reasons[0].Message.Should().Be("Médico não encontrado");
+
+        }
+
+        [TestMethod]
+        public void Deve_Retornar_Fail_Se_Medico_nao_for_Localizado_Por_Id()
+        {
+            var medico = servicoMedico.SelecionarPorId(Guid.NewGuid());
+
+            medico.Result.Should().BeFailure();
+
+            medico.Result.Reasons[0].Message.Should().Be("Médico não encontrado");
         }
     }
 }

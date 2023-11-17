@@ -2,10 +2,11 @@
 using EAgendaMedica.Dominio.Copartilhado;
 using EAgendaMedica.Dominio.ModuloCirurgia;
 using FluentResults;
+using Serilog;
 
 namespace EAgendaMedica.Aplicacao.ModuloCirurgia
 {
-    public  class ServicoCirurgia : ServicoAtividadeBase<Cirurgia,ValidadorCirurgia>
+    public class ServicoCirurgia : ServicoAtividadeBase<Cirurgia, ValidadorCirurgia>
     {
         private readonly IRepositorioCirurgia repositorioCirurgia;
 
@@ -45,6 +46,29 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
 
             return Result.Ok(cirurgia);
 
+        }
+
+        public async Task<Result> Excluir(Cirurgia cirurgia)
+        {
+            repositorioCirurgia.Excluir(cirurgia);
+
+            await contextoPersistencia.SalvarDados();
+
+            return Result.Ok();
+        }
+
+        public async Task<Result<Cirurgia>>SelecionarPorId(Guid id)
+        {
+            var cirurgia = await repositorioCirurgia.SelecionarPorId(id);
+
+            if (cirurgia == null)
+            {
+                Log.Logger.Warning("Cirurgia {CirurgiaId} não encontrada", id);
+
+                return Result.Fail("Cirurgia não encontrada");
+            }
+
+            return Result.Ok(cirurgia);
         }
 
         public async Task<Result<List<Cirurgia>>> SelecionarTodos()
