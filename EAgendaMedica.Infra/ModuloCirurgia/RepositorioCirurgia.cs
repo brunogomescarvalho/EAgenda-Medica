@@ -18,9 +18,11 @@ namespace EAgendaMedica.Infra.ModuloCirurgia
                 .ToListAsync();
         }
 
-        public override async Task<List<Cirurgia>> SelecionarTodos()
+        public override async Task<Cirurgia> SelecionarPorId(Guid id)
         {
-            return await registros.Include(x => x.Medicos).ToListAsync();
+            var registro = await registros.Where(x => x.Id.Equals(id)).Include(x => x.Medicos).FirstOrDefaultAsync();
+
+            return registro!;
         }
     }
 }

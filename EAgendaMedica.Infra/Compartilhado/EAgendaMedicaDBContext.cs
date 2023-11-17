@@ -1,4 +1,7 @@
-﻿namespace EAgendaMedica.Infra.Compartilhado
+﻿using Microsoft.Extensions.Logging;
+using Serilog;
+
+namespace EAgendaMedica.Infra.Compartilhado
 {
     public class EAgendaMedicaDBContext : DbContext, IContextoPersistencia
     {
@@ -13,6 +16,13 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            ILoggerFactory loggerFactory = LoggerFactory.Create((x) =>
+            {
+                x.AddSerilog(Log.Logger);
+            });
+
+            optionsBuilder.UseLoggerFactory(loggerFactory);
+
             optionsBuilder.EnableSensitiveDataLogging();
         }
 

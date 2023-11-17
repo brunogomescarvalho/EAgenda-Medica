@@ -1,4 +1,5 @@
-﻿using EAgendaMedica.Dominio.ModuloConsulta;
+﻿using EAgendaMedica.Dominio.ModuloCirurgia;
+using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Infra.Compartilhado;
 
 namespace EAgendaMedica.Infra.ModuloConsulta
@@ -17,9 +18,12 @@ namespace EAgendaMedica.Infra.ModuloConsulta
                 .ToListAsync();
         }
 
-        public override async Task<List<Consulta>> SelecionarTodos()
+
+        public override async Task<Consulta> SelecionarPorId(Guid id)
         {
-            return await registros.Include(x => x.Medico).ToListAsync();
+            var registro = await registros.Where(x => x.Id.Equals(id)).Include(x => x.Medico).FirstOrDefaultAsync();
+
+            return registro!;
         }
 
 

@@ -11,12 +11,12 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         private readonly IRepositorioCirurgia repositorioCirurgia;
 
         private readonly IContextoPersistencia contextoPersistencia;
+
         public ServicoCirurgia(IRepositorioCirurgia repositorioCirurgia, IContextoPersistencia contextoPersistencia)
         {
             this.repositorioCirurgia = repositorioCirurgia;
             this.contextoPersistencia = contextoPersistencia;
         }
-
 
         public async Task<Result<Cirurgia>> Inserir(Cirurgia cirurgia)
         {
@@ -109,6 +109,13 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
 
             return Result.Ok(cirurgias);
 
+        }
+
+        public async Task<Result<List<Cirurgia>>> SelecionarCirurgiasporMedico(string CRM)
+        {
+            var cirurgias = await repositorioCirurgia.ObterCirurgiasPorMedico(CRM);
+
+            return Result.Ok(cirurgias);
         }
 
     }

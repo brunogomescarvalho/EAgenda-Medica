@@ -109,5 +109,12 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
             return Result.Ok(consultas);
 
         }
+
+        public async Task<Result<List<Consulta>>> SelecionarConsultasPorMedico(string CRM)
+        {
+            var consultas = await repositorioConsulta.ObterConsultasPorMedico(CRM);
+
+            return Result.Ok(consultas);
+        }
     }
 }
