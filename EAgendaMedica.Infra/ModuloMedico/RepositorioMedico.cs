@@ -33,7 +33,7 @@ namespace EAgendaMedica.Infra.ModuloMedico
         {
             var medico = await registros.Where(x => x.Id == id)
                 .Include(x => x.Cirurgias)
-                .Include(x=>x.Consultas)
+                .Include(x => x.Consultas)
                 .FirstOrDefaultAsync();
 
             return medico!;
@@ -61,14 +61,14 @@ namespace EAgendaMedica.Infra.ModuloMedico
 
         public List<Medico> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
-            var medicosComRegistros = registros.AsEnumerable()
-            .OrderByDescending(x => x.TotalDeAtendimentos)
-            .Where(m => m.TodasAtividades()
-            .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataInicio <= dataFinal))
-            .Take(10)
-            .ToList();
+            return registros
+           .AsEnumerable()
+           .Where(x => x.TodasAtividades()
+           .Any(x => x.DataInicio >= dataInicial && x.DataTermino <= dataFinal))
+           .OrderByDescending(x => x.ObterHorasTrabalhadasPorPeriodo(dataInicial, dataFinal))
+           .Take(10)
+           .ToList();
 
-            return medicosComRegistros;
         }
     }
 }

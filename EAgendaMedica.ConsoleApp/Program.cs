@@ -145,13 +145,14 @@ namespace EAgendaMedica.ConsoleApp
         public static void ListarMedicosOrdemAtendimento()
         {
             Console.WriteLine("\n---Listagem Médicos Ordem Atendimento---");
+
             var lista = resMed.SelecionarComMaisAtendimentosNoPeriodo(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5));
 
             if (lista.Any())
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item + $" - Total: {item.TotalDeAtendimentos} atividades ");
+                    Console.WriteLine(item + " " + item.HorasTrabalhadas);
                 }
             }
 

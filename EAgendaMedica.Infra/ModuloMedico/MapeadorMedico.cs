@@ -20,6 +20,8 @@ namespace EAgendaMedica.Infra.ModuloMedico
             builder.Property(e => e.Nome).HasColumnType("varchar(100)")
                 .IsRequired();
 
+            builder.Ignore(x => x.HorasTrabalhadas);
+
             builder.HasData(
                  new Medico { Id = Guid.NewGuid(), CRM = "12345-SC", Nome = "Médico 1" },
                  new Medico { Id = Guid.NewGuid(), CRM = "67890-SC", Nome = "Médico 2" });

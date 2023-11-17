@@ -11,33 +11,38 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
     public class RepositorioMedicoOrmTests : TestesIntegracaoBase
     {
         [TestMethod]
-        public async Task Deve_Selecionar_Medicos_Com_Mais_Atendimentos()
+        public async Task Deve_Selecionar_Medicos_Com_Mais_Horas_Atendidas()
         {
             //arrange
-            var medico1 = new Medico("medico1", "12345-SC");
-            var medico2 = new Medico("medico2", "22345-SC");
-            var medico3 = new Medico("medico3", "32345-SC");
-            var medico4 = new Medico("medico4", "42345-SC");
-            var medico5 = new Medico("medico5", "52345-SC");
+            var medico0 = new Medico("medico0", "12345-SC");
+            var medico1 = new Medico("medico1", "22345-SC");
+            var medico2 = new Medico("medico2", "32345-SC");
+            var medico3 = new Medico("medico3", "42345-SC");
+            var medico4 = new Medico("medico4", "52345-SC");
 
-            var medicos = new List<Medico>() { medico1, medico2, medico3, medico4, medico5 };
+            var medicos = new List<Medico>() { medico0, medico1, medico2, medico3, medico4 };
 
             medicos.ForEach(me => repositorioMedico.Inserir(me));
 
             var atividades = new List<Atividade>()
             {
 
-                new Consulta(DateTime.Now, TimeSpan.Parse("10:00"), 60, medico1),
-                new Consulta(DateTime.Now, TimeSpan.Parse("12:00"), 60, medico3),
-                new Consulta(DateTime.Now, TimeSpan.Parse("14:01"), 60, medico3),
-                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 60, medico3),
-                new Consulta(DateTime.Now, TimeSpan.Parse("16:03"), 60, medico2),
+                new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
+                new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
+                new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
+                new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
+                new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0), //fora do range
 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 60, medicos.GetRange(0, 3)),
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 60, medicos.GetRange(2, 1)),
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 60, medicos.GetRange(2, 1)),
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 60, medicos.GetRange(2, 1)),
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 60, medicos.GetRange(0, 3)),
+                new Consulta(DateTime.Now, TimeSpan.Parse("12:00"), 170, medico1),
+                new Consulta(DateTime.Now, TimeSpan.Parse("14:01"), 160, medico2),
+                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico3),
+                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico0),
+
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 100, medicos.GetRange(0, 1)), //medico 0
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(0, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(0, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(0, 1)),
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 100, medicos.GetRange(0, 1)),
 
             };
 
@@ -58,9 +63,11 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
 
 
             //assert
-            medicosMaisAtividades[0].Should().Be(medico3);
+            medicosMaisAtividades[0].Should().Be(medico0);
 
-            medicosMaisAtividades.Count.Should().Be(3); //o método traz somente médicos que possuem algum atendimento, médicos 4 e 5, não possuem...
+            medicosMaisAtividades[0].HorasTrabalhadas.Should().Be(650);
+
+            medicosMaisAtividades.Count.Should().Be(4); //o método traz somente médicos que possuem algum atendimento, médico 4 , não possui...
         }
 
         [TestMethod]

@@ -59,5 +59,7 @@ namespace EAgendaMedica.Infra.Compartilhado
         {
             return await registros.Where(x => x.DataInicio.Date < DateTime.Today && x.DataInicio.Date > DateTime.Now.Date.AddDays(-30)).ToListAsync();
         }
+
+      
     }
 }
