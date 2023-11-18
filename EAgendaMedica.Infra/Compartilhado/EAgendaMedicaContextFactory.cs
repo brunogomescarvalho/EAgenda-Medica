@@ -4,8 +4,7 @@
     {
         public EAgendaMedicaDBContext CreateDbContext(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json");
 
             var configuration = builder.Build();
@@ -14,14 +13,8 @@
 
             var optionsBuilder = new DbContextOptionsBuilder<EAgendaMedicaDBContext>();
 
-            if (args.Any(arg => arg == "Testing"))
-            {
-                connectionString = "SqlServerTests";
-            }
-            else
-            {
-               connectionString = "SqlServer";
-            }
+            connectionString = args.Any(arg => arg == "Testing") ?
+                 "SqlServerTests" : "SqlServer";
 
             optionsBuilder.UseSqlServer(configuration.GetConnectionString(connectionString));
 

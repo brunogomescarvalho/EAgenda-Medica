@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EAgendaMedica.WebApi
 {
-    public class Program
+    public partial class Program
     {
         public static void Main(string[] args)
         {
@@ -27,6 +27,8 @@ namespace EAgendaMedica.WebApi
 
             var app = builder.Build();
 
+            app.AtualizarBancoDeDados();
+
             app.UseMiddleware<ManipuladorExcessoes>();
 
             if (app.Environment.IsDevelopment())
@@ -42,6 +44,8 @@ namespace EAgendaMedica.WebApi
             app.MapControllers();
 
             app.Run();
+
+           
 
         }
     }
