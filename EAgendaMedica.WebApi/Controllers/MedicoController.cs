@@ -16,8 +16,6 @@ namespace EAgendaMedica.WebApi.Controllers
             this.servicoMedico = servicoMedico;
         }
 
-
-
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string[]), 500)]
@@ -42,6 +40,19 @@ namespace EAgendaMedica.WebApi.Controllers
                 return NotFound(result);
 
             return ProcessarResultado(result, mapper.Map<VisualizarMedicoViewModel>(result.Value));
+        }
+
+        [HttpGet("estatisticas")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public IActionResult SelecionarEstatisticas([FromQuery]DateTime dataInicial, [FromQuery]DateTime dataFinal)
+        {
+            var result =  servicoMedico.SelecionarTop10(dataInicial, dataFinal);
+
+            if (result.IsFailed)
+                return NotFound(result);
+
+            return ProcessarResultado(result, mapper.Map<List<ListarRankingMedicosViewModel>>(result.Value));
         }
 
 

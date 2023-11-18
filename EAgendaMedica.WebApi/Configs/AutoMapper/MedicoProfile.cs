@@ -16,6 +16,8 @@ namespace eAgendaWebApi.Configs.AutoMapper
 
             CreateMap<Medico, ListarMedicosViewModel>();
 
+            CreateMap<Medico, ListarRankingMedicosViewModel>();
+
             CreateMap<FormMedicoViewModel, Medico>();
 
         }
@@ -35,8 +37,8 @@ namespace eAgendaWebApi.Configs.AutoMapper
                 {
                     Id = x.Id,
                     DataInicio = x.DataInicio.ToShortDateString(),
-                    HoraInicio = x.HoraInicio.ToString(),
-                    HoraTermino = x.HoraTermino.ToString(),                 
+                    HoraInicio = x.HoraInicio.ToString(@"hh\:mm"),
+                    HoraTermino = x.HoraTermino.ToString(@"hh\:mm"),                 
                     TipoAtividade = x is Cirurgia ? "Cirurgia" : "Consulta"
                 });
             });

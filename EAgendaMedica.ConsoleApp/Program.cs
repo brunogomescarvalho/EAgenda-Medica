@@ -157,7 +157,7 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item + " " + "Horas:" + item.HorasTrabalhadasPorPeriodo);
+                    Console.WriteLine(item + " " + "Horas:" + item.HorasTrabalhadasNoPeriodo);
                 }
             }
 

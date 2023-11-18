@@ -62,6 +62,8 @@ namespace EAgendaMedica.Infra.ModuloMedico
         public List<Medico> SelecionarComMaisAtendimentosNoPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
             return registros
+           .Include(x => x.Cirurgias)
+           .Include(x => x.Consultas)
            .AsEnumerable()
            .Where(medico => medico.TodasAtividades()
            .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataTermino <= dataFinal))
@@ -73,7 +75,7 @@ namespace EAgendaMedica.Infra.ModuloMedico
 
         public Task<List<Medico>> SelecionarMuitos(List<Guid> medicosId)
         {
-            return registros.Where(x=>medicosId.Contains(x.Id)).ToListAsync();
+            return registros.Where(x => medicosId.Contains(x.Id)).ToListAsync();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
         public string Nome { get; set; }
         public List<Cirurgia> Cirurgias { get; set; }
         public List<Consulta> Consultas { get; set; }
-        public int HorasTrabalhadasPorPeriodo { get; private set; }
+        public int HorasTrabalhadasNoPeriodo { get; private set; }
         public int HorasTotaisTrabalhadas { get => ObterHorasTrabalhadas(); }
 
 
@@ -62,13 +62,13 @@ namespace EAgendaMedica.Dominio.ModuloMedico
 
         public int ObterHorasTrabalhadasPorPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
-            HorasTrabalhadasPorPeriodo = TodasAtividades()
+            HorasTrabalhadasNoPeriodo = TodasAtividades()
 
            .Where(x => x.DataInicio >= dataInicial && x.DataTermino <= dataFinal)
 
            .Select(x => x.DuracaoEmMinutos).Sum() / 60;
 
-            return HorasTrabalhadasPorPeriodo;
+            return HorasTrabalhadasNoPeriodo;
 
         }
 
