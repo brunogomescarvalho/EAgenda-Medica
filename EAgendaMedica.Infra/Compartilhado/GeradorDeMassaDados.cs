@@ -43,7 +43,6 @@ namespace EAgendaMedica.ConsoleApp
 
             var consultas = GerarConsultas(10, medicosCadastrados);
 
-
             var cirurgias = GerarCirurgias(10, medicosCadastrados);
 
             foreach (var item in consultas)

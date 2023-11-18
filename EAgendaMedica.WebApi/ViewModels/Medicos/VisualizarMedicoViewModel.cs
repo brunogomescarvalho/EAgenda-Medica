@@ -7,6 +7,8 @@
 
         public string? CRM { get; set; }
 
+        public int HorasTotaisTrabalhadas { get; set; }
+
         public List<ListarAtividadesMedicoViewModel>? Atividades { get; set; }
     }
 }

@@ -37,7 +37,8 @@ namespace eAgendaWebApi.Configs
             service.AddTransient<IRepositorioMedico, RepositorioMedico>();
 
             service.AddTransient<InserirMedicoMappingAction>();
-            service.AddTransient<InserirMedicosMappingAction>();
+            service.AddTransient<InserirMedicosMappingAction>(); 
+            service.AddTransient<MedicoVisualizacaoCompletaMappingAction>(); 
 
 
         }

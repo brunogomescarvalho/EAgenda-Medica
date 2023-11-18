@@ -55,6 +55,13 @@ namespace EAgendaMedica.Dominio.Compartilhado
             this.DuracaoEmMinutos = duracao;
         }
 
+        public void AtualizarInformacoes(DateTime data, TimeSpan horaInicio, int duracao)
+        {
+            this.DataInicio = data;
+            this.HoraInicio = horaInicio;
+            this.DuracaoEmMinutos = duracao;
+        }
+
         public Atividade()
         {
             Id = SequentialGuid.NewGuid();
