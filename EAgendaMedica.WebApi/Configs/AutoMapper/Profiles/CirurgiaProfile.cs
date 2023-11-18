@@ -6,7 +6,7 @@ using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.WebApi.ViewModels.Cirurgias;
 using EAgendaMedica.WebApi.ViewModels.Compartilhado;
 
-namespace eAgendaWebApi.Configs.AutoMapper
+namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
 {
     public class CirurgiaProfile : Profile
     {

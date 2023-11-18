@@ -5,24 +5,6 @@ using EAgendaMedica.WebApi.ViewModels.Medicos;
 
 namespace eAgendaWebApi.Configs.AutoMapper
 {
-    public class MedicoProfile : Profile
-    {
-        public MedicoProfile()
-        {          
-            CreateMap<Medico, FormMedicoViewModel>();
-
-            CreateMap<Medico, VisualizarMedicoViewModel>()
-               .AfterMap<MedicoVisualizacaoCompletaMappingAction>();
-
-            CreateMap<Medico, ListarMedicosViewModel>();
-
-            CreateMap<Medico, ListarRankingMedicosViewModel>();
-
-            CreateMap<FormMedicoViewModel, Medico>();
-
-        }
-    }
-
     public class MedicoVisualizacaoCompletaMappingAction : IMappingAction<Medico, VisualizarMedicoViewModel>
     {
         public void Process(Medico source, VisualizarMedicoViewModel destination, ResolutionContext context)
@@ -38,7 +20,7 @@ namespace eAgendaWebApi.Configs.AutoMapper
                     Id = x.Id,
                     DataInicio = x.DataInicio.ToShortDateString(),
                     HoraInicio = x.HoraInicio.ToString(@"hh\:mm"),
-                    HoraTermino = x.HoraTermino.ToString(@"hh\:mm"),                 
+                    HoraTermino = x.HoraTermino.ToString(@"hh\:mm"),
                     TipoAtividade = x is Cirurgia ? "Cirurgia" : "Consulta"
                 });
             });

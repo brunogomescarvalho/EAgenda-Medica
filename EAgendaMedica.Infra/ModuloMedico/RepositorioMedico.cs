@@ -65,8 +65,10 @@ namespace EAgendaMedica.Infra.ModuloMedico
            .Include(x => x.Cirurgias)
            .Include(x => x.Consultas).ToListAsync();
           
-           return medicos.Where(medico => medico.TodasAtividades()
+           var medicosComAtendimentos = medicos.Where(medico => medico.TodasAtividades()
            .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataTermino <= dataFinal)).ToList();
+
+            return medicosComAtendimentos;
         }
 
         public Task<List<Medico>> SelecionarMuitos(List<Guid> medicosId)

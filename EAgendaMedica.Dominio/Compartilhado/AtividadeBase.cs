@@ -62,6 +62,8 @@ namespace EAgendaMedica.Dominio.Compartilhado
             this.DuracaoEmMinutos = duracao;
         }
 
+        public abstract bool VerificarDescansoMedico();
+
         public Atividade()
         {
             Id = SequentialGuid.NewGuid();

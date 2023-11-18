@@ -23,6 +23,15 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
             Medico = medico;
         }
 
+        public Consulta(Guid id, DateTime data, TimeSpan horaInicio, int duracao, Medico medico)
+        {
+            Id = id;
+            DataInicio = data;
+            HoraInicio = horaInicio;
+            DuracaoEmMinutos = duracao;
+            Medico = medico;
+        }
+
         public void AdicionarMedico(Medico medico)
         {
             if (medico != null)
@@ -34,25 +43,16 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
 
         }
 
-        public Consulta(Guid id, DateTime data, TimeSpan horaInicio, int duracao, Medico medico)
-        {
-            Id = id;
-            DataInicio = data;
-            HoraInicio = horaInicio;
-            DuracaoEmMinutos = duracao;
-            Medico = medico;
-        }
-
-        public bool VerificarDescansoMedico()
+        public override bool VerificarDescansoMedico()
         {
             return new VerificadorDescanso(this).Verificar(Medico);
         }
 
         public override string ToString()
         {
-            var passouDaMeiaNoite = $"Data: {DataInicio:d} - {HoraInicio} -- Término: {DataTermino:d} - {HoraTermino} -- Dr: {Medico}";
-
-            return DataInicio.Date != DataTermino.Date ? passouDaMeiaNoite : $"Data: {DataInicio:d} - Início {HoraInicio} -- Término: {HoraTermino} -- Dr: {Medico}";
+            var passouDaMeiaNoite = DataInicio.Date != DataTermino.Date;
+            
+            return $"Data: {DataInicio:d} - {HoraInicio} -- Término: {( passouDaMeiaNoite ? DataTermino.ToShortDateString() : "")} - {HoraTermino} -- Dr: {Medico}";
         }
 
         public override bool Equals(object? obj)

@@ -10,6 +10,7 @@ using EAgendaMedica.Infra.Compartilhado;
 using EAgendaMedica.Infra.ModuloCirurgia;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
+using EAgendaMedica.WebApi.Configs.AutoMapper.Profiles;
 using eAgendaWebApi.Configs.AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,7 +42,8 @@ namespace eAgendaWebApi.Configs
 
             service.AddTransient<InserirMedicoMappingAction>();
             service.AddTransient<InserirMedicosMappingAction>(); 
-            service.AddTransient<MedicoVisualizacaoCompletaMappingAction>(); 
+            service.AddTransient<MedicoVisualizacaoCompletaMappingAction>();
+            service.AddTransient<MedicoAgendaDoDiaMappingAction>();
 
 
         }

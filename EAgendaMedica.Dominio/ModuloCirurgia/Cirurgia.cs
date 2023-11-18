@@ -47,7 +47,7 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
 
         }
 
-        public bool VerificarDescansoMedico()
+        public override bool VerificarDescansoMedico()
         {
             var verificador = new VerificadorDescanso(this);
 
@@ -62,9 +62,10 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
 
         public override string ToString()
         {
-            var passouDaMeiaNoite = $"Data: {DataInicio:d} - {HoraInicio} -- Término: {DataTermino:d} - {HoraTermino} -- Equipe: {Medicos.Count} médico{(Medicos.Count == 1 ? "" : "s")}";
+            var passouDaMeiaNoite = DataInicio.Date != DataTermino.Date;
 
-            return DataInicio.Date != DataTermino.Date ? passouDaMeiaNoite : $"Data: {DataInicio:d} -  Inicio {HoraInicio} -- Término: {HoraTermino} -- Equipe: {Medicos.Count}  médico{(Medicos.Count == 1 ? "" : "s")}";
+            return $"Data: {DataInicio:d} - Hora Inicio: {HoraInicio} -- Término: {(passouDaMeiaNoite ? DataTermino.ToShortDateString() : "")} - {HoraTermino} -- Equipe: {Medicos.Count} médico{(Medicos.Count == 1 ? "" : "s")}";
+
         }
 
         public override bool Equals(object? obj)

@@ -4,14 +4,14 @@ using EAgendaMedica.WebApi.ViewModels.Consultas;
 using EAgendaMedica.WebApi.ViewModels.Compartilhado;
 using EAgendaMedica.Dominio;
 
-namespace eAgendaWebApi.Configs.AutoMapper
+namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
 {
     public class ConsultaProfile : Profile
     {
         public ConsultaProfile()
         {
             CreateMap<Consulta, FormConsultaViewModel>();
-               
+
             CreateMap<Consulta, ListarAtividadeViewModel>();
             CreateMap<Consulta, VisualizarConsultaViewModel>();
 

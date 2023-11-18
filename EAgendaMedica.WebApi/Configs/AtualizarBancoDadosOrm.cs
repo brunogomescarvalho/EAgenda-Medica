@@ -4,10 +4,8 @@ using EAgendaMedica.ConsoleApp;
 
 namespace EAgendaMedica.WebApi
 {
-
     public static class AtualizarBancoDadosOrm
     {
-
         public static async void AtualizarBancoDeDados(this WebApplication app)
         {
             using (var scope = app.Services.CreateScope())

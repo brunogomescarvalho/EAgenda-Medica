@@ -1,4 +1,6 @@
-﻿namespace eAgendaWebApi.Configs.AutoMapper
+﻿using EAgendaMedica.WebApi.Configs.AutoMapper.Profiles;
+
+namespace eAgendaWebApi.Configs.AutoMapper
 {
     public static class AutoMapperConfigExtension
     {

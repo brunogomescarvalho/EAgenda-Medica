@@ -9,7 +9,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
         public Guid Id { get; set; }
         public string CRM { get; set; }
         public string Nome { get; set; }
-        public List<Cirurgia> Cirurgias { get; set; }
+        public List<Cirurgia> Cirurgias {  get; set; }
         public List<Consulta> Consultas { get; set; }
         public int HorasTrabalhadasNoPeriodo { get; private set; }
         public int HorasTotaisTrabalhadas { get => ObterHorasTrabalhadas(); }
@@ -52,6 +52,8 @@ namespace EAgendaMedica.Dominio.ModuloMedico
 
             list.AddRange(Consultas);
 
+            CarregarInformacoesAtividades(list);
+
             return list;
         }
 
@@ -71,6 +73,12 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             return HorasTrabalhadasNoPeriodo;
 
         }
+
+        private static void CarregarInformacoesAtividades(List<Atividade> atividades)
+        {
+            atividades.ForEach(x => x.AtualizarInformacoes(x.DataInicio, x.HoraInicio, x.DuracaoEmMinutos));
+        }
+
 
         private int ObterHorasTrabalhadas()
         {
