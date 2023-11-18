@@ -151,7 +151,7 @@ namespace EAgendaMedica.ConsoleApp
 
             Console.WriteLine($"\n---Listagem Médicos Ordem Atendimento---Período {dataInicio:d} -  {dataFim:d}");
 
-            var lista = resMed.SelecionarComMaisAtendimentosNoPeriodo(dataInicio, dataFim);
+            var lista = resMed.SelecionarMedicosComAtendimentosNoPeriodo(dataInicio, dataFim);
 
             if (lista.Any())
             {

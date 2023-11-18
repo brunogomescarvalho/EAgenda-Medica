@@ -45,9 +45,9 @@ namespace EAgendaMedica.WebApi.Controllers
         [HttpGet("estatisticas")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string[]), 500)]
-        public IActionResult SelecionarEstatisticas([FromQuery]DateTime dataInicial, [FromQuery]DateTime dataFinal)
+        public async Task<IActionResult> SelecionarEstatisticas([FromQuery] DateTime dataInicial, [FromQuery] DateTime dataFinal)
         {
-            var result =  servicoMedico.SelecionarTop10(dataInicial, dataFinal);
+            var result = await servicoMedico.SelecionarTop10(dataInicial, dataFinal);
 
             if (result.IsFailed)
                 return NotFound(result);

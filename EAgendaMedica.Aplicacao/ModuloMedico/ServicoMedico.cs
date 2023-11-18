@@ -95,11 +95,15 @@ namespace EAgendaMedica.Aplicacao.ModuloMedico
 
         }
 
-        public Result<List<Medico>> SelecionarTop10(DateTime dataInicial, DateTime dataFinal)
+        public async Task<Result<List<Medico>>> SelecionarTop10(DateTime dataInicial, DateTime dataFinal)
         {
-            var medicos = repositorioMedico.SelecionarComMaisAtendimentosNoPeriodo(dataInicial, dataFinal);
+            var medicosComAtendimentos = await repositorioMedico
+                .SelecionarMedicosComAtendimentosNoPeriodo(dataInicial, dataFinal);
 
-            return medicos;
+            var listaOrdenada = medicosComAtendimentos
+                .OrderByDescending(x => x.ObterHorasTrabalhadasPorPeriodo(dataInicial, dataFinal)).Take(10).ToList();
+
+            return Result.Ok(listaOrdenada);
         }
 
         protected virtual Result Validar(Medico obj)

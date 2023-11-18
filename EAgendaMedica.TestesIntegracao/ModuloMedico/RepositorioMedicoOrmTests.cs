@@ -11,7 +11,7 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
     public class RepositorioMedicoOrmTests : TestesIntegracaoBase
     {
         [TestMethod]
-        public async Task Deve_Selecionar_Medicos_Com_Mais_Horas_Atendidas()
+        public async Task Deve_Selecionar_Medicos_Com_Atendimento_No_Periodo()
         {
             //arrange
             var medico0 = new Medico("medico0", "12345-SC");
@@ -26,7 +26,6 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
 
             var atividades = new List<Atividade>()
             {
-
                 new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
                 new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
                 new Consulta(DateTime.Now.AddMonths(1), TimeSpan.Parse("10:00"), 150, medico0),
@@ -36,12 +35,12 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
                 new Consulta(DateTime.Now, TimeSpan.Parse("12:00"), 170, medico1),
                 new Consulta(DateTime.Now, TimeSpan.Parse("14:01"), 160, medico2),
                 new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico3),
-                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico0),
+                new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico4),
 
                 new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 100, medicos.GetRange(1, 1)), //medico 1
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(1, 1)), 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(1, 1)), 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(1, 1)),
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(2, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(3, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(4, 1)),
                 new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 100, medicos.GetRange(1, 1)),
 
             };
@@ -55,17 +54,13 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
                     await repositorioConsulta.Inserir((Consulta)item);
 
             }
-
             await dbContext.SaveChangesAsync();
 
             //action
-            var medicosMaisAtividades = repositorioMedico.SelecionarComMaisAtendimentosNoPeriodo(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(2));
-
+            var medicosQueAtenderam = await repositorioMedico.SelecionarMedicosComAtendimentosNoPeriodo(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(2));
 
             //assert
-            medicosMaisAtividades[0].Should().Be(medico1);
-
-            medicosMaisAtividades.Count.Should().Be(4); //o método traz somente médicos que possuem algum atendimento, médico 4 , não possui...
+            medicosQueAtenderam.Count.Should().Be(4); //o método traz somente médicos que possuem algum atendimento, médico 4 , não possui...
         }
 
         [TestMethod]
