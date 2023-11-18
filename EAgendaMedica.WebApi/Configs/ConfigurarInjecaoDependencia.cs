@@ -1,6 +1,7 @@
 ﻿using EAgendaMedica.Aplicacao.ModuloCirurgia;
 using EAgendaMedica.Aplicacao.ModuloConsulta;
 using EAgendaMedica.Aplicacao.ModuloMedico;
+using EAgendaMedica.ConsoleApp;
 using EAgendaMedica.Dominio;
 using EAgendaMedica.Dominio.Copartilhado;
 using EAgendaMedica.Dominio.ModuloCirurgia;
@@ -35,6 +36,8 @@ namespace eAgendaWebApi.Configs
 
             service.AddTransient<ServicoMedico>();
             service.AddTransient<IRepositorioMedico, RepositorioMedico>();
+
+            service.AddTransient<GeradorDeMassaDados>();
 
             service.AddTransient<InserirMedicoMappingAction>();
             service.AddTransient<InserirMedicosMappingAction>(); 

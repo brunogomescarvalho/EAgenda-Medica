@@ -6,56 +6,63 @@ using EAgendaMedica.Infra.ModuloCirurgia;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
 using EAgendaMedica.Dominio;
+using Serilog;
 
 namespace EAgendaMedica.ConsoleApp
 {
     public class GeradorDeMassaDados
 
     {
-        readonly EAgendaMedicaDBContext dbContext = null!;
+        readonly EAgendaMedicaDBContext dbContext;
+        readonly IRepositorioConsulta resConsulta;
+        readonly IRepositorioCirurgia resCirurgia;
+        readonly IRepositorioMedico resMed;
 
-        readonly IRepositorioConsulta resConsulta = null!;
-        readonly IRepositorioCirurgia resCirurgia = null!;
-        readonly IRepositorioMedico resMed = null!;
-
-        public GeradorDeMassaDados(EAgendaMedicaDBContext dbContext)
+        public GeradorDeMassaDados(EAgendaMedicaDBContext dbContext, IRepositorioConsulta resConsulta, IRepositorioCirurgia resCirurgia, IRepositorioMedico resMed)
         {
             this.dbContext = dbContext;
-            resCirurgia = new RepositorioCirurgia(dbContext);
-            resConsulta = new RepositorioConsulta(dbContext);
-            resMed = new RepositorioMedico(dbContext);
+            this.resConsulta = resConsulta;
+            this.resCirurgia = resCirurgia;
+            this.resMed = resMed;
         }
 
         public async Task GerarMassaDeDados()
         {
-            LimparTabelas(dbContext);
-
-            var medicos = GerarMedicos(20);
-
-            foreach (var item in medicos)
+            try
             {
-                await resMed.Inserir(item);
+                LimparTabelas(dbContext);
+
+                var medicos = GerarMedicos(20);
+
+                foreach (var item in medicos)
+                {
+                    await resMed.Inserir(item);
+
+                    await dbContext.SaveChangesAsync();
+                }
+
+                var medicosCadastrados = await resMed.SelecionarTodos();
+
+                var consultas = GerarConsultas(10, medicosCadastrados);
+
+                var cirurgias = GerarCirurgias(10, medicosCadastrados);
+
+                foreach (var item in consultas)
+                {
+                    await resConsulta.Inserir(item);
+                }
+
+                foreach (var item in cirurgias)
+                {
+                    await resCirurgia.Inserir(item);
+                }
 
                 await dbContext.SaveChangesAsync();
             }
-
-            var medicosCadastrados = await resMed.SelecionarTodos();
-
-            var consultas = GerarConsultas(10, medicosCadastrados);
-
-            var cirurgias = GerarCirurgias(10, medicosCadastrados);
-
-            foreach (var item in consultas)
+            catch (Exception ex)
             {
-                await resConsulta.Inserir(item);
+                Log.Error("Não foi possivel gerar dados. Exception: " + ex.Message);
             }
-
-            foreach (var item in cirurgias)
-            {
-                await resCirurgia.Inserir(item);
-            }
-
-            await dbContext.SaveChangesAsync();
         }
 
 

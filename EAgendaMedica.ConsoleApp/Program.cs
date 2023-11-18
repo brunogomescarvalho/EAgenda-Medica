@@ -30,7 +30,7 @@ namespace EAgendaMedica.ConsoleApp
 
         private static async Task GerarMassaDeDados()
         {
-            var gerador = new GeradorDeMassaDados(dbContext);
+            var gerador = new GeradorDeMassaDados(dbContext, resConsulta, resCirurgia, resMed);
 
             await gerador.GerarMassaDeDados();
         }
@@ -47,7 +47,7 @@ namespace EAgendaMedica.ConsoleApp
 
             await ListarConsultas();
 
-            ListarMedicosOrdemAtendimento();
+            await ListarMedicosOrdemAtendimento();
         }
 
         private static EAgendaMedicaDBContext IniciarContexto()
@@ -142,7 +142,7 @@ namespace EAgendaMedica.ConsoleApp
                 Console.WriteLine("fail...");
         }
 
-        public static void ListarMedicosOrdemAtendimento()
+        public async static Task ListarMedicosOrdemAtendimento()
         {
 
             var dataInicio = DateTime.Now.AddDays(-5);
@@ -151,13 +151,13 @@ namespace EAgendaMedica.ConsoleApp
 
             Console.WriteLine($"\n---Listagem Médicos Ordem Atendimento---Período {dataInicio:d} -  {dataFim:d}");
 
-            var lista = resMed.SelecionarMedicosComAtendimentosNoPeriodo(dataInicio, dataFim);
+            var lista = await resMed.SelecionarMedicosComAtendimentosNoPeriodo(dataInicio, dataFim);
 
             if (lista.Any())
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item + " " + "Horas:" + item.HorasTrabalhadasNoPeriodo);
+                    Console.WriteLine(item + " " + "Atendimentos:" + item.TodasAtividades().Count);
                 }
             }
 
