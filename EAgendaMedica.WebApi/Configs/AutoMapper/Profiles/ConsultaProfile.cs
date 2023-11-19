@@ -22,25 +22,23 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
                 .ForMember(x=>x.MedicoId , opt =>opt.Ignore())           
                  .AfterMap<InserirMedicoMappingAction>();
         }
+    }
 
-
-        public class InserirMedicoMappingAction : IMappingAction<FormConsultaViewModel, Consulta>
+    public class InserirMedicoMappingAction : IMappingAction<FormConsultaViewModel, Consulta>
+    {
+        public InserirMedicoMappingAction(IRepositorioMedico repositorioMedico)
         {
-            public InserirMedicoMappingAction(IRepositorioMedico repositorioMedico)
-            {
-                RepositorioMedico = repositorioMedico;
-            }
-
-            public IRepositorioMedico RepositorioMedico { get; }
-
-            public void Process(FormConsultaViewModel source, Consulta destination, ResolutionContext context)
-            {
-                destination.Medico = RepositorioMedico.SelecionarPorId(source.MedicoId).Result;
-
-               
-            }
+            RepositorioMedico = repositorioMedico;
         }
 
+        public IRepositorioMedico RepositorioMedico { get; }
+
+        public void Process(FormConsultaViewModel source, Consulta destination, ResolutionContext context)
+        {
+            destination.Medico = RepositorioMedico.SelecionarPorId(source.MedicoId).Result;
+
+
+        }
     }
 }
 

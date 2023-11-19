@@ -42,5 +42,22 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, novaConsulta);
 
         }
+
+
+        [HttpPut]
+        public async Task<IActionResult> Editar(Guid id, FormConsultaViewModel consultaVM)
+        {
+            var result = await servicoConsulta.SelecionarPorId(id);
+
+            if (result.IsFailed)
+                return NotFound(result);
+
+            var consulta = mapper.Map(consultaVM, result.Value);
+
+            var resultUpdate = await servicoConsulta.Editar(consulta);
+
+            return ProcessarResultado(resultUpdate, consultaVM);
+
+        }
     }
 }
