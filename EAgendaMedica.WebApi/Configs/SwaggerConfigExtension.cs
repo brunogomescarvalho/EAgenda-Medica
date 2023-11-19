@@ -20,7 +20,7 @@ namespace eAgendaWebApi.Configs
                 x.MapType<DateTime>(() => new OpenApiSchema
                 {
                     Type = "string",
-                    Example = new OpenApiString("01-20-2023")
+                    Example = new OpenApiString("2023-11-20")
                 });
             });
         }

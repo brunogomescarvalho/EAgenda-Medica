@@ -1,7 +1,6 @@
 ﻿
 
 using AutoMapper;
-using EAgendaMedica.Dominio;
 using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.WebApi.ViewModels.Cirurgias;
 using EAgendaMedica.WebApi.ViewModels.Compartilhado;
@@ -15,28 +14,22 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
             CreateMap<Cirurgia, FormCirurgiaViewModel>()
                 .ForMember(origem => origem.MedicosIds, opt => opt.MapFrom(x => x.Medicos.Select(x => x.Id)));
 
-            CreateMap<Cirurgia, ListarAtividadeViewModel>();
+            CreateMap<Cirurgia, ListarAtividadeViewModel>()
+                 .BeforeMap((src, dest) => src.AtualizarInformacoes(src))
+                 .ForMember(dest => dest.DataInicio, opt => opt.MapFrom(x => x.DataInicio.ToShortDateString()))
+                 .ForMember(dest => dest.HoraInicio, opt => opt.MapFrom(x => x.HoraInicio.ToString(@"hh\:mm")))
+                 .ForMember(dest => dest.HoraTermino, opt => opt.MapFrom(x => x.HoraTermino.ToString(@"hh\:mm"))); ;
 
-            CreateMap<Cirurgia, VisualizarCirurgiaViewModel>();
+            CreateMap<Cirurgia, VisualizarCirurgiaViewModel>()
+                 .BeforeMap((src, dest) => src.AtualizarInformacoes(src))
+                 .ForMember(dest => dest.DataInicio, opt => opt.MapFrom(x => x.DataInicio.ToShortDateString()))
+                 .ForMember(dest => dest.DataTermino, opt => opt.MapFrom(x => x.DataTermino.ToShortDateString()))
+                 .ForMember(dest => dest.HoraInicio, opt => opt.MapFrom(x => x.HoraInicio.ToString(@"hh\:mm")))
+                 .ForMember(dest => dest.HoraTermino, opt => opt.MapFrom(x => x.HoraTermino.ToString(@"hh\:mm"))); ;
 
             CreateMap<FormCirurgiaViewModel, Cirurgia>()
                   .ForMember(origem => origem.Medicos, opt => opt.Ignore())
                   .AfterMap<InserirMedicosMappingAction>();
-        }
-    }
-
-    public class InserirMedicosMappingAction : IMappingAction<FormCirurgiaViewModel, Cirurgia>
-    {
-        public InserirMedicosMappingAction(IRepositorioMedico repositorioMedico)
-        {
-            RepositorioMedico = repositorioMedico;
-        }
-
-        public IRepositorioMedico RepositorioMedico { get; }
-
-        public void Process(FormCirurgiaViewModel source, Cirurgia destination, ResolutionContext context)
-        {
-            destination.Medicos = RepositorioMedico.SelecionarMuitos(source.MedicosIds!).Result;
         }
     }
 

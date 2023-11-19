@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EAgendaMedica.AplicacaoUnitTests
 {
-    public class ServicoCirurgiaUnitTests
+    public class ServicoConsultaTests
     {
-        //TODO servico cirurgia tests
+        //TODO servico consulta tests
     }
 }
