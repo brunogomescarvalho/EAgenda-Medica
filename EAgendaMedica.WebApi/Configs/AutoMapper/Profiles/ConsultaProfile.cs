@@ -12,31 +12,35 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
         {
             CreateMap<Consulta, FormConsultaViewModel>();
 
-            CreateMap<Consulta, ListarAtividadeViewModel>();
+            CreateMap<Consulta, ListarAtividadeViewModel>()
+            .BeforeMap((src, dest) => src.AtualizarInformacoes(src))
+            .ForMember(dest => dest.DataInicio, opt => opt.MapFrom(x => x.DataInicio.ToShortDateString()));
+
             CreateMap<Consulta, VisualizarConsultaViewModel>();
 
             CreateMap<FormConsultaViewModel, Consulta>()
-                 .ForMember(origem => origem.MedicoId, opt => opt.Ignore())
-                .AfterMap<InserirMedicoMappingAction>();
+                .ForMember(x=>x.MedicoId , opt =>opt.Ignore())           
+                 .AfterMap<InserirMedicoMappingAction>();
+        }
+
+
+        public class InserirMedicoMappingAction : IMappingAction<FormConsultaViewModel, Consulta>
+        {
+            public InserirMedicoMappingAction(IRepositorioMedico repositorioMedico)
+            {
+                RepositorioMedico = repositorioMedico;
+            }
+
+            public IRepositorioMedico RepositorioMedico { get; }
+
+            public void Process(FormConsultaViewModel source, Consulta destination, ResolutionContext context)
+            {
+                destination.Medico = RepositorioMedico.SelecionarPorId(source.MedicoId).Result;
+
+               
+            }
         }
 
     }
-
-
-    public class InserirMedicoMappingAction : IMappingAction<FormConsultaViewModel, Consulta>
-    {
-        public InserirMedicoMappingAction(IRepositorioMedico repositorioMedico)
-        {
-            RepositorioMedico = repositorioMedico;
-        }
-
-        public IRepositorioMedico RepositorioMedico { get; }
-
-        public void Process(FormConsultaViewModel source, Consulta destination, ResolutionContext context)
-        {
-            destination.Medico = RepositorioMedico.SelecionarPorId(source.MedicoId).Result;
-        }
-    }
-
 }
 

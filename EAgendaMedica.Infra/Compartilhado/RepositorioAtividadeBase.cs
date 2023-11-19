@@ -42,22 +42,22 @@ namespace EAgendaMedica.Infra.Compartilhado
             registros.Update(registro);
         }
 
-        public async Task<List<T>> SelecionarParaHoje()
+        public virtual async Task<List<T>> SelecionarParaHoje()
         {
             return await registros.Where(x => x.DataInicio.Date == DateTime.Now.Date).ToListAsync();
         }
 
-        public async Task<List<T>> SelecionarPorPeriodo(DateTime dataInicial, DateTime dataFinal)
+        public virtual async Task<List<T>> SelecionarPorPeriodo(DateTime dataInicial, DateTime dataFinal)
         {
             return await registros.Where(x => x.DataInicio.Date >= dataInicial.Date && x.DataInicio.Date <= dataFinal.Date).ToListAsync();
         }
 
-        public async Task<List<T>> SelecionarProximos30Dias()
+        public virtual async Task<List<T>> SelecionarProximos30Dias()
         {
             return await registros.Where(x => x.DataInicio.Date > DateTime.Today && x.DataInicio.Date < DateTime.Now.Date.AddDays(30)).ToListAsync();
         }
 
-        public async Task<List<T>> SelecionarUltimos30Dias()
+        public virtual async Task<List<T>> SelecionarUltimos30Dias()
         {
             return await registros.Where(x => x.DataInicio.Date < DateTime.Today && x.DataInicio.Date > DateTime.Now.Date.AddDays(-30)).ToListAsync();
         }

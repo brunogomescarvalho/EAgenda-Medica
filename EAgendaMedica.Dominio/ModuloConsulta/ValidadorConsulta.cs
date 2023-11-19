@@ -10,7 +10,7 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
             RuleFor(x => x.Medico).NotNull();
 
             RuleFor(x => x.DuracaoEmMinutos)
-               .LessThan(120)
+               .LessThan(121)
                .WithMessage("O tempo máximo para uma consulta é de 120 minutos");
 
             RuleFor(x => x.Medico).Custom(VerificarConflitos);

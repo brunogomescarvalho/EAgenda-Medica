@@ -28,19 +28,37 @@ namespace EAgendaMedica.Dominio.Servicos
 
             ObterRegistroPosterior(atividades);
 
-            return VerificarInicio() && VerificarTermino();
+            bool intervaloValido = VerificaSeHaAtividadeNoIntervalo(atividades);
+
+            bool inicioValido = VerificarInicio();
+
+            bool terminoValido = VerificarTermino();
+
+            return terminoValido && inicioValido && intervaloValido;
         }
 
         private void ObterRegistroPosterior(List<Atividade> atividades)
         {
-            registroPosterior = atividades.Where(x => x.HoraInicio >= atividadeParaVerificar.HoraTermino && x.Equals(atividadeParaVerificar) == false)
-             .OrderBy(x => x.HoraInicio).FirstOrDefault()!;
+            registroPosterior = atividades.Where(x => x.HoraInicio >= atividadeParaVerificar.HoraTermino &&
+              x.Equals(atividadeParaVerificar) == false)
+              .OrderBy(x => x.HoraInicio).FirstOrDefault()!;
         }
 
         private void ObterRegistroAnterior(List<Atividade> atividades)
         {
-            registroAnterior = atividades.Where(x => x.HoraTermino <= atividadeParaVerificar.HoraInicio && x.Equals(atividadeParaVerificar) == false)
+            registroAnterior = atividades.Where(x => x.HoraTermino <= atividadeParaVerificar.HoraInicio &&
+             x.Equals(atividadeParaVerificar) == false)
              .OrderBy(x => x.HoraTermino).FirstOrDefault()!;
+        }
+
+        public bool VerificaSeHaAtividadeNoIntervalo(List<Atividade> atividades)
+        {
+            var encontrado = atividades.Where(x => x.Equals(atividadeParaVerificar) == false &&
+             (atividadeParaVerificar.HoraInicio >= x.HoraInicio && atividadeParaVerificar.HoraInicio <= x.HoraTermino ||
+               atividadeParaVerificar.HoraTermino >= x.HoraInicio && atividadeParaVerificar.HoraTermino <= x.HoraTermino))
+                .FirstOrDefault();
+
+            return encontrado == null;
         }
 
         private bool VerificarInicio()
@@ -49,7 +67,7 @@ namespace EAgendaMedica.Dominio.Servicos
             {
                 var tempo = registroAnterior is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-                var diferenca = atividadeParaVerificar.HoraInicio.Subtract(registroAnterior.HoraTermino).TotalMinutes;
+                var diferenca = Math.Abs(atividadeParaVerificar.DataInicio.Subtract(registroAnterior.DataTermino).TotalMinutes);
 
                 return diferenca > tempo;
             }
@@ -63,7 +81,7 @@ namespace EAgendaMedica.Dominio.Servicos
             {
                 var tempo = atividadeParaVerificar is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-                var diferenca = registroPosterior.HoraInicio.Subtract(atividadeParaVerificar.HoraTermino).TotalMinutes;
+                var diferenca = Math.Abs(registroPosterior.DataInicio.Subtract(atividadeParaVerificar.DataTermino).TotalMinutes);
 
                 return diferenca > tempo;
             }

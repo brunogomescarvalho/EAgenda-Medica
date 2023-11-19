@@ -1,7 +1,6 @@
 using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
-using EAgendaMedica.Dominio.Servicos;
 using FluentAssertions;
 
 namespace EAgendaUnitTests
@@ -69,11 +68,37 @@ namespace EAgendaUnitTests
         {
             var medicos = new List<Medico>() { medico };
 
-            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 180, medicos));
+            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 179, medicos));
 
             var cirurgia = new Cirurgia(hoje, dezHoras, 240, medicos);
 
             cirurgia.VerificarDescansoMedico().Should().BeTrue();
+        }
+
+
+        [TestMethod]
+        public void Ao_MarcarCirurgia_Devera_Verificar_Se_Existe_Conflito()
+        {
+            var medicos = new List<Medico>() { medico };
+
+            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 180, medicos));
+
+            var cirurgia = new Cirurgia(hoje, vinteHoras, 240, medicos);
+
+            cirurgia.VerificarDescansoMedico().Should().BeFalse();
+        }
+
+
+        [TestMethod]
+        public void Ao_MarcarCirurgia_Devera_Verificar_Se_Existe_Conflito_Entre_Range()
+        {
+            var medicos = new List<Medico>() { medico };
+
+            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 240, medicos));
+
+            var cirurgia = new Cirurgia(hoje, TimeSpan.Parse("20:30"), 120, medicos);
+
+            cirurgia.VerificarDescansoMedico().Should().BeFalse();
         }
 
     }

@@ -7,15 +7,15 @@ namespace EAgendaMedica.WebApi.ViewModels.Consultas
     {
         [Required(ErrorMessage = "Por favor, forneça uma data inicial.")]
         [Display(Name = "Data Inicial")]
-        public DateTime DataInicial { get; set; }
+        public DateTime DataInicio{ get; set; }
 
         [Required(ErrorMessage = "Por favor, forneça uma hora inicial.")]
         [Display(Name = "Hora Inicial")]
-        public TimeSpan HoraInicial { get; set; }
+        public TimeSpan HoraInicio { get; set; }
 
         [Required(ErrorMessage = "Por favor, forneça a duração em minutos.")]
         [Display(Name = "Tempo de Duração")]
-        public int TempoDeDuracao { get; set; }
+        public int DuracaoEmMinutos { get; set; }
 
         [Required(ErrorMessage = "Por Favor, forneça o id do médico.")]
         [Display(Name = "Médico Id")]
