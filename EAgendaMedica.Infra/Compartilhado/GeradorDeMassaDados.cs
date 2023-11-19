@@ -2,9 +2,6 @@
 using EAgendaMedica.Infra.Compartilhado;
 using EAgendaMedica.Dominio.ModuloConsulta;
 using EAgendaMedica.Dominio.ModuloMedico;
-using EAgendaMedica.Infra.ModuloCirurgia;
-using EAgendaMedica.Infra.ModuloConsulta;
-using EAgendaMedica.Infra.ModuloMedico;
 using EAgendaMedica.Dominio;
 using Serilog;
 
@@ -32,7 +29,7 @@ namespace EAgendaMedica.ConsoleApp
             {
                 LimparTabelas(dbContext);
 
-                var medicos = GerarMedicos(20);
+                var medicos = GerarMedicos(30);
 
                 foreach (var item in medicos)
                 {
@@ -41,11 +38,11 @@ namespace EAgendaMedica.ConsoleApp
                     await dbContext.SaveChangesAsync();
                 }
 
-                var medicosCadastrados = await resMed.SelecionarTodos();
+                var medicoscrmCadastrado = await resMed.SelecionarTodos();
 
-                var consultas = GerarConsultas(10, medicosCadastrados);
+                var consultas = GerarConsultas(20, medicoscrmCadastrado);
 
-                var cirurgias = GerarCirurgias(10, medicosCadastrados);
+                var cirurgias = GerarCirurgias(20, medicoscrmCadastrado);
 
                 foreach (var item in consultas)
                 {
@@ -58,6 +55,13 @@ namespace EAgendaMedica.ConsoleApp
                 }
 
                 await dbContext.SaveChangesAsync();
+
+
+                var qtdCol = dbContext.Set<Consulta>().Count();
+                var qtdCir = dbContext.Set<Cirurgia>().Count();
+                var qtdMedico = dbContext.Set<Medico>().Count();
+
+                Log.Logger.Information($"Gerado massa de dados com {qtdCir + qtdCol + qtdMedico} registros");
             }
             catch (Exception ex)
             {
@@ -71,9 +75,29 @@ namespace EAgendaMedica.ConsoleApp
         {
             var medicos = new List<Medico>();
 
+            List<string> crmCadastrado = new();
+
             for (int i = 0; i < v; i++)
             {
-                medicos.Add(new Medico($"Medico {i + 9}", $"123{i}-SC"));
+                string crm;
+
+                while (true)
+                {
+                    crm = "";
+
+                    while (crm.Length != 5)
+                        crm += new Random().Next(0, 5).ToString();
+
+                    if (crmCadastrado.Contains(crm))
+                        continue;
+
+                    crmCadastrado.Add(crm);
+
+                    medicos.Add(new Medico($"Medico-{i}", $"{crm}-SC"));
+
+                    break;
+
+                }
             }
 
             return medicos;
@@ -85,18 +109,17 @@ namespace EAgendaMedica.ConsoleApp
 
             var hora = 0;
 
-            var data = DateTime.Now;
+            var data = DateTime.Now.AddDays(-5);
 
             for (int i = 0; i < v; i++)
             {
+                if (i % 2 != 0)
+                    data = data.AddDays(1);
+
                 if (hora >= 24)
                 {
                     hora = 1;
-                    data = data.AddDays(3);
                 }
-
-                if (i % 2 == 0)
-                    data = data.AddDays(1);
 
                 var horaInicial = TimeSpan.Parse($"{hora += 1}:00");
 
@@ -124,18 +147,17 @@ namespace EAgendaMedica.ConsoleApp
 
             var hora = 2;
 
-            var data = DateTime.Now;
+            var data = DateTime.Now.AddDays(-5);
 
             for (int i = 0; i < v; i++)
             {
+                if (i % 2 != 0)
+                    data = data.AddDays(1);
+
                 if (hora >= 24)
                 {
                     hora = 1;
-                    data = data.AddDays(2);
                 }
-
-                if (i % 2 == 0)
-                    data = data.AddDays(1);
 
                 var horaInicial = TimeSpan.Parse($"{hora}:00");
 

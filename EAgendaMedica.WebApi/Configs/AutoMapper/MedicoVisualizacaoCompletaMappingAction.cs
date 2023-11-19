@@ -9,8 +9,6 @@ namespace eAgendaWebApi.Configs.AutoMapper
     {
         public void Process(Medico source, VisualizarMedicoViewModel destination, ResolutionContext context)
         {
-            source.TodasAtividades().ForEach(x => x.AtualizarInformacoes(x.DataInicio, x.HoraInicio, x.DuracaoEmMinutos));
-
             destination.Atividades ??= new();
 
             source.TodasAtividades().ForEach(x =>

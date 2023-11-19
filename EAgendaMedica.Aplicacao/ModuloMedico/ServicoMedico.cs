@@ -57,6 +57,14 @@ namespace EAgendaMedica.Aplicacao.ModuloMedico
 
         }
 
+        public async Task<Result<List<Medico>>> SelecionarPorStatus(bool ativo)
+        {
+            var medicos = await repositorioMedico.SelecionarPorStatus(ativo);
+
+            return Result.Ok(medicos);
+
+        }
+
         public async Task<Result<Medico>> SelecionarPorCRM(string CRM)
         {
             var medico = await repositorioMedico.SelecionarPorCRM(CRM);

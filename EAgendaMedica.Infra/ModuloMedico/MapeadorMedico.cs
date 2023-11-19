@@ -20,6 +20,8 @@ namespace EAgendaMedica.Infra.ModuloMedico
             builder.Property(e => e.Nome).HasColumnType("varchar(100)")
                 .IsRequired();
 
+            builder.Property(e => e.Ativo).IsRequired();
+
             builder.Ignore(x => x.HorasTrabalhadasNoPeriodo);
 
             builder.HasData(

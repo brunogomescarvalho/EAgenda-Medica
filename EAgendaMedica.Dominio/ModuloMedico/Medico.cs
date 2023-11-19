@@ -9,7 +9,9 @@ namespace EAgendaMedica.Dominio.ModuloMedico
         public Guid Id { get; set; }
         public string CRM { get; set; }
         public string Nome { get; set; }
-        public List<Cirurgia> Cirurgias {  get; set; }
+        public bool Ativo { get; set; }
+
+        public List<Cirurgia> Cirurgias { get; set; }
         public List<Consulta> Consultas { get; set; }
         public int HorasTrabalhadasNoPeriodo { get; private set; }
         public int HorasTotaisTrabalhadas { get => ObterHorasTrabalhadas(); }
@@ -20,6 +22,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             Id = SequentialGuid.NewGuid();
             Cirurgias = new List<Cirurgia>();
             Consultas = new List<Consulta>();
+            Ativo = true;
         }
 
         public Medico(string nome, string crm) : this()
@@ -76,13 +79,18 @@ namespace EAgendaMedica.Dominio.ModuloMedico
 
         private static void CarregarInformacoesAtividades(List<Atividade> atividades)
         {
-            atividades.ForEach(x => x.AtualizarInformacoes(x.DataInicio, x.HoraInicio, x.DuracaoEmMinutos));
+            atividades.ForEach(x => x.AtualizarInformacoes(x));
         }
 
 
         private int ObterHorasTrabalhadas()
         {
             return TodasAtividades().Select(x => x.DuracaoEmMinutos).Sum() / 60;
+        }
+
+        public void AlterarStatus()
+        {
+            Ativo = !Ativo;
         }
 
         public override string ToString()

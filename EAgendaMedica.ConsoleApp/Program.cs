@@ -39,15 +39,17 @@ namespace EAgendaMedica.ConsoleApp
         {
             Console.Clear();
 
-            await ListarCirurgias();
+            //await ListarCirurgias();
 
-            BuscarUmMedicoPorCrm();
+            //BuscarUmMedicoPorCrm();
 
-            await ListarOsMedicos();
+            //await ListarOsMedicos();
 
-            await ListarConsultas();
+            //await ListarConsultas();
 
-            await ListarMedicosOrdemAtendimento();
+            //await ListarMedicosOrdemAtendimento();
+
+            await ListarCirurgiasParaHoje();
         }
 
         private static EAgendaMedicaDBContext IniciarContexto()
@@ -117,7 +119,28 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(new Cirurgia(item.Id, item.DataInicio, item.HoraInicio, item.DuracaoEmMinutos, item.Medicos));
+                    item.AtualizarInformacoes(item);
+
+                    Console.WriteLine(item);
+                }
+            }
+
+            else
+                Console.WriteLine("fail...");
+        }
+
+        private static async Task ListarCirurgiasParaHoje()
+        {
+            Console.WriteLine("\n---Listagem Cirurgias De Hoje---");
+            var lista = await resConsulta.SelecionarParaHoje();
+
+            if (lista.Any())
+            {
+                foreach (var item in lista)
+                {
+                    item.AtualizarInformacoes(item);
+
+                    Console.WriteLine(item);
                 }
             }
 
@@ -134,7 +157,9 @@ namespace EAgendaMedica.ConsoleApp
             {
                 foreach (Consulta item in lista)
                 {
-                    Console.WriteLine(new Consulta(item.Id, item.DataInicio, item.HoraInicio, item.DuracaoEmMinutos, item.Medico));
+                    item.AtualizarInformacoes(item);
+
+                    Console.WriteLine(item);
                 }
             }
 

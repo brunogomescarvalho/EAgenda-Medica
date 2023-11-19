@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EAgendaMedica.Aplicacao.ModuloMedico;
+using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.WebApi.ViewModels.Medicos;
 using eAgendaWebApi.Controllers.Compartilhado;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace EAgendaMedica.WebApi.Controllers
         [HttpGet("top10")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string[]), 500)]
-        public async Task<IActionResult> SelecionarTop10(DateTime dataInicial,DateTime dataFinal)
+        public async Task<IActionResult> SelecionarTop10(DateTime dataInicial, DateTime dataFinal)
         {
             var result = await servicoMedico.SelecionarTop10(dataInicial, dataFinal);
 
@@ -82,6 +83,84 @@ namespace EAgendaMedica.WebApi.Controllers
                 return NotFound(result);
 
             return ProcessarResultado(result, mapper.Map<FormMedicoViewModel>(result.Value));
+        }
+
+
+        [HttpGet("status")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> SelecionarPorStatus(bool ativo)
+        {
+            var result = await servicoMedico.SelecionarPorStatus(ativo);
+
+            return ProcessarResultado(result, mapper.Map<List<ListarMedicosViewModel>>(result.Value));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Inserir(FormMedicoViewModel medicoVM)
+        {
+            var medico = mapper.Map<Medico>(medicoVM);
+
+            var result = await servicoMedico.Inserir(medico);
+
+            return ProcessarResultado(result, mapper.Map<FormMedicoViewModel>(result.Value));
+        }
+
+
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(string[])), 400)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Editar(Guid id, FormMedicoViewModel medicoVM)
+        {
+
+            var medicoResult = await servicoMedico.SelecionarPorId(id);
+
+            if (medicoResult.IsFailed)
+                return NotFound(medicoResult);
+
+            var medico = mapper.Map(medicoVM, medicoResult.Value);
+
+            var result = await servicoMedico.Editar(medico);
+
+            return ProcessarResultado(result, mapper.Map<FormMedicoViewModel>(result.Value));
+        }
+
+
+        [HttpDelete]
+        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(string[])), 400)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Excluir(Guid id)
+        {
+            var medicoResult = await servicoMedico.SelecionarPorId(id);
+
+            if (medicoResult.IsFailed)
+                return NotFound(medicoResult);
+
+            var result = await servicoMedico.Excluir(medicoResult.Value);
+
+            return ProcessarResultado(result, $"Medico CRM {medicoResult.Value.CRM} excluído com sucesso");
+        }
+
+        [HttpPut("alterar-status")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(string[])), 400)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> AlterarStatus(Guid id)
+        {
+            var medicoResult = await servicoMedico.SelecionarPorId(id);
+
+            if (medicoResult.IsFailed)
+                return NotFound(medicoResult);
+
+            medicoResult.Value.AlterarStatus();
+
+            var result = await servicoMedico.Editar(medicoResult.Value);
+
+            return ProcessarResultado(result, $"Medico CRM {result.Value.CRM} alterado com sucesso");
         }
     }
 }

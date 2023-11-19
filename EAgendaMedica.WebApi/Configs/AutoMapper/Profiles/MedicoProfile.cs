@@ -17,7 +17,8 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
             CreateMap<Medico, VisualizarAgendaMedicoViewModel>()
              .AfterMap<MedicoAgendaDoDiaMappingAction>();
 
-            CreateMap<Medico, ListarMedicosViewModel>();
+            CreateMap<Medico, ListarMedicosViewModel>()
+                .ForMember(x => x.Situacao, opt => opt.MapFrom(x => x.Ativo ? "Ativo" : "Inativo"));
 
             CreateMap<Medico, ListarRankingMedicosViewModel>();
 

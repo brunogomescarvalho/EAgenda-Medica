@@ -55,11 +55,11 @@ namespace EAgendaMedica.Dominio.Compartilhado
             this.DuracaoEmMinutos = duracao;
         }
 
-        public void AtualizarInformacoes(DateTime data, TimeSpan horaInicio, int duracao)
+        public void AtualizarInformacoes(Atividade atividade)
         {
-            this.DataInicio = data;
-            this.HoraInicio = horaInicio;
-            this.DuracaoEmMinutos = duracao;
+            this.DataInicio = atividade.DataInicio;
+            this.HoraInicio = atividade.HoraInicio;
+            this.DuracaoEmMinutos = atividade.DuracaoEmMinutos;
         }
 
         public abstract bool VerificarDescansoMedico();

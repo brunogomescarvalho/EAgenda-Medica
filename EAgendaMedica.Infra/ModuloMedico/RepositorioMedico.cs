@@ -29,6 +29,12 @@ namespace EAgendaMedica.Infra.ModuloMedico
                 .ToListAsync();
         }
 
+        public async Task<List<Medico>> SelecionarPorStatus(bool ativo)
+        {
+            return await registros.Where(x => x.Ativo == ativo)
+               .ToListAsync();
+        }
+
         public async Task<Medico> SelecionarPorId(Guid id)
         {
             var medico = await registros.Where(x => x.Id == id)
@@ -64,9 +70,9 @@ namespace EAgendaMedica.Infra.ModuloMedico
             var medicos = await registros
            .Include(x => x.Cirurgias)
            .Include(x => x.Consultas).ToListAsync();
-          
-           var medicosComAtendimentos = medicos.Where(medico => medico.TodasAtividades()
-           .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataTermino <= dataFinal)).ToList();
+
+            var medicosComAtendimentos = medicos.Where(medico => medico.TodasAtividades()
+            .Any(atividade => atividade.DataInicio >= dataInicial && atividade.DataTermino <= dataFinal)).ToList();
 
             return medicosComAtendimentos;
         }

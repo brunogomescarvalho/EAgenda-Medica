@@ -1,6 +1,10 @@
 ﻿using Serilog;
 using EAgendaMedica.Infra.Compartilhado;
 using EAgendaMedica.ConsoleApp;
+using EAgendaMedica.Dominio.ModuloConsulta;
+using Microsoft.EntityFrameworkCore;
+using EAgendaMedica.Dominio.ModuloMedico;
+using EAgendaMedica.Dominio.ModuloCirurgia;
 
 namespace EAgendaMedica.WebApi
 {
@@ -24,9 +28,7 @@ namespace EAgendaMedica.WebApi
 
                     var dataGenerator = services.GetRequiredService<GeradorDeMassaDados>();
 
-                    await dataGenerator.GerarMassaDeDados();
-
-                    Log.Logger.Information("Gerado massa de dados.");
+                    await dataGenerator.GerarMassaDeDados();              
                 }
 
                 else

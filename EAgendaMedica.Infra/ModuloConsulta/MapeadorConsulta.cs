@@ -19,7 +19,7 @@ namespace EAgendaMedica.Infra.ModuloConsulta
                       .WithMany(x=>x.Consultas)
                       .IsRequired()
                       .HasForeignKey(x => x.MedicoId)
-                      .OnDelete(DeleteBehavior.NoAction);
+                      .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

@@ -85,6 +85,9 @@ namespace EAgendaMedica.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CRM")
                         .IsRequired()
                         .HasColumnType("varchar(30)");
@@ -103,13 +106,15 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3847ec6e-4915-4312-8039-94c8430accca"),
+                            Id = new Guid("a512564f-0a79-4abc-b04a-a2da4463ee94"),
+                            Ativo = true,
                             CRM = "12345-SC",
                             Nome = "Médico 1"
                         },
                         new
                         {
-                            Id = new Guid("79765eb3-1e2c-4195-b2f6-569796034eb3"),
+                            Id = new Guid("ff1cd1a4-ec4e-47af-893e-84d05b6e694d"),
+                            Ativo = true,
                             CRM = "67890-SC",
                             Nome = "Médico 2"
                         });
@@ -135,7 +140,7 @@ namespace EAgendaMedica.Infra.Migrations
                     b.HasOne("EAgendaMedica.Dominio.ModuloMedico.Medico", "Medico")
                         .WithMany("Consultas")
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Medico");

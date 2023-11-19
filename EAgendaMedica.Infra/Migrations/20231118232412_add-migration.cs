@@ -29,7 +29,8 @@ namespace EAgendaMedica.Infra.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CRM = table.Column<string>(type: "varchar(30)", nullable: false),
-                    Nome = table.Column<string>(type: "varchar(100)", nullable: false)
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +54,8 @@ namespace EAgendaMedica.Infra.Migrations
                         name: "FK_TB_Consulta_TB_Medico_MedicoId",
                         column: x => x.MedicoId,
                         principalTable: "TB_Medico",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,13 +84,13 @@ namespace EAgendaMedica.Infra.Migrations
 
             migrationBuilder.InsertData(
                 table: "TB_Medico",
-                columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("3847ec6e-4915-4312-8039-94c8430accca"), "12345-SC", "Médico 1" });
+                columns: new[] { "Id", "Ativo", "CRM", "Nome" },
+                values: new object[] { new Guid("a512564f-0a79-4abc-b04a-a2da4463ee94"), true, "12345-SC", "Médico 1" });
 
             migrationBuilder.InsertData(
                 table: "TB_Medico",
-                columns: new[] { "Id", "CRM", "Nome" },
-                values: new object[] { new Guid("79765eb3-1e2c-4195-b2f6-569796034eb3"), "67890-SC", "Médico 2" });
+                columns: new[] { "Id", "Ativo", "CRM", "Nome" },
+                values: new object[] { new Guid("ff1cd1a4-ec4e-47af-893e-84d05b6e694d"), true, "67890-SC", "Médico 2" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Consulta_MedicoId",
