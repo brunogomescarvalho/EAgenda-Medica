@@ -18,7 +18,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(ListarMedicosViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarTodos()
         {
@@ -30,7 +30,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
         [HttpGet("detalhes/{id}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(VisualizarMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarDetalhes(Guid id)
@@ -44,7 +44,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
         [HttpGet("top10")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(ListarRankingMedicosViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarTop10(DateTime dataInicial, DateTime dataFinal)
         {
@@ -57,7 +57,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
         [HttpGet("atividades-de-hoje/{crm}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(VisualizarAgendaMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarPorCRM(string crm)
@@ -72,7 +72,7 @@ namespace EAgendaMedica.WebApi.Controllers
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(FormMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarPorId(Guid id)
@@ -87,7 +87,7 @@ namespace EAgendaMedica.WebApi.Controllers
 
 
         [HttpGet("status")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(ListarMedicosViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarPorStatus(bool ativo)
         {
@@ -97,7 +97,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(FormMedicoViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Inserir(FormMedicoViewModel medicoVM)
         {
@@ -110,7 +110,7 @@ namespace EAgendaMedica.WebApi.Controllers
 
 
         [HttpPut]
-        [ProducesResponseType(200)]
+        [ProducesResponseType((typeof(FormMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Editar(Guid id, FormMedicoViewModel medicoVM)
