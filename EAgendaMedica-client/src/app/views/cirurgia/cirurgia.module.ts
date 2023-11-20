@@ -5,18 +5,20 @@ import { AppMaterialModule } from 'src/app/shared/app-material/app-material.modu
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CirurgiaService } from './cirurgia.service';
 import { CirurgiasRouterModule } from './router/cirurgia-routing.module';
+import { FormCirurgiaComponent } from './form-cirurgia/form-cirurgia.component';
 
 
 
 @NgModule({
   declarations: [
-    ListarCirurgiasComponent
+    ListarCirurgiasComponent,
+    FormCirurgiaComponent
   ],
   imports: [
     CommonModule,
     AppMaterialModule,
     CirurgiasRouterModule,
     SharedModule
-  ],providers:[CirurgiaService]
+  ], providers: [CirurgiaService]
 })
 export class CirurgiaModule { }

@@ -56,7 +56,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, mapper.Map<List<ListarRankingMedicosViewModel>>(result.Value));
         }
 
-        [HttpGet("atividades-de-hoje/{crm}")]
+        [HttpGet("crm/{crm}")]
         [ProducesResponseType((typeof(VisualizarAgendaMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
@@ -145,7 +145,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, $"Medico CRM {medicoResult.Value.CRM} excluído com sucesso");
         }
 
-        [HttpPut("alterar-status")]
+        [HttpPut("alterar-status/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
