@@ -10,6 +10,8 @@ namespace EAgendaMedica.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors();
+
             builder.Services.InjetarDependencias(builder.Configuration);
 
             builder.Services.ConfigurarLoggin(builder.Logging);
@@ -38,6 +40,11 @@ namespace EAgendaMedica.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(x => x
+           .AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
 
             app.UseAuthorization();
 
