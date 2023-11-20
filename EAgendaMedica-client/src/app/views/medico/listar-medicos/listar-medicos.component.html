@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <h2>Listar Médicos</h2>
+      <p>Abaixo, você poderá filtrar os médicos cadastrados</p>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Listar por Médico</mat-label>
+          <input matInput placeholder="12345-SC" value="CRM">
+        </mat-form-field>
+        <button class="mx-2" mat-stroked-button color="primary">Filtrar</button>
+      </form>
+    </div>
+  </div>
+
+  <section>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" (click)="alterarLista()"
+        [active]="activeLink == link"> {{link}} </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  </section>
+
+  <div class="row mt-3">
+    <div class="col-lg-3 col-sm-12 mb-3" *ngFor="let medico of medicos$ | async">
+      <mat-card appCardHover>
+        <mat-card-header>
+          <mat-card-title>{{medico.nome}}</mat-card-title>
+          <mat-card-subtitle>{{medico.crm}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button>EDITAR</button>
+          <button mat-button>DETALHES</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { DashboardComponent } from './views/dashboard/dashboard.component'
 import { CoreModule } from './core/core.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
