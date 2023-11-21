@@ -1,8 +1,8 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, map } from 'rxjs';
-import { FormCirurgia, ListarMedicos } from 'src/app/models/ListarAtividades';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import { Observable } from "rxjs";
+import { ListarMedicos, FormCirurgia } from "src/app/models/ListarAtividades";
+
 
 @Component({
   selector: 'app-form-cirurgia',
@@ -15,7 +15,7 @@ export class FormCirurgiaComponent implements OnInit {
 
   form!: FormGroup
 
-  @Input() cirurgia?: FormCirurgia
+  @Input() cirurgia: FormCirurgia | null = null
 
   @Output() onEnviarCirurgia = new EventEmitter();
 
@@ -24,16 +24,18 @@ export class FormCirurgiaComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.form = this.fb.group({
-      data: new FormControl(),
+      dataInicio: new FormControl(),
       horaInicio: new FormControl(),
       duracaoEmMinutos: new FormControl(),
-      medicos: new FormControl()
+      medicosIds: new FormControl()
     });
 
     if (this.cirurgia)
       this.form.patchValue(this.cirurgia)
+
+      console.log(this.cirurgia)
+
   }
 
   salvar() {

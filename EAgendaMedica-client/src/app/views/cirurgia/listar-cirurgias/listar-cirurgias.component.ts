@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { ListarAtividades } from 'src/app/models/ListarAtividades';
 import { CirurgiaService } from '../cirurgia.service';
@@ -13,11 +13,15 @@ export class ListarCirurgiasComponent implements OnInit {
 
   cirurgias$!: Observable<ListarAtividades[]>
 
-  constructor(private cirurgiaService: CirurgiaService, private route: ActivatedRoute) {
+  constructor(private cirurgiaService: CirurgiaService, private route: ActivatedRoute, private router: Router) {
 
   }
   ngOnInit(): void {
     this.cirurgias$ = this.route.data.pipe(map(x => x["cirurgias"]))
+  }
+
+  editar(cirurgia: ListarAtividades) {
+    this.router.navigate(["/cirurgias/editar", cirurgia.id])
   }
 
   public alterarLista(event: string) {

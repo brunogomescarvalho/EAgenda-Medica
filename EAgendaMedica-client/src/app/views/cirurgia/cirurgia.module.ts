@@ -5,9 +5,10 @@ import { AppMaterialModule } from 'src/app/shared/app-material/app-material.modu
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CirurgiaService } from './cirurgia.service';
 import { CirurgiasRouterModule } from './router/cirurgia-routing.module';
-import { FormCirurgiaComponent } from './form-cirurgia/form-cirurgia.component';
+import { FormCirurgiaComponent } from './cirurgia/form-cirurgia/form-cirurgia.component';
 import { InserirCirurgiaComponent } from './inserir-cirurgia/inserir-cirurgia.component';
 import { MedicoService } from '../medico/medico.service';
+import { EditarCirurgiaComponent } from './editar-cirurgia/editar-cirurgia.component';
 
 
 
@@ -15,7 +16,8 @@ import { MedicoService } from '../medico/medico.service';
   declarations: [
     ListarCirurgiasComponent,
     FormCirurgiaComponent,
-    InserirCirurgiaComponent
+    InserirCirurgiaComponent,
+    EditarCirurgiaComponent
   ],
   imports: [
     CommonModule,

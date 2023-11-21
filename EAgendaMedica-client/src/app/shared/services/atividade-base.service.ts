@@ -31,7 +31,7 @@ export abstract class AtividadeBaseService {
 
   public selecionarPorId(id: string) {
     return this.httpClient.get(this.url + this.endpoint + `/${id}`)
-      .pipe(catchError(this.processarErro));
+      .pipe(map((x: any) => x.dados), catchError(this.processarErro));
   }
 
   public listarTodas() {

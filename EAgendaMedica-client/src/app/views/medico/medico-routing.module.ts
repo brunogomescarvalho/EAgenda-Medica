@@ -1,6 +1,6 @@
 import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListarMedicosComponent } from './listar-medicos/listar-medicos.component';
+import { ListarMedicosComponent } from '../listar-medicos/listar-medicos.component';
 import { MedicoService } from './medico.service';
 
 

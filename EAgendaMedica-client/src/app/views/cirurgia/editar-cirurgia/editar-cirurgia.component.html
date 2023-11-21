@@ -1,1 +1,13 @@
-<p>editar-cirurgia works!</p>
+<div class="container m-auto">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Editar Cirurgia</h2>
+      <p>Abaixo, você pode editar a cirurgia selecionada</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+
+</div>
+<app-form-cirurgia [cirurgia]="cirurgia$ | async " [medicos$]="medicos$ "
+(onEnviarCirurgia)="editar($event)"></app-form-cirurgia>

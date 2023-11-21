@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { ListarAtividades } from 'src/app/models/ListarAtividades';
 
 @Component({
@@ -9,4 +9,10 @@ import { ListarAtividades } from 'src/app/models/ListarAtividades';
 export class CardAtividadesComponent {
 
   @Input({ required: true }) atividade!: ListarAtividades
+
+  @Output() onEditarAtividade = new EventEmitter();
+
+  editar(atividade: ListarAtividades) {
+    this.onEditarAtividade.emit(atividade);
+  }
 }
