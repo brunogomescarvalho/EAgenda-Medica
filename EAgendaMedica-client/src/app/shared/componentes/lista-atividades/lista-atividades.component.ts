@@ -17,6 +17,12 @@ export class ListaAtividadesComponent {
 
   @Input({ required: true }) tipo?: string
 
+  get tipoCadastro(){
+    return this.tipo?.toLowerCase()
+  }
+
+
+
   alterarLista() {
     this.onAlterarLista.emit(this.activeLink)
   }

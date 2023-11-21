@@ -1,1 +1,10 @@
-<p>inserir-cirurgia works!</p>
+<div class="container m-auto">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Inserir Cirurgia</h2>
+      <p>Abaixo, você pode cadastrar uma nova cirurgia</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <app-form-cirurgia [medicos$]="medicos$ " (onEnviarCirurgia)="cadastrar($event)"></app-form-cirurgia>

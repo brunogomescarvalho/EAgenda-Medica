@@ -4,6 +4,7 @@ import { CardAtividadesComponent } from './componentes/card-atividades/card-ativ
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CardHoverDirective } from './directives/card-hover-directve';
 import { ListaAtividadesComponent } from './componentes/lista-atividades/lista-atividades.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,11 +16,14 @@ import { ListaAtividadesComponent } from './componentes/lista-atividades/lista-a
   ],
   imports: [
     CommonModule,
-    AppMaterialModule
+    AppMaterialModule,
+
   ],
   exports:[
     CardAtividadesComponent,
     CardHoverDirective,
-    ListaAtividadesComponent]
+    ListaAtividadesComponent,
+    FormsModule,
+    ReactiveFormsModule]
 })
 export class SharedModule { }

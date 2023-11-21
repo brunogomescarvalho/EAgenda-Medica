@@ -9,6 +9,8 @@
 
         public int HorasTotaisTrabalhadas { get; set; }
 
+        public string Situacao { get; set; }
+
         public List<ListarAtividadesMedicoViewModel>? Atividades { get; set; }
     }
 }

@@ -6,19 +6,25 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CirurgiaService } from './cirurgia.service';
 import { CirurgiasRouterModule } from './router/cirurgia-routing.module';
 import { FormCirurgiaComponent } from './form-cirurgia/form-cirurgia.component';
+import { InserirCirurgiaComponent } from './inserir-cirurgia/inserir-cirurgia.component';
+import { MedicoService } from '../medico/medico.service';
 
 
 
 @NgModule({
   declarations: [
     ListarCirurgiasComponent,
-    FormCirurgiaComponent
+    FormCirurgiaComponent,
+    InserirCirurgiaComponent
   ],
   imports: [
     CommonModule,
     AppMaterialModule,
     CirurgiasRouterModule,
     SharedModule
-  ], providers: [CirurgiaService]
+  ],
+   providers: [
+    CirurgiaService,
+    MedicoService]
 })
 export class CirurgiaModule { }

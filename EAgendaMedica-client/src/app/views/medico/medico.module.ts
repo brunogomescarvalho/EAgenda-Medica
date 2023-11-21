@@ -12,7 +12,8 @@ import { AppMaterialModule } from 'src/app/shared/app-material/app-material.modu
   imports: [
     CommonModule,
     MedicoRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+
   ],
   providers:[MedicoService]
 })

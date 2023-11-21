@@ -1,1 +1,35 @@
-<p>form-cirurgia works!</p>
+<div class="mt-4">
+  <form class="form" [formGroup]="form" (ngSubmit)="salvar()">
+    {{form.value| json}}
+    <mat-form-field class="full-width">
+      <mat-label>Data</mat-label>
+      <input type="date" matInput formControlName="data">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Hora Inicio</mat-label>
+      <input type="time" matInput formControlName="horaInicio">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Duracação em minutos</mat-label>
+      <input type="number" min="120" value="120" formControlName="duracaoEmMinutos" matInput placeholder="minutos">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Médicos</mat-label>
+      <mat-select formControlName="medicos" multiple>
+        <div *ngFor="let medico of medicos$ |async">
+          <mat-option [value]="medico.id">{{medico.nome}} - {{medico.crm}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+
+    <section>
+      <div>
+        <button mat-raised-button type="submit" color="primary">Salvar</button>
+        <button class="mx-2" mat-raised-button type="button" color="accent">Voltar</button>
+      </div>
+    </section>
+  </form>
+</div>
