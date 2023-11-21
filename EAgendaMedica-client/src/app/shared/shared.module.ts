@@ -1,29 +1,31 @@
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CardAtividadesComponent } from './componentes/card-atividades/card-atividades.component';
-import { AppMaterialModule } from './app-material/app-material.module';
-import { CardHoverDirective } from './directives/card-hover-directve';
-import { ListaAtividadesComponent } from './componentes/lista-atividades/lista-atividades.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppMaterialModule } from './app-material/app-material.module';
+import { ListaAtividadesComponent } from './componentes/lista-atividades/lista-atividades.component';
+import { CardHoverDirective } from './directives/card-hover-directve';
+import { DateTimePipe } from './pipes/date-time.pipe';
 
 
 
 @NgModule({
   declarations: [
-    CardAtividadesComponent,
     CardHoverDirective,
-    ListaAtividadesComponent
+    ListaAtividadesComponent,
+    DateTimePipe
   ],
   imports: [
     CommonModule,
     AppMaterialModule,
 
   ],
-  exports:[
-    CardAtividadesComponent,
+  exports: [
     CardHoverDirective,
     ListaAtividadesComponent,
     FormsModule,
-    ReactiveFormsModule]
+    ReactiveFormsModule,
+    DateTimePipe],
+  providers: [DateTimePipe]
 })
 export class SharedModule { }

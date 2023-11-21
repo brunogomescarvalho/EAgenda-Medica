@@ -18,8 +18,18 @@
   </section>
 
   <div class="row mt-3">
-    <div class="col-lg-3 col-sm-12 mb-3" *ngFor="let ativ of atividades$ | async">
-      <app-card-atividades (onEditarAtividade)="editar($event)" [atividade]="ativ"></app-card-atividades>
+    <div class="col-lg-3 col-sm-12 mb-3" *ngFor="let atividade of atividades$ | async">
+      <mat-card appCardHover>
+        <mat-card-header>
+          <mat-card-title>{{atividade.dataInicio}}</mat-card-title>
+          <mat-card-subtitle>{{atividade.horaInicio}} - {{atividade.horaTermino}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button (click)="editar(atividade)" mat-button>EDITAR</button>
+          <button mat-button>DETALHES</button>
+        </mat-card-actions>
+      </mat-card>
+
     </div>
   </div>
 </div>

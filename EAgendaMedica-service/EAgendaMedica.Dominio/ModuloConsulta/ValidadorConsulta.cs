@@ -22,7 +22,7 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
 
             if (ehValido == false)
             {
-                context.AddFailure("Existem conflitos no horários da consulta com outros agendamentos do médico");
+                context.AddFailure("A consulta não pode ser agendada no horário solicitado, pois conflita com outros procedimentos do médico.");
             }
 
         }

@@ -5,7 +5,6 @@ using EAgendaMedica.WebApi.ViewModels.Compartilhado;
 using EAgendaMedica.WebApi.ViewModels.Cirurgias;
 using eAgendaWebApi.Controllers.Compartilhado;
 using FluentResults;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EAgendaMedica.WebApi.Controllers
@@ -46,7 +45,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, novaCirurgiaVM);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType((typeof(VisualizarCirurgiaViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Editar(Guid id, FormCirurgiaViewModel CirurgiaVM)
@@ -109,7 +108,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, mapper.Map<List<ListarAtividadeViewModel>>(result.Value));
         }
 
-        [HttpGet("passadas")]
+        [HttpGet("ultimos-30-dias")]
         [ProducesResponseType((typeof(ListarAtividadeViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarCirurgiasPassadas()
@@ -120,7 +119,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
 
-        [HttpGet("futuras")]
+        [HttpGet("proximos-30-dias")]
         [ProducesResponseType((typeof(ListarAtividadeViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarCirurgiasFuturas()

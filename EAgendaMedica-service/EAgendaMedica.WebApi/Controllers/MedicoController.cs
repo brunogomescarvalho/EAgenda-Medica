@@ -109,7 +109,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType((typeof(FormMedicoViewModel)), 200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]
@@ -129,7 +129,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType((typeof(string[])), 400)]
         [ProducesResponseType(typeof(string[]), 500)]

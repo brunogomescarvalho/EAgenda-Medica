@@ -10,7 +10,13 @@ namespace EAgendaMedica.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddCors();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Desenvolvimento",
+                     x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
             builder.Services.InjetarDependencias(builder.Configuration);
 
@@ -41,10 +47,7 @@ namespace EAgendaMedica.WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseCors(x => x
-           .AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader());
+            app.UseCors("Desenvolvimento");
 
             app.UseAuthorization();
 
@@ -52,7 +55,7 @@ namespace EAgendaMedica.WebApi
 
             app.Run();
 
-           
+
 
         }
     }

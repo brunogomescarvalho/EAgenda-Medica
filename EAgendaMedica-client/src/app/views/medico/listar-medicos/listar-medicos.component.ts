@@ -1,7 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { ListarMedicos } from 'src/app/models/ListarAtividades';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Observable, map } from "rxjs";
+import { ListarMedicos } from "src/app/models/Medicos";
 
 @Component({
   selector: 'app-listar-medicos',
@@ -27,7 +27,5 @@ export class ListarMedicosComponent implements OnInit {
   alterarLista() {
 
   }
-
-
 
 }

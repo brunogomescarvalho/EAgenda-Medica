@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router"
 import { ConsultaService } from "../consulta.service"
 
 import { Observable, map } from "rxjs"
-import { ListarAtividades } from "src/app/models/ListarAtividades"
+import { ListarAtividades } from "src/app/models/Atividades"
 
 
 @Component({

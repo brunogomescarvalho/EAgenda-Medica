@@ -79,7 +79,10 @@ namespace EAgendaMedica.Infra.ModuloMedico
 
         public Task<List<Medico>> SelecionarMuitos(List<Guid> medicosId)
         {
-            return registros.Where(x => medicosId.Contains(x.Id)).ToListAsync();
+            return registros.Where(x => medicosId.Contains(x.Id))
+                .Include(x => x.Consultas)
+                .Include(x => x.Cirurgias)
+                .ToListAsync();
         }
     }
 }

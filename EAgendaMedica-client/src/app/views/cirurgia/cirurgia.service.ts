@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormAtividadeBase } from 'src/app/models/ListarAtividades';
+import { FormAtividadeBase } from 'src/app/models/Atividades';
 import { AtividadeBaseService } from 'src/app/shared/services/atividade-base.service';
 
 @Injectable({
@@ -50,12 +50,12 @@ export class CirurgiaService extends AtividadeBaseService {
   }
 
   public listarFuturas(): Observable<any> {
-    this.endpoint = "cirurgias/futuras"
+    this.endpoint = "cirurgias/proximos-30-dias"
     return super.listarTodas()
   }
 
   public listarPassadas(): Observable<any> {
-    this.endpoint = "cirurgias/passadas"
+    this.endpoint = "cirurgias/ultimos-30-dias"
     return super.listarTodas()
   }
 }

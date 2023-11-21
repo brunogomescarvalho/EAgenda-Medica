@@ -1,4 +1,5 @@
 import { Time } from "@angular/common"
+import { ListarMedicos } from "./Medicos"
 
 export class ListarAtividades {
   id?: string
@@ -27,18 +28,6 @@ export class VisualizarAtividadeBase {
   horaInicio?: Time
   dataTermino?: Date
   horaTermino?: Time
-}
-
-
-export class ListarMedicos {
-  id?: string
-  nome?: string
-  crm?: string
-}
-
-export class FormMedico{
-  nome?: string
-  crm?: string
 }
 
 export class VisualizarConsulta extends VisualizarAtividadeBase {

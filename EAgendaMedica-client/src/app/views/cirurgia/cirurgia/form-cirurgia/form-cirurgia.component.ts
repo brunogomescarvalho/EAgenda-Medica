@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
-import { ListarMedicos, FormCirurgia } from "src/app/models/ListarAtividades";
-
+import { FormCirurgia } from "src/app/models/Atividades";
+import { ListarMedicos } from "src/app/models/Medicos";
+import { DateTimePipe } from "src/app/shared/pipes/date-time.pipe";
 
 @Component({
   selector: 'app-form-cirurgia',
@@ -19,7 +20,7 @@ export class FormCirurgiaComponent implements OnInit {
 
   @Output() onEnviarCirurgia = new EventEmitter();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private datePipe: DateTimePipe) { }
 
 
   ngOnInit(): void {
@@ -31,19 +32,20 @@ export class FormCirurgiaComponent implements OnInit {
       medicosIds: new FormControl()
     });
 
-    if (this.cirurgia)
-      this.form.patchValue(this.cirurgia)
+    if (this.cirurgia) {
+      let cirurgia = {
+        ...this.cirurgia,
+        dataInicio: this.datePipe.transform(this.cirurgia.dataInicio!)
+      }
 
-      console.log(this.cirurgia)
+      this.form.patchValue(cirurgia)
+    }
 
   }
 
   salvar() {
-
     let cirurgia: FormCirurgia = this.form.value;
-
     this.onEnviarCirurgia.emit(cirurgia)
-
   }
 }
 

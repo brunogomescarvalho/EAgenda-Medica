@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormCirurgia, ListarMedicos } from 'src/app/models/ListarAtividades';
-import { CirurgiaService } from '../cirurgia.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { FormCirurgia } from 'src/app/models/Atividades';
+import { ListarMedicos } from 'src/app/models/Medicos';
+
+import { CirurgiaService } from '../cirurgia.service';
 
 @Component({
   selector: 'app-inserir-cirurgia',
@@ -23,9 +25,9 @@ export class InserirCirurgiaComponent implements OnInit {
 
     this.serviceCirurgia.inserirAtividade(cirurgia)
       .subscribe({
-        error: (e) => console.log(e),
+        error: (e:Error) => console.log(e.message),
         next: () => {
-          this.router.navigate(["/cirurgia/listar"])
+          this.router.navigate(["/cirurgias/listar"])
         }
       })
   }

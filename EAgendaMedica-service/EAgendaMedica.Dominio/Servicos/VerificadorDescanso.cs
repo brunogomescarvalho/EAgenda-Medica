@@ -55,8 +55,9 @@ namespace EAgendaMedica.Dominio.Servicos
         {
             var encontrado = atividades.Where(x => x.Equals(atividadeParaVerificar) == false &&
              (atividadeParaVerificar.HoraInicio >= x.HoraInicio && atividadeParaVerificar.HoraInicio <= x.HoraTermino ||
-               atividadeParaVerificar.HoraTermino >= x.HoraInicio && atividadeParaVerificar.HoraTermino <= x.HoraTermino))
-                .FirstOrDefault();
+               atividadeParaVerificar.HoraTermino >= x.HoraInicio && atividadeParaVerificar.HoraTermino <= x.HoraTermino ||
+                atividadeParaVerificar.HoraInicio <= x.HoraInicio && atividadeParaVerificar.HoraTermino >= x.HoraTermino))
+                 .FirstOrDefault();
 
             return encontrado == null;
         }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormAtividadeBase, ListarAtividades } from 'src/app/models/ListarAtividades';
+import { FormAtividadeBase, ListarAtividades } from 'src/app/models/Atividades';
 
 @Component({
   selector: 'app-lista-atividades',

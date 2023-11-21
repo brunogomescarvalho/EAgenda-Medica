@@ -22,7 +22,7 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
 
             if (ehValido == false)
             {
-                context.AddFailure("Existem conflitos no horários da cirurgia com outros agendamentos de algum dos médicos");
+                context.AddFailure("A cirurgia não pode ser agendada no horário solicitado, pois conflita com outros procedimentos de um ou mais médicos.");
             }
 
         }

@@ -1,7 +1,9 @@
-import { Observable, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormCirurgia, ListarMedicos } from 'src/app/models/ListarAtividades';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { FormCirurgia } from 'src/app/models/Atividades';
+import { ListarMedicos } from 'src/app/models/Medicos';
+
 import { CirurgiaService } from '../cirurgia.service';
 
 @Component({
@@ -23,14 +25,13 @@ export class EditarCirurgiaComponent implements OnInit {
   }
 
   public editar(cirurgia: FormCirurgia) {
-
     let idselecionado = this.route.snapshot.params['id'];
 
     this.serviceCirurgia.editarAtividade(cirurgia, idselecionado)
       .subscribe({
-        error: (e) => console.log(e),
+        error: ((e:Error) => console.log(e.message)),
         next: () => {
-          this.router.navigate(["/cirurgia/listar"])
+          this.router.navigate(["/cirurgias/listar"])
         }
       })
   }

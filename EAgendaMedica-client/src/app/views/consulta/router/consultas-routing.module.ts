@@ -2,7 +2,7 @@ import { NgModule, inject } from "@angular/core";
 import { Routes, RouterModule, ResolveFn } from "@angular/router";
 import { ListarConsultasComponent } from "../listar-consultas/listar-consultas.component";
 import { ConsultaService } from "../consulta.service";
-import { ListarAtividades } from "src/app/models/ListarAtividades";
+import { ListarAtividades } from "src/app/models/Atividades";
 
 
 export const selecionarTodasConsultasResolve: ResolveFn<ListarAtividades[]> = () => {

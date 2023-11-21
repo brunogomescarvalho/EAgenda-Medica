@@ -58,7 +58,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, novaConsultaVM);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType((typeof(VisualizarConsultaViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Editar(Guid id, FormConsultaViewModel consultaVM)
@@ -110,7 +110,7 @@ namespace EAgendaMedica.WebApi.Controllers
             return ProcessarResultado(result, mapper.Map<List<ListarAtividadeViewModel>>(result.Value));
         }
 
-        [HttpGet("passadas")]
+        [HttpGet("ultimos-30-dias")]
         [ProducesResponseType((typeof(ListarAtividadeViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarConsultasPassadas()
@@ -121,7 +121,7 @@ namespace EAgendaMedica.WebApi.Controllers
         }
 
 
-        [HttpGet("futuras")]
+        [HttpGet("proximos-30-dias")]
         [ProducesResponseType((typeof(ListarAtividadeViewModel)), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarConsultasFuturas()

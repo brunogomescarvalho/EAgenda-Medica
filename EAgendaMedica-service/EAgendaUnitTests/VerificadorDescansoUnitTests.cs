@@ -28,6 +28,18 @@ namespace EAgendaUnitTests
             ehValido.Should().BeTrue();
         }
 
+        [TestMethod]
+        public void Nao_Pode_Aceitar_HoraInicioMenor_E_HoraFinalMaior_RetornaFalse()
+        {
+            medico.AdicionarConsulta(new Consulta(hoje, dozeHoras, 60, medico));
+
+            var consulta = new Consulta(hoje, dezHoras, 240, medico);
+
+            bool ehValido = consulta.VerificarDescansoMedico();
+
+            ehValido.Should().BeFalse();
+        }
+
 
         [TestMethod]
         public void Se_RegistroAnterior_ForConsulta_E_DescansoForMenor_Que20Minutos_Entao_Retorna_False()

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { ListarAtividades } from 'src/app/models/ListarAtividades';
+import { ListarAtividades } from 'src/app/models/Atividades';
 import { CirurgiaService } from '../cirurgia.service';
 
 @Component({
