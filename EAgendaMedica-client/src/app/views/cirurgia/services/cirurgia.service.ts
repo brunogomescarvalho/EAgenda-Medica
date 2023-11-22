@@ -58,5 +58,10 @@ export class CirurgiaService extends AtividadeBaseService {
     this.endpoint = "cirurgias/ultimos-30-dias"
     return super.listarTodas()
   }
+
+  public override obterDetalhes(id: string) {
+    this.endpoint = "cirurgias"
+    return super.obterDetalhes(id)
+  }
 }
 

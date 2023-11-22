@@ -26,6 +26,7 @@ export class ListarCirurgiasComponent implements OnInit {
   }
 
   detalhes(cirurgia: ListarAtividades) {
+    console.log(cirurgia)
    this.serviceDialog.visualizarDetalhesCirurgia(cirurgia)
   }
 

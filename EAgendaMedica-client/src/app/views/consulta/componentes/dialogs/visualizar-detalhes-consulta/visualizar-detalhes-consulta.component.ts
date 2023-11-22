@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ConsultaService } from '../../../services/consulta.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { VisualizarConsulta } from 'src/app/models/Atividades';
+
+import { ConsultaService } from '../../../services/consulta.service';
 
 @Component({
   selector: 'app-visualizar-detalhes-consulta',
@@ -10,7 +11,7 @@ import { VisualizarConsulta } from 'src/app/models/Atividades';
 })
 export class DetalhesConsultaComponent implements OnInit {
 
-  consulta!: VisualizarConsulta
+  consulta: VisualizarConsulta
 
   constructor(
 
@@ -18,7 +19,10 @@ export class DetalhesConsultaComponent implements OnInit {
 
     private service: ConsultaService,
 
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.consulta = new VisualizarConsulta()
+  }
 
 
   ngOnInit(): void {

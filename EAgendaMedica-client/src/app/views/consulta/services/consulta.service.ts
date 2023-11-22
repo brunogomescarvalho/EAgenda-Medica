@@ -57,4 +57,9 @@ export class ConsultaService extends AtividadeBaseService {
     return super.listarTodas()
   }
 
+  public override obterDetalhes(id: string) {
+    this.endpoint = "consultas"
+    return super.obterDetalhes(id)
+  }
+
 }
