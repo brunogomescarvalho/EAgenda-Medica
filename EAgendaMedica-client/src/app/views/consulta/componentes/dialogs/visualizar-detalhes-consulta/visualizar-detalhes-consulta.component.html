@@ -1,21 +1,17 @@
-<div class="row">
-  <div class="col-sm-12">
-    <h2 mat-dialog-title>Detalhes consulta</h2>
-    <mat-dialog-content class="mat-typography">
-      <h3>Inicio</h3>
-      <p>{{consulta.dataInicio}} - {{consulta.horaInicio}}</p>
+<h2 mat-dialog-title>Detalhes consulta</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Inicio</h3>
+  <p>{{consulta.dataInicio}} - {{consulta.horaInicio}}</p>
 
-      <h3>Término</h3>
-      <p>{{consulta.dataTermino}} - {{consulta.horaTermino}}</p>
+  <h3>Término</h3>
+  <p>{{consulta.dataTermino}} - {{consulta.horaTermino}}</p>
 
-      <div class="col">
-        <h2 mat-dialog-title>Médico</h2>
-        <p>{{consulta.medico?.nome}} - {{consulta.medico?.crm}}</p>
-      </div>
-
-
-      <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>OK</button>
-      </mat-dialog-actions>
-    </mat-dialog-content>
+  <div class="col">
+    <h2 mat-dialog-title>Médico</h2>
+    <p>{{consulta.medico?.nome}} - {{consulta.medico?.crm}}</p>
   </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>OK</button>
+</mat-dialog-actions>

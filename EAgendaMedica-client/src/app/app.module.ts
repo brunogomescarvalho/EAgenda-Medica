@@ -1,7 +1,7 @@
 import './extensions/http-error-response.extension';
 
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,13 +19,13 @@ registerLocaleData(localePt, locale);
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
+   // HttpClientModule,
     CoreModule
 
   ],
@@ -33,6 +33,7 @@ registerLocaleData(localePt, locale);
     {
       provide: LOCALE_ID, useValue: locale
     },
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })

@@ -1,29 +1,25 @@
-<div class="row">
-  <div class="col-sm-12">
-    <h2 mat-dialog-title>Detalhes Médico</h2>
-    <mat-dialog-content class="mat-typography">
-      <h3>Nome - {{medico.nome}} </h3>
-      <h3>CRM - {{medico.crm}}</h3>
-      <h3>Situação - {{medico.situacao}}</h3>
+<h2 mat-dialog-title>Detalhes Médico</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Nome - {{medico.nome}} </h3>
+  <h3>CRM - {{medico.crm}}</h3>
+  <h3>Situação - {{medico.situacao}}</h3>
 
-      <div *ngIf="medico.atividades!.length != 0" class="col">
-        <h2 mat-dialog-title>Atividades</h2>
+  <div *ngIf="medico.atividades!.length != 0" class="col">
+    <h2 mat-dialog-title>Atividades</h2>
 
-        <div class="mb-3" *ngFor=" let ati of medico.atividades">
-          <h3>Data - {{ati.dataInicio}}</h3>
+    <div class="mb-3" *ngFor=" let ati of medico.atividades">
+      <h3>Data - {{ati.dataInicio}}</h3>
 
-          <h3>Hora Inicio - {{ati.horaInicio}}</h3>
+      <h3>Hora Inicio - {{ati.horaInicio}}</h3>
 
-          <h3>Hora Término - {{ati.horaTermino}}</h3>
+      <h3>Hora Término - {{ati.horaTermino}}</h3>
 
-          <h3>Tipo Atividades - {{ati.tipoAtividade}}</h3>
+      <h3>Tipo Atividades - {{ati.tipoAtividade}}</h3>
 
-          <mat-divider></mat-divider>
-        </div>
-      </div>
-
-      <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>OK</button>
-      </mat-dialog-actions>
-    </mat-dialog-content>
+      <mat-divider></mat-divider>
+    </div>
   </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
