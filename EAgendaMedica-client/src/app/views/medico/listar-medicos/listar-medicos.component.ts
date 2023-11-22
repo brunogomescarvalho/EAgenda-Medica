@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Observable, map } from "rxjs";
-import { ListarMedicos } from "src/app/models/Medicos";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { ListarMedicos } from 'src/app/models/Medicos';
+
+import { MedicoService } from '../medico.service';
 
 @Component({
   selector: 'app-listar-medicos',
@@ -15,9 +17,7 @@ export class ListarMedicosComponent implements OnInit {
   links = ['Todos', 'Ativos', 'Inativos'];
   activeLink = this.links[0];
 
-  constructor(private route: ActivatedRoute) {
-
-  }
+  constructor(private route: ActivatedRoute, private service: MedicoService) {}
 
 
   ngOnInit(): void {
@@ -25,7 +25,11 @@ export class ListarMedicosComponent implements OnInit {
   }
 
   alterarLista() {
-
+    switch (this.activeLink) {
+      case "Todos": this.medicos$ = this.service.listarTodos(); break;
+      case "Ativos": this.medicos$ = this.service.listarTodosPorStatus(true); break;
+      case "Inativos": this.medicos$ = this.service.listarTodosPorStatus(false); break;
+    }
   }
 
 }

@@ -48,12 +48,12 @@ export class ConsultaService extends AtividadeBaseService {
   }
 
   public listarFuturas(): Observable<any> {
-    this.endpoint = "consultas/futuras"
+    this.endpoint = "consultas/proximos-30-dias"
     return super.listarTodas()
   }
 
   public listarPassadas(): Observable<any> {
-    this.endpoint = "consultas/passadas"
+    this.endpoint = "consultas/ultimos-30-dias"
     return super.listarTodas()
   }
 
