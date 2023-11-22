@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="mt-4">
+    <form class="form" [formGroup]="form" (ngSubmit)="salvar()">
+
+      <mat-form-field class="full-width">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>CRM</mat-label>
+        <input type="text" formControlName="crm" matInput>
+      </mat-form-field>
+
+      <section>
+        <div>
+          <button mat-raised-button type="submit" color="primary">Salvar</button>
+          <button routerLink="/medicos/listar" class="mx-2" mat-raised-button type="button"
+            color="accent">Voltar</button>
+        </div>
+      </section>
+    </form>
+  </div>
+
+</div>

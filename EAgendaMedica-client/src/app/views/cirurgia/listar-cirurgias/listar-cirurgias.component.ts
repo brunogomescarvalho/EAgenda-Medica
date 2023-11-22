@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ListarAtividades } from 'src/app/models/Atividades';
-import { CirurgiaService } from '../services/cirurgia.service';
 import { DialogService } from 'src/app/views/cirurgia/services/dialog-cirurgia.service';
+
+import { CirurgiaService } from '../services/cirurgia.service';
 
 @Component({
   selector: 'app-listar-cirurgias',
@@ -14,7 +15,11 @@ export class ListarCirurgiasComponent implements OnInit {
 
   cirurgias$!: Observable<ListarAtividades[]>
 
-  constructor(private cirurgiaService: CirurgiaService, private route: ActivatedRoute, private router: Router, private serviceDialog: DialogService) {
+  constructor(
+    private cirurgiaService: CirurgiaService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private serviceDialog: DialogService) {
 
   }
   ngOnInit(): void {
@@ -22,12 +27,13 @@ export class ListarCirurgiasComponent implements OnInit {
   }
 
   editar(cirurgia: ListarAtividades) {
-    this.router.navigate(["/cirurgias/editar", cirurgia.id])
+    this.router.navigate(["editar", cirurgia.id], { relativeTo: this.route.parent })
   }
 
   detalhes(cirurgia: ListarAtividades) {
-    console.log(cirurgia)
-   this.serviceDialog.visualizarDetalhesCirurgia(cirurgia)
+    this.cirurgiaService.obterDetalhes(cirurgia.id!)
+      .subscribe(x => this.serviceDialog.visualizarDetalhesCirurgia(x))
+
   }
 
   public alterarLista(event: string) {

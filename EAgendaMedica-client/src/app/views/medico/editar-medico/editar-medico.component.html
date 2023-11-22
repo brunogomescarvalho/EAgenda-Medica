@@ -1,0 +1,10 @@
+<div class="container m-auto">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Inserir Médico</h2>
+      <p>Abaixo, você pode editar o médico selecionado</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <app-form-medico [medico]="medico$ | async" (onEnviarMedico)="editar($event)"></app-form-medico>
+</div>

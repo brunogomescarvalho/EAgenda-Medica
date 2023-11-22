@@ -5,7 +5,7 @@ import { Routes, RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { ListarCirurgiasComponent } from "../listar-cirurgias/listar-cirurgias.component";
 import { InserirCirurgiaComponent } from "../inserir-cirurgia/inserir-cirurgia.component";
 import { EditarCirurgiaComponent } from "../editar-cirurgia/editar-cirurgia.component";
-import { MedicoService } from "../../medico/medico.service";
+import { MedicoService } from "../../medico/services/medico.service";
 
 
 

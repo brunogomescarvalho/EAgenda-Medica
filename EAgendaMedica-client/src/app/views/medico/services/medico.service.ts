@@ -65,4 +65,10 @@ export class MedicoService {
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
+  public inserir(medico: FormMedico) {
+    return this.httpClient.post<any[]>(this.url, medico)
+      .pipe(map((x: any) => x.dados),
+        catchError((erro: HttpErrorResponse) => erro.processarErro()));
+  }
+
 }

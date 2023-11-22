@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { VisualizarCirurgia } from 'src/app/models/Atividades';
+
 import { CirurgiaService } from '../../../services/cirurgia.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog',
@@ -28,8 +29,6 @@ export class DialogComponentCirurgia implements OnInit {
     this.service.obterDetalhes(this.data.id)
       .subscribe(x => this.cirurgia = x);
   }
-
-
 
 }
 

@@ -4,7 +4,23 @@ export class ListarMedicos {
   crm?: string
 }
 
-export class FormMedico{
+export class FormMedico {
   nome?: string
   crm?: string
+}
+
+export class VisualizarMedico {
+  id?: string
+  nome?: string
+  crm?: string
+  situacao?: string
+  atividades?: AtividadeMedico[]
+}
+
+class AtividadeMedico {
+  id?: string
+  dataInicio?: string
+  horaInicio?: string
+  horaTermino?: string
+  tipoAtividade?: string
 }

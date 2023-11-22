@@ -25,8 +25,8 @@
           <mat-card-subtitle>{{medico.crm}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-button>EDITAR</button>
-          <button mat-button>DETALHES</button>
+          <button (click)="editar(medico)" mat-button>EDITAR</button>
+          <button (click)="detalhes(medico)" mat-button>DETALHES</button>
         </mat-card-actions>
       </mat-card>
     </div>

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
-import { Observable } from "rxjs";
-import { FormCirurgia } from "src/app/models/Atividades";
-import { ListarMedicos } from "src/app/models/Medicos";
-import { DateTimePipe } from "src/app/shared/pipes/date-time.pipe";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FormCirurgia } from 'src/app/models/Atividades';
+import { ListarMedicos } from 'src/app/models/Medicos';
+import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
 
 
 @Component({
@@ -11,6 +11,7 @@ import { DateTimePipe } from "src/app/shared/pipes/date-time.pipe";
   templateUrl: './form-cirurgia.component.html',
   styleUrls: ['./form-cirurgia.component.scss']
 })
+
 export class FormCirurgiaComponent implements OnInit {
 
   @Input({ required: true }) medicos$!: Observable<ListarMedicos[]>

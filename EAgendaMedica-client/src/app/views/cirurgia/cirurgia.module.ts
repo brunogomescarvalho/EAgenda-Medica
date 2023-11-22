@@ -7,7 +7,7 @@ import { CirurgiaService } from './services/cirurgia.service';
 import { CirurgiasRouterModule } from './router/cirurgia-routing.module';
 import { FormCirurgiaComponent } from './componentes/form-cirurgia/form-cirurgia.component';
 import { InserirCirurgiaComponent } from './inserir-cirurgia/inserir-cirurgia.component';
-import { MedicoService } from '../medico/medico.service';
+import { MedicoService } from '../medico/services/medico.service';
 import { EditarCirurgiaComponent } from './editar-cirurgia/editar-cirurgia.component';
 
 import { DialogService } from 'src/app/views/cirurgia/services/dialog-cirurgia.service';

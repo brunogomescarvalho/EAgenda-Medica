@@ -15,7 +15,11 @@ export class ListarConsultasComponent implements OnInit {
 
   consultas$!: Observable<ListarAtividades[]>
 
-  constructor(private consultaService: ConsultaService, private route: ActivatedRoute, private router: Router, private serviceDialog: ConsultaDialogService) {
+  constructor(
+    private consultaService: ConsultaService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private serviceDialog: ConsultaDialogService) {
 
   }
   ngOnInit(): void {
@@ -23,11 +27,12 @@ export class ListarConsultasComponent implements OnInit {
   }
 
   editar(consulta: ListarAtividades) {
-    this.router.navigate(["/consultas/editar", consulta.id])
+    this.router.navigate(["editar", consulta.id], { relativeTo: this.route.parent })
   }
 
   detalhes(consulta: ListarAtividades) {
-    this.serviceDialog.visualizarDetalhesConsulta(consulta)
+    this.consultaService.obterDetalhes(consulta.id!)
+      .subscribe(x => this.serviceDialog.visualizarDetalhesConsulta(x))
   }
 
 
