@@ -1,9 +1,8 @@
-import { Component, OnInit, Output } from "@angular/core"
-import { ActivatedRoute } from "@angular/router"
-import { ConsultaService } from "../consulta.service"
-
-import { Observable, map } from "rxjs"
-import { ListarAtividades } from "src/app/models/Atividades"
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable, map } from "rxjs";
+import { ListarAtividades } from "src/app/models/Atividades";
+import { ConsultaService } from "../consulta.service";
 
 
 @Component({
@@ -15,12 +14,17 @@ export class ListarConsultasComponent implements OnInit {
 
   consultas$!: Observable<ListarAtividades[]>
 
-  constructor(private consultaService: ConsultaService, private route: ActivatedRoute) {
+  constructor(private consultaService: ConsultaService, private route: ActivatedRoute, private router:Router) {
 
   }
   ngOnInit(): void {
     this.consultas$ = this.route.data.pipe(map(x => x["consultas"]))
   }
+
+  editar(consulta: ListarAtividades) {
+    this.router.navigate(["/consultas/editar", consulta.id])
+  }
+
 
   public alterarLista(event: string) {
 

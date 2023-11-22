@@ -19,7 +19,7 @@ namespace eAgendaWebApi.Controllers.Compartilhado
             var resposta = new
             {
                 sucesso = false,
-                erros = result.Reasons.ToArray().Select(m => m.Message)
+                erros = result.Reasons.Select(m => m.Message).ToArray(),
             };
 
             return new BadRequestObjectResult(resposta);
@@ -30,7 +30,7 @@ namespace eAgendaWebApi.Controllers.Compartilhado
             var resposta = new
             {
                 sucesso = false,
-                erros = result.Reasons.ToArray().Select(m => m.Message)
+                erros = result.Reasons.Select(m => m.Message).ToArray()
             };
 
             return new NotFoundObjectResult(resposta);

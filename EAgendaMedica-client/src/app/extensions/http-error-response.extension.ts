@@ -14,9 +14,13 @@ HttpErrorResponse.prototype.processarErro = function () {
     return throwError(() => new Error('Erro inesperado.'));
   }
 
+
+
   switch (this.status) {
     case 500:
-      messagemErro = this.error.erros.split("'")[1]
+      {
+          messagemErro = this.error.erros.split("'")[1]
+      }
       break;
 
     default:

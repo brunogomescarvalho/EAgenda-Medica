@@ -20,7 +20,6 @@ registerLocaleData(localePt, locale);
   declarations: [
     AppComponent,
     DashboardComponent,
-
   ],
   imports: [
     BrowserModule,

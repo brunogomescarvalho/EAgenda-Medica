@@ -1,0 +1,10 @@
+<div class="container m-auto">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Inserir Consulta</h2>
+      <p>Abaixo, você pode cadastrar uma nova consulta</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <app-form-consulta [medicos$]="medicos$ " (onEnviarConsulta)="cadastrar($event)"></app-form-consulta>
+</div>

@@ -1,0 +1,13 @@
+<div class="container m-auto">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Editar Consulta</h2>
+      <p>Abaixo, você pode editar a consulta selecionada</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+
+</div>
+<app-form-consulta [consulta]="consulta$ | async " [medicos$]="medicos$ "
+(onEnviarConsulta)="editar($event)"></app-form-consulta>

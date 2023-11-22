@@ -1,12 +1,20 @@
+
 import { NgModule, inject } from "@angular/core";
-import { Routes, RouterModule, ResolveFn } from "@angular/router";
+import { Routes, RouterModule, ResolveFn, ActivatedRouteSnapshot } from "@angular/router";
 import { ListarConsultasComponent } from "../listar-consultas/listar-consultas.component";
 import { ConsultaService } from "../consulta.service";
 import { ListarAtividades } from "src/app/models/Atividades";
+import { InserirConsultaComponent } from "../inserir-consulta/inserir-consulta.component";
+import { selecionarMedicosResolve } from "../../cirurgia/router/cirurgia-routing.module";
+import { EditarConsultaComponent } from "../editar-consulta/editar-consulta.component";
 
 
 export const selecionarTodasConsultasResolve: ResolveFn<ListarAtividades[]> = () => {
   return inject(ConsultaService).listarTodas()
+}
+
+export const selecionarConsultaPorIdResolve = (route: ActivatedRouteSnapshot) => {
+  return inject(ConsultaService).selecionarPorId(route.params["id"]);
 }
 
 const routes: Routes = [
@@ -20,15 +28,16 @@ const routes: Routes = [
     component: ListarConsultasComponent,
     resolve: { consultas: selecionarTodasConsultasResolve }
   },
-  // {
-  //   path: 'inserir',
-  //   component: InserirCategoriasComponent
-  // },
-  // {
-  //   path: 'editar/:id',
-  //   component: EditarCategoriasComponent,
-  //   resolve: { categoria: selecionarCategoriasPorIdResolve }
-  // }
+  {
+    path: 'inserir',
+    component: InserirConsultaComponent,
+    resolve: { medicos: selecionarMedicosResolve }
+  },
+  {
+    path: 'editar/:id',
+    component: EditarConsultaComponent,
+    resolve: { consulta: selecionarConsultaPorIdResolve, medicos: selecionarMedicosResolve }
+  }
 ];
 
 @NgModule({
