@@ -1,4 +1,4 @@
-import { CirurgiaService } from './../cirurgia.service';
+import { CirurgiaService } from '../services/cirurgia.service';
 import { inject, NgModule } from "@angular/core";
 import { Routes, RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 

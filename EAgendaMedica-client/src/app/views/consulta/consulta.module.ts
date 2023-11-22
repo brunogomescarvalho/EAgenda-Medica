@@ -4,12 +4,15 @@ import { AppMaterialModule } from 'src/app/shared/app-material/app-material.modu
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { MedicoService } from '../medico/medico.service';
-import { ConsultaService } from './consulta.service';
+import { ConsultaService } from './services/consulta.service';
 import { EditarConsultaComponent } from './editar-consulta/editar-consulta.component';
-import { FormConsultaComponent } from './form-consulta/form-consulta.component';
+import { FormConsultaComponent } from './componentes/form-consulta/form-consulta.component';
 import { InserirConsultaComponent } from './inserir-consulta/inserir-consulta.component';
 import { ListarConsultasComponent } from './listar-consultas/listar-consultas.component';
 import { ConsultasRouterModule } from './router/consultas-routing.module';
+import { DialogService } from '../cirurgia/services/dialog-cirurgia.service';
+import { DetalhesConsultaComponent } from './componentes/dialogs/visualizar-detalhes-consulta/visualizar-detalhes-consulta.component';
+import { ConsultaDialogService } from './services/consulta-dialog.service';
 
 
 
@@ -18,7 +21,8 @@ import { ConsultasRouterModule } from './router/consultas-routing.module';
     ListarConsultasComponent,
     FormConsultaComponent,
     InserirConsultaComponent,
-    EditarConsultaComponent
+    EditarConsultaComponent,
+    DetalhesConsultaComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,9 @@ import { ConsultasRouterModule } from './router/consultas-routing.module';
     AppMaterialModule,
     SharedModule
   ],
-  providers:[ConsultaService,MedicoService]
+  providers: [
+    ConsultaService,
+    MedicoService,
+    ConsultaDialogService]
 })
 export class ConsultaModule { }

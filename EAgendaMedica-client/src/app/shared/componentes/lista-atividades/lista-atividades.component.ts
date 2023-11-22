@@ -15,6 +15,8 @@ export class ListaAtividadesComponent {
 
   @Output() onAlterarLista = new EventEmitter<string>();
 
+  @Output() onDetalhes = new EventEmitter();
+
   @Output() onEditar = new EventEmitter();
 
   @Input({ required: true }) tipo?: string
@@ -29,5 +31,9 @@ export class ListaAtividadesComponent {
 
   alterarLista() {
     this.onAlterarLista.emit(this.activeLink)
+  }
+
+  detalhes(atividade: ListarAtividades) {
+    this.onDetalhes.emit(atividade)
   }
 }

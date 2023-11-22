@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { FormConsulta } from 'src/app/models/Atividades';
 import { ListarMedicos } from 'src/app/models/Medicos';
-import { ConsultaService } from '../consulta.service';
+import { ConsultaService } from '../services/consulta.service';
 
 @Component({
   selector: 'app-editar-consulta',

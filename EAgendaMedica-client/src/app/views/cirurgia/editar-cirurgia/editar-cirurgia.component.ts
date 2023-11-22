@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { FormCirurgia } from 'src/app/models/Atividades';
 import { ListarMedicos } from 'src/app/models/Medicos';
 
-import { CirurgiaService } from '../cirurgia.service';
+import { CirurgiaService } from '../services/cirurgia.service';
 
 @Component({
   selector: 'app-editar-cirurgia',

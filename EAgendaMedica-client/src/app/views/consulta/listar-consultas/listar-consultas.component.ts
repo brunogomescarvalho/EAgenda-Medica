@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, map } from "rxjs";
 import { ListarAtividades } from "src/app/models/Atividades";
-import { ConsultaService } from "../consulta.service";
+import { ConsultaService } from "../services/consulta.service";
+import { ConsultaDialogService } from "../services/consulta-dialog.service";
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ListarConsultasComponent implements OnInit {
 
   consultas$!: Observable<ListarAtividades[]>
 
-  constructor(private consultaService: ConsultaService, private route: ActivatedRoute, private router:Router) {
+  constructor(private consultaService: ConsultaService, private route: ActivatedRoute, private router: Router, private serviceDialog: ConsultaDialogService) {
 
   }
   ngOnInit(): void {
@@ -23,6 +24,10 @@ export class ListarConsultasComponent implements OnInit {
 
   editar(consulta: ListarAtividades) {
     this.router.navigate(["/consultas/editar", consulta.id])
+  }
+
+  detalhes(consulta: ListarAtividades) {
+    this.serviceDialog.visualizarDetalhesConsulta(consulta)
   }
 
 

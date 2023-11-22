@@ -42,6 +42,12 @@ export abstract class AtividadeBaseService {
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
+  public obterDetalhes(id: string){
+    return this.httpClient.get(this.url + this.endpoint + `/detalhes/${id}`)
+      .pipe(map((x: any) => x.dados),
+        catchError((erro: HttpErrorResponse) => erro.processarErro()));
+  }
+
 }
 
 
