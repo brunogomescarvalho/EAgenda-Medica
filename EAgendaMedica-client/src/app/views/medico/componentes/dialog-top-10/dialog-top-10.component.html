@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Top 10 Médicos</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form" (ngSubmit)="enviarData()">
+    <mat-form-field>
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Data Início">
+        <input matEndDate formControlName="end" placeholder="Data Fim">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <section><button class="mt-2" mat-raised-button type="submit" color="primary">Buscar</button></section>
+  </form>
+
+  <div class="mt-4" *ngIf="medicos?.length !=0">
+    <div *ngFor="let medico of medicos">
+      <h3>Nome - {{medico.nome}} </h3>
+      <h3>CRM - {{medico.crm}}</h3>
+      <h3>Total - {{medico.horasTrabalhadasNoPeriodo}} horas</h3>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Sair</button>
+</mat-dialog-actions>

@@ -10,12 +10,13 @@ import { DialogExcluirComponent } from './componentes/dialog-excluir/dialog-excl
 
 
 
+
 @NgModule({
   declarations: [
     CardHoverDirective,
     ListaAtividadesComponent,
     DateTimePipe,
-    DialogExcluirComponent
+    DialogExcluirComponent,
   ],
   imports: [
     CommonModule,

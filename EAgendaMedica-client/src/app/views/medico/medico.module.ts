@@ -11,6 +11,7 @@ import { MedicoDialogService } from './services/medico-dialog.service';
 import { FormMedicoComponent } from './componentes/form-medico/form-medico.component';
 import { InserirMedicoComponent } from './inserir-medico/inserir-medico.component';
 import { EditarMedicoComponent } from './editar-medico/editar-medico.component';
+import { DialogTop10Component } from './componentes/dialog-top-10/dialog-top-10.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { EditarMedicoComponent } from './editar-medico/editar-medico.component';
       DialogVisualizarMedicoComponent,
       FormMedicoComponent,
       InserirMedicoComponent,
-      EditarMedicoComponent],
+      EditarMedicoComponent,
+      DialogTop10Component],
   imports: [
     CommonModule,
     MedicoRoutingModule,

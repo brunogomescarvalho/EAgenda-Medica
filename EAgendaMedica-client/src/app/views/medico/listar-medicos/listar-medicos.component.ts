@@ -1,10 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { ListarMedicos } from 'src/app/models/Medicos';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { ListarMedicos, Top10Medicos } from 'src/app/models/Medicos';
 
 import { MedicoService } from '../services/medico.service';
 import { MedicoDialogService } from '../services/medico-dialog.service';
+import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-listar-medicos',
@@ -14,7 +16,6 @@ import { MedicoDialogService } from '../services/medico-dialog.service';
 export class ListarMedicosComponent implements OnInit {
 
   medicos$!: Observable<ListarMedicos[]>
-
   links = ['Todos', 'Ativos', 'Inativos'];
   activeLink = this.links[0];
 
@@ -22,7 +23,8 @@ export class ListarMedicosComponent implements OnInit {
     private route: ActivatedRoute,
     private service: MedicoService,
     private modalService: MedicoDialogService,
-    private router: Router) { }
+    private router: Router,
+    private datePipe: DateTimePipe) { }
 
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class ListarMedicosComponent implements OnInit {
 
   detalhes(medico: ListarMedicos) {
     this.service.obterDetalhes(medico.id!).subscribe(x => {
-      this.modalService.visualizarDetalhesMedico(x)
+      this.modalService.detalharMedicoDialog(x)
     })
   }
 
@@ -55,6 +57,19 @@ export class ListarMedicosComponent implements OnInit {
       case "Ativos": this.medicos$ = this.service.listarTodosPorStatus(true); break;
       case "Inativos": this.medicos$ = this.service.listarTodosPorStatus(false); break;
     }
+  }
+
+  mostrarTop10() {
+
+    var result = this.modalService.mostrarTop10Dialog()
+    this.modalService.datasTop10?.asObservable().subscribe(x => {
+
+      this.service.buscarTop10(x?.dt1, x?.dt2)
+        .subscribe(x => {
+          this.modalService.top10MedicosEvent.next(x)
+        })
+    })
+
   }
 
 }

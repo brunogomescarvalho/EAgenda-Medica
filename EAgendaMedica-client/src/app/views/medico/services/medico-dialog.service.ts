@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ListarMedicos, VisualizarMedico } from 'src/app/models/Medicos';
+import { ListarMedicos, Top10Medicos, VisualizarMedico } from 'src/app/models/Medicos';
 import { DialogVisualizarMedicoComponent } from '../componentes/dialog-visualizar-medico/dialog-visualizar-medico.component';
 import { DialogExcluirComponent } from 'src/app/shared/componentes/dialog-excluir/dialog-excluir.component';
+import { DialogTop10Component } from '../componentes/dialog-top-10/dialog-top-10.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class MedicoDialogService {
 
   constructor(private dialog: MatDialog,) { }
 
-  visualizarDetalhesMedico(medico: VisualizarMedico) {
+  datasTop10 = new EventEmitter<any>()
+
+  top10MedicosEvent = new EventEmitter<Top10Medicos[] | null>()
+
+  detalharMedicoDialog(medico: VisualizarMedico) {
     return this.dialog.open(DialogVisualizarMedicoComponent, {
       width: '400px',
       data: medico
@@ -25,4 +31,13 @@ export class MedicoDialogService {
       }
     })
   }
+
+  mostrarTop10Dialog() {
+
+    return this.dialog.open(DialogTop10Component, {
+      width: '400px',
+    });
+  }
+
+
 }

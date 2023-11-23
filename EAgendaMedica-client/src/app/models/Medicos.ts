@@ -24,3 +24,10 @@ class AtividadeMedico {
   horaTermino?: string
   tipoAtividade?: string
 }
+
+export class Top10Medicos {
+  id?: string
+  nome?: string
+  crm?: string
+  horasTrabalhadasNoPeriodo?: number
+}
