@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -31,7 +32,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ]
 })
 export class AppMaterialModule { }

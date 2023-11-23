@@ -29,8 +29,20 @@ export class MedicoDialogService {
     return this.dialog.open(DialogExcluirComponent, {
       width: '500px',
       data: {
+        titulo:"Excluír",
         registro: "Médico(a)",
         msg: `Confirma excluir o Médico: ${data.nome} - ${data.crm} ? Todos os dados relacionado a esse registro também serão excluídos.`
+      }
+    })
+  }
+
+  desativarMedicoDialog(data: any) {
+    return this.dialog.open(DialogExcluirComponent, {
+      width: '500px',
+      data: {
+        titulo:`${(data.situacao == "Ativo" ? 'Desativar' : 'Ativar')}`,
+        registro: "Médico(a)",
+        msg: `Confirma ${(data.situacao == "Ativo" ? 'desativar' : 'ativar')} o Médico: ${data.nome} - ${data.crm} ?`
       }
     })
   }

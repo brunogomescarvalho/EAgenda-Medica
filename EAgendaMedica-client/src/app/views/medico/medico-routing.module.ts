@@ -10,6 +10,10 @@ export const selecionarTodosMedicosFN = () => {
   return inject(MedicoService).listarTodos()
 }
 
+export const selecionarTodosMedicosAtivosFN = () => {
+  return inject(MedicoService).listarTodosPorStatus(true)
+}
+
 export const selecionarMedicoPorIdResolve = (route: ActivatedRouteSnapshot) => {
   return inject(MedicoService).buscarPorId(route.params["id"])
 }
@@ -25,7 +29,7 @@ const routes: Routes = [
   {
     path: "listar",
     component: ListarMedicosComponent,
-    resolve: { medicos: selecionarTodosMedicosFN }
+    resolve: { medicos: selecionarTodosMedicosAtivosFN }
   },
   {
     path: "inserir",

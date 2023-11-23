@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, map } from "rxjs";
-import { ListarAtividades } from "src/app/models/Atividades";
-import { ConsultaService } from "../services/consulta.service";
-import { ConsultaDialogService } from "../services/consulta-dialog.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { ListarAtividades } from 'src/app/models/Atividades';
+
+import { ConsultaDialogService } from '../services/consulta-dialog.service';
+import { ConsultaService } from '../services/consulta.service';
 
 
 @Component({

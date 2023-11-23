@@ -26,10 +26,13 @@
           <mat-card-title>{{atividade.dataInicio}}</mat-card-title>
           <mat-card-subtitle>{{atividade.horaInicio}} - {{atividade.horaTermino}}</mat-card-subtitle>
         </mat-card-header>
-        <mat-card-actions>
-          <button (click)="detalhes(atividade)" mat-button>DETALHES</button>
-          <button (click)="editar(atividade)" mat-button>EDITAR</button>
-          <button (click)="excluir(atividade)" mat-button>EXCLUIR</button>
+        <mat-card-actions class="d-flex justify-content-around">
+          <button (click)="editar(atividade)" mat-button matTooltip="Editar"><span
+              class="material-icons md-18">edit</span></button>
+          <button (click)="detalhes(atividade)" mat-button matTooltip="Detalhes"><span
+              class="material-icons md-18">details</span></button>
+          <button (click)="excluir(atividade)" matTooltip="Excluir" mat-button><span
+              class="material-icons md-18">delete</span></button>
         </mat-card-actions>
       </mat-card>
 

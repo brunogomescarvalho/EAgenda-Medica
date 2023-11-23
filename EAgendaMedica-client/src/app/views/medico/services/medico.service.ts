@@ -42,7 +42,7 @@ export class MedicoService {
   }
 
   public alterarStatus(id: string) {
-    return this.httpClient.put<any>(this.url + `/${id}`, null)
+    return this.httpClient.put<any>(this.url + `/alterar-status/${id}`, null)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }

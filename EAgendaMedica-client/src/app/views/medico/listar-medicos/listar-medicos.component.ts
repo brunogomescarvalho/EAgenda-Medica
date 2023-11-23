@@ -14,7 +14,7 @@ import { MedicoService } from '../services/medico.service';
 export class ListarMedicosComponent implements OnInit {
 
   medicos$!: Observable<ListarMedicos[]>
-  links = ['Todos', 'Ativos', 'Inativos'];
+  links = ['Ativos', 'Todos', 'Inativos'];
   activeLink = this.links[0];
 
   crmPesquisar?: string
@@ -40,12 +40,23 @@ export class ListarMedicosComponent implements OnInit {
     this.router.navigate(["editar", medico.id], { relativeTo: this.route.parent })
   }
 
+  desativar(medico: ListarMedicos) {
+    let result = this.modalService.desativarMedicoDialog(medico)
+
+    result.afterClosed().subscribe((x) => {
+      if (x == true)
+        this.service.alterarStatus(medico.id!)
+          .subscribe(() => this.alterarLista())
+    })
+  }
+
   excluir(event: ListarMedicos) {
     let result = this.modalService.excluirMedicoDialog(event)
 
     result.afterClosed().subscribe((x) => {
       if (x == true)
-        this.service.excluir(event.id!).subscribe(() => this.alterarLista())
+        this.service.excluir(event.id!)
+          .subscribe(() => this.alterarLista())
     })
   }
 
@@ -58,7 +69,7 @@ export class ListarMedicosComponent implements OnInit {
   }
 
   mostrarTop10() {
-    this.modalService.mostrarTop10Dialog()
+    this.modalService.mostrarTop10Dialog();
     this.modalService.datasTop10?.asObservable().subscribe(x => {
 
       this.service.buscarTop10(x?.dt1, x?.dt2)

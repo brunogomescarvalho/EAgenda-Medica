@@ -2,6 +2,7 @@ export class ListarMedicos {
   id?: string
   nome?: string
   crm?: string
+  situacao?:string
 }
 
 export class FormMedico {

@@ -23,8 +23,9 @@ export class ConsultaDialogService {
     return this.dialog.open(DialogExcluirComponent, {
       width: '400px',
       data: {
+        titulo:"Excluír",
         registro: "Consulta",
-        msg: `Confirma excluir a consulta: ${data.registro} - ${data.descricao.dataInicio} - ${data.descricao.horaInicio} - ${data.descricao.horaTermino} ?`
+        msg: `Confirma excluir a consulta: ${data.dataInicio} - ${data.horaInicio} - ${data.horaTermino} ?`
       }
     })
   }

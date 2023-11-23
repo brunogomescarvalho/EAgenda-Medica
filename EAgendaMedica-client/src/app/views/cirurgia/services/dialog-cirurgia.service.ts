@@ -21,8 +21,9 @@ export class DialogService {
     return this.dialog.open(DialogExcluirComponent, {
       width: '400px',
       data: {
+        titulo:"Excluír",
         registro: "Cirurgia",
-        msg: `Confirma excluir a cirurgia: ${data.registro} - ${data.descricao.dataInicio} - ${data.descricao.horaInicio} - ${data.descricao.horaTermino} ?`
+        msg: `Confirma excluir a cirurgia: ${data.dataInicio} - ${data.horaInicio} - ${data.horaTermino} ?`
       }
     })
   }

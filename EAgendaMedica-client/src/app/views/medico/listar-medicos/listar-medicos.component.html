@@ -6,7 +6,7 @@
     </div>
     <div class="col-lg-3 col-sm-12 mt-1 d-flex gap-3 align-items-center justify-content-around">
       <a mat-flat-button color="accent" href="/medicos/inserir">Inserir Médico</a>
-      <a mat-flat-button color="primary" (click)="mostrarTop10()" >Top 10 </a>
+      <a mat-flat-button color="primary" (click)="mostrarTop10()">Top 10 </a>
     </div>
     <div class="col-lg-5  col-sm-12 mt-1 d-flex gap-3 align-items-center">
       <mat-form-field>
@@ -34,10 +34,17 @@
           <mat-card-title>{{medico.nome}}</mat-card-title>
           <mat-card-subtitle>{{medico.crm}}</mat-card-subtitle>
         </mat-card-header>
-        <mat-card-actions>
-          <button (click)="editar(medico)" mat-button>EDITAR</button>
-          <button (click)="detalhes(medico)" mat-button>DETALHES</button>
-          <button (click)="excluir(medico)" mat-button>EXCLUIR</button>
+        <mat-card-actions  class="d-flex justify-content-around">
+          <button (click)="editar(medico)" mat-button matTooltip="Editar"><span
+              class="material-icons md-18">edit</span></button>
+          <button (click)="detalhes(medico)" mat-button matTooltip="Detalhes"><span
+              class="material-icons md-18">details</span></button>
+          <button (click)="desativar(medico)" mat-button
+            matTooltip="{{medico.situacao == 'Ativo'?'Desativar':'Ativar'}}"><span
+              class="material-icons md-18">
+              {{(medico.situacao == 'Ativo'?'toggle_off':'toggle_on')}}</span></button>
+          <button (click)="excluir(medico)" mat-button matTooltip="Excluir"><span
+              class="material-icons md-18">delete</span></button>
         </mat-card-actions>
       </mat-card>
     </div>
