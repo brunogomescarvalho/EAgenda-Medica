@@ -3,6 +3,7 @@ import { Observable, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormMedico } from 'src/app/models/Medicos';
 import { MedicoService } from '../services/medico.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editar-medico',
@@ -13,7 +14,11 @@ export class EditarMedicoComponent implements OnInit {
 
   medico$: Observable<FormMedico> | null = null
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: MedicoService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: MedicoService,
+    private snack: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -25,8 +30,9 @@ export class EditarMedicoComponent implements OnInit {
 
     this.service.editar(id, medico)
       .subscribe({
-        error: (e) => console.log(e),
+        error: (e: Error) => this.snack.open(e.message, "Erro"),
         next: () => {
+          this.snack.open(`Médico editado com sucesso`, 'Sucesso')
           this.router.navigate(["/medicos/listar"])
         }
       })

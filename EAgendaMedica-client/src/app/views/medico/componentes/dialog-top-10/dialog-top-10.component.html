@@ -7,12 +7,11 @@
         <input matStartDate formControlName="start" placeholder="Data Início">
         <input matEndDate formControlName="end" placeholder="Data Fim">
       </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <mat-divider></mat-divider>
-    <section><button class="mt-2" mat-raised-button type="submit" color="primary">Buscar</button></section>
+    <section><button [disabled]="!form.valid" class="mt-2" mat-raised-button type="submit" color="primary">Buscar</button></section>
   </form>
 
   <div class="mt-4" *ngIf="medicos?.length !=0">

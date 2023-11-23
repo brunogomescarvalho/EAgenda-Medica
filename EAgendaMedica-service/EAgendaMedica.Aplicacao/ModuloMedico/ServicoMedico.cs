@@ -26,27 +26,46 @@ namespace EAgendaMedica.Aplicacao.ModuloMedico
             if (resultado.IsFailed)
                 return Result.Fail(resultado.Errors);
 
-            await repositorioMedico.Inserir(medico);
+            try
+            {
+                await repositorioMedico.Inserir(medico);
 
-            await contextoPersistencia.SalvarDados();
+                await contextoPersistencia.SalvarDados();
 
-            return Result.Ok(medico);
+                return Result.Ok(medico);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException!.Message.Contains("duplicate key value"))
+                    Result.Fail("CRM já cadastrado");
+
+                return Result.Fail(ex.Message);
+            }
 
         }
 
         public async Task<Result<Medico>> Editar(Medico medico)
         {
-            var resultado = Validar(medico);
+            try
+            {
+                var resultado = Validar(medico);
 
-            if (resultado.IsFailed)
-                return Result.Fail(resultado.Errors);
+                if (resultado.IsFailed)
+                    return Result.Fail(resultado.Errors);
 
-            repositorioMedico.Editar(medico);
+                repositorioMedico.Editar(medico);
 
-            await contextoPersistencia.SalvarDados();
+                await contextoPersistencia.SalvarDados();
 
-            return Result.Ok(medico);
+                return Result.Ok(medico);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException!.Message.Contains("duplicate key value"))
+                    Result.Fail("CRM já cadastrado");
 
+                return Result.Fail(ex.Message);
+            }
         }
 
         public async Task<Result<List<Medico>>> SelecionarTodos()

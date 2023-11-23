@@ -5,6 +5,7 @@ import { ListarAtividades } from 'src/app/models/Atividades';
 
 import { ConsultaDialogService } from '../services/consulta-dialog.service';
 import { ConsultaService } from '../services/consulta.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ListarConsultasComponent implements OnInit {
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
     private router: Router,
-    private serviceDialog: ConsultaDialogService) {
+    private serviceDialog: ConsultaDialogService,
+    private snack: MatSnackBar) {
 
   }
   ngOnInit(): void {
@@ -35,13 +37,19 @@ export class ListarConsultasComponent implements OnInit {
     this.consultaService.obterDetalhes(consulta.id!)
       .subscribe(x => this.serviceDialog.visualizarDetalhesConsulta(x))
   }
-  excluir(event:any){
+  excluir(event: any) {
     let result = this.serviceDialog.excluirConsulta(event.obj);
 
     result.afterClosed().subscribe(x => {
       if (x == true) {
         this.consultaService.excluirAtividade(event.obj.id!)
-          .subscribe(() => this.alterarLista(event.lista))
+          .subscribe({
+            error: (e: Error) => this.snack.open(e.message, "Erro"),
+            next: () => {
+              this.alterarLista(event.lista)
+              this.snack.open('Consulta excluída com sucesso.', 'Sucesso')
+            }
+          })
       }
     })
   }

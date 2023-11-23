@@ -14,15 +14,21 @@ HttpErrorResponse.prototype.processarErro = function () {
     return throwError(() => new Error('Erro inesperado.'));
   }
 
+  let erroOcorrido = this.error.erros as string;
+
   switch (this.status) {
     case 500:
       {
-          messagemErro = this.error.erros.split("'")[1]
+        if (erroOcorrido.includes('Result is in status failed'))
+          messagemErro = erroOcorrido.split("'")[1]
+        else
+          messagemErro = erroOcorrido
       }
       break;
 
-    default:
-      messagemErro = 'Ocorreu um erro ao efetuar a requisição.';
+      default:
+        messagemErro = erroOcorrido
+        break
   }
 
   return throwError(() => new Error(messagemErro));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Top10Medicos } from 'src/app/models/Medicos';
 
@@ -21,12 +21,12 @@ export class DialogTop10Component implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      start: new FormControl<Date | null>(null),
-      end: new FormControl<Date | null>(null),
+      start: new FormControl<Date | null>(null, [Validators.required]),
+      end: new FormControl<Date | null>(null, Validators.required),
     });
 
     this.service.top10MedicosEvent.asObservable()
-    .subscribe(x => this.medicos = x)
+      .subscribe(x => this.medicos = x)
 
   }
 

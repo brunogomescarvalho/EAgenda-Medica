@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { ListarAtividades } from 'src/app/models/Atividades';
@@ -19,7 +20,8 @@ export class ListarCirurgiasComponent implements OnInit {
     private cirurgiaService: CirurgiaService,
     private route: ActivatedRoute,
     private router: Router,
-    private serviceDialog: DialogService) {
+    private serviceDialog: DialogService,
+    private snack: MatSnackBar) {
 
   }
   ngOnInit(): void {
@@ -41,7 +43,13 @@ export class ListarCirurgiasComponent implements OnInit {
     result.afterClosed().subscribe(x => {
       if (x == true) {
         this.cirurgiaService.excluirAtividade(event.obj.id!)
-          .subscribe(() => this.alterarLista(event.lista))
+          .subscribe({
+            error: (e: Error) => this.snack.open(e.message, "Erro"),
+            next: () => {
+              this.alterarLista(event.lista)
+              this.snack.open('Cirurgia excluída com sucesso.', 'Sucesso')
+            }
+          })
       }
     })
   }

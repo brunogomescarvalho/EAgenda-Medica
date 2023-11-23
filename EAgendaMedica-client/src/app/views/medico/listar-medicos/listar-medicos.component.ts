@@ -5,6 +5,7 @@ import { ListarMedicos } from 'src/app/models/Medicos';
 
 import { MedicoDialogService } from '../services/medico-dialog.service';
 import { MedicoService } from '../services/medico.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-listar-medicos',
@@ -23,7 +24,8 @@ export class ListarMedicosComponent implements OnInit {
     private route: ActivatedRoute,
     private service: MedicoService,
     private modalService: MedicoDialogService,
-    private router: Router) { }
+    private router: Router,
+    private snack: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -46,7 +48,13 @@ export class ListarMedicosComponent implements OnInit {
     result.afterClosed().subscribe((x) => {
       if (x == true)
         this.service.alterarStatus(medico.id!)
-          .subscribe(() => this.alterarLista())
+          .subscribe({
+            error: ((e: Error) => this.snack.open(e.message, 'Erro')),
+            next: () => {
+              this.alterarLista()
+              this.snack.open(`Médico ${medico.situacao == 'Ativo' ? 'desativado' : 'ativado'} com sucesso.`, 'Sucesso')
+            }
+          })
     })
   }
 
@@ -56,7 +64,13 @@ export class ListarMedicosComponent implements OnInit {
     result.afterClosed().subscribe((x) => {
       if (x == true)
         this.service.excluir(event.id!)
-          .subscribe(() => this.alterarLista())
+          .subscribe({
+            error: (e: Error) => this.snack.open(e.message, 'Erro'),
+            next: () => {
+              this.alterarLista()
+              this.snack.open(`Médico excluído com sucesso`)
+            }
+          })
     })
   }
 
@@ -74,14 +88,20 @@ export class ListarMedicosComponent implements OnInit {
 
       this.service.buscarTop10(x?.dt1, x?.dt2)
         .subscribe(x => {
-          this.modalService.top10MedicosEvent.next(x)
+          if (x?.length == 0)
+            this.snack.open("Nenhum registro para as datas informadas")
+          else
+            this.modalService.top10MedicosEvent.next(x)
         })
     })
   }
 
   pesquisarPorCRM() {
     this.service.buscarPorCRM(this.crmPesquisar!)
-      .subscribe(x => this.modalService.detalharMedicoDialog(x, true))
+      .subscribe({
+        error: (e: Error) => this.snack.open(e.message, "Erro"),
+        next: (x) => this.modalService.detalharMedicoDialog(x, true)
+      })
   }
 
 }
