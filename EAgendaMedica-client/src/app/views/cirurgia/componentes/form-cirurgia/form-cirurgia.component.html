@@ -4,7 +4,7 @@
       <!-- {{form.value| json}} -->
       <mat-form-field class="full-width">
         <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker"  formControlName="dataInicio">
+        <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="yyyy-mm-dd">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

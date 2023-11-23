@@ -34,7 +34,16 @@ export class ListarConsultasComponent implements OnInit {
     this.consultaService.obterDetalhes(consulta.id!)
       .subscribe(x => this.serviceDialog.visualizarDetalhesConsulta(x))
   }
+  excluir(event:any){
+    let result = this.serviceDialog.excluirConsulta(event.obj);
 
+    result.afterClosed().subscribe(x => {
+      if (x == true) {
+        this.consultaService.excluirAtividade(event.obj.id!)
+          .subscribe(() => this.alterarLista(event.lista))
+      }
+    })
+  }
 
   public alterarLista(event: string) {
 

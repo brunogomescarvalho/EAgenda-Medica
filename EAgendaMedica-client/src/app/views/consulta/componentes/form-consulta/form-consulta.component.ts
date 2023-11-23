@@ -27,7 +27,7 @@ export class FormConsultaComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      dataInicio: new FormControl(),
+      dataInicio: new FormControl(new Date()),
       horaInicio: new FormControl(),
       duracaoEmMinutos: new FormControl(),
       medicoId: new FormControl()

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { ListarMedicos } from 'src/app/models/Medicos';
@@ -37,6 +37,16 @@ export class ListarMedicosComponent implements OnInit {
 
   editar(medico: ListarMedicos) {
     this.router.navigate(["editar", medico.id], { relativeTo: this.route.parent })
+  }
+
+  excluir(event: ListarMedicos) {
+
+    let result = this.modalService.excluirMedicoDialog(event)
+
+    result.afterClosed().subscribe((x) => {
+      if (x == true)
+        this.service.excluir(event.id!).subscribe(() => this.alterarLista())
+    })
   }
 
   alterarLista() {

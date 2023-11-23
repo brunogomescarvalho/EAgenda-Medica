@@ -33,7 +33,17 @@ export class ListarCirurgiasComponent implements OnInit {
   detalhes(cirurgia: ListarAtividades) {
     this.cirurgiaService.obterDetalhes(cirurgia.id!)
       .subscribe(x => this.serviceDialog.visualizarDetalhesCirurgia(x))
+  }
 
+  excluir(event: any) {
+    let result = this.serviceDialog.excluirCirurgia(event.obj);
+
+    result.afterClosed().subscribe(x => {
+      if (x == true) {
+        this.cirurgiaService.excluirAtividade(event.obj.id!)
+          .subscribe(() => this.alterarLista(event.lista))
+      }
+    })
   }
 
   public alterarLista(event: string) {

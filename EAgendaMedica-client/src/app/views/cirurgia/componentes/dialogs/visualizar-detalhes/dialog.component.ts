@@ -17,8 +17,6 @@ export class DialogComponentCirurgia implements OnInit {
 
     public dialogRef: MatDialogRef<DialogComponentCirurgia>,
 
-    private service: CirurgiaService,
-
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.cirurgia = new VisualizarCirurgia();
@@ -26,8 +24,7 @@ export class DialogComponentCirurgia implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.obterDetalhes(this.data.id)
-      .subscribe(x => this.cirurgia = x);
+    this.cirurgia = this.data
   }
 
 }
