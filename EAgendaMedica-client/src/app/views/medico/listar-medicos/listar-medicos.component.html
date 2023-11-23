@@ -1,12 +1,19 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-lg-6 col-sm-12">
+    <div class="col-lg-4 col-sm-12">
       <h2>Listar Médicos</h2>
       <p>Abaixo, você pode filtrar os médicos cadastrados</p>
     </div>
-    <div class="col-lg-6 col-sm-12 mt-1 d-flex gap-3 align-items-center">
+    <div class="col-lg-3 col-sm-12 mt-1 d-flex gap-3 align-items-center justify-content-around">
       <a mat-flat-button color="accent" href="/medicos/inserir">Inserir Médico</a>
       <a mat-flat-button color="primary" (click)="mostrarTop10()" >Top 10 </a>
+    </div>
+    <div class="col-lg-5  col-sm-12 mt-1 d-flex gap-3 align-items-center">
+      <mat-form-field>
+        <mat-label>Buscar Por CRM</mat-label>
+        <input [(ngModel)]="crmPesquisar" matInput #input maxlength="10" placeholder="Ex. 12345-SC" autocomplete="off">
+      </mat-form-field>
+      <a mat-flat-button color="primary" (click)="pesquisarPorCRM()">Buscar</a>
     </div>
   </div>
 

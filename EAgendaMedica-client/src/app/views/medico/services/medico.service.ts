@@ -24,13 +24,13 @@ export class MedicoService {
   }
 
   public buscarPorCRM(crm: string) {
-    return this.httpClient.get<any[]>(this.url + `/crm=${crm}`)
+    return this.httpClient.get<any>(this.url + `/crm/${crm}`)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
   public buscarPorId(id: string) {
-    return this.httpClient.get<any[]>(this.url + `/${id}`)
+    return this.httpClient.get<any>(this.url + `/${id}`)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
@@ -42,31 +42,31 @@ export class MedicoService {
   }
 
   public alterarStatus(id: string) {
-    return this.httpClient.put<any[]>(this.url + `/${id}`, null)
+    return this.httpClient.put<any>(this.url + `/${id}`, null)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
   public obterDetalhes(id: string) {
-    return this.httpClient.get<any[]>(this.url + `/detalhes/${id}`)
+    return this.httpClient.get<any>(this.url + `/detalhes/${id}`)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
   public editar(id: string, medico: FormMedico) {
-    return this.httpClient.put<any[]>(this.url + `/${id}`, medico)
+    return this.httpClient.put<any>(this.url + `/${id}`, medico)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
   public excluir(id: string) {
-    return this.httpClient.delete<any[]>(this.url + `/${id}`)
+    return this.httpClient.delete<any>(this.url + `/${id}`)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
   public inserir(medico: FormMedico) {
-    return this.httpClient.post<any[]>(this.url, medico)
+    return this.httpClient.post<any>(this.url, medico)
       .pipe(map((x: any) => x.dados),
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }

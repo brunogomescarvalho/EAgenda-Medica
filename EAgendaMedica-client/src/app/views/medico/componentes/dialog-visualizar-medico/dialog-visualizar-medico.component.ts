@@ -21,6 +21,6 @@ export class DialogVisualizarMedicoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.medico = this.data;
+    this.medico = this.data.registro;
   }
 }

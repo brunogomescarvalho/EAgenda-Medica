@@ -12,10 +12,11 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
             CreateMap<Medico, FormMedicoViewModel>();
 
             CreateMap<Medico, VisualizarMedicoViewModel>()
-               .ForMember(x=>x.Situacao, opt => opt.MapFrom(x=>x.Ativo ? "Ativo" : "Inativo"))
+               .ForMember(x => x.Situacao, opt => opt.MapFrom(x => x.Ativo ? "Ativo" : "Inativo"))
                .AfterMap<MedicoVisualizacaoCompletaMappingAction>();
 
             CreateMap<Medico, VisualizarAgendaMedicoViewModel>()
+             .ForMember(x => x.Situacao, opt => opt.MapFrom(x => x.Ativo ? "Ativo" : "Inativo"))
              .AfterMap<MedicoAgendaDoDiaMappingAction>();
 
             CreateMap<Medico, ListarMedicosViewModel>()

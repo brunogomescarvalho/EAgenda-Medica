@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Top10Medicos } from 'src/app/models/Medicos';
@@ -20,7 +20,6 @@ export class DialogTop10Component implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogTop10Component>, private service: MedicoDialogService) { }
 
   ngOnInit(): void {
-
     this.form = new FormGroup({
       start: new FormControl<Date | null>(null),
       end: new FormControl<Date | null>(null),
@@ -32,7 +31,6 @@ export class DialogTop10Component implements OnInit {
   }
 
   enviarData() {
-
     if (this.form?.valid) {
       let datas = {
         dt1: new Date(this.form.value.start).toISOString(),

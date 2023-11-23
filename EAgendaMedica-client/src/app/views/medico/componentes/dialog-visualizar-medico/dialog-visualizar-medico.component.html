@@ -5,7 +5,7 @@
   <h3>Situação - {{medico.situacao}}</h3>
 
   <div *ngIf="medico.atividades!.length != 0" class="col">
-    <h2 mat-dialog-title>Atividades</h2>
+    <h2 mat-dialog-title>Atividades {{(data.atividadesDeHoje? 'De Hoje' : '')}}</h2>
 
     <div class="mb-3" *ngFor=" let ati of medico.atividades">
       <h3>Data - {{ati.dataInicio}}</h3>

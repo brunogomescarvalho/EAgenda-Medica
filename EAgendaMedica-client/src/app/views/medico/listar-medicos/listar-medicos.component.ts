@@ -1,12 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ListarMedicos, Top10Medicos } from 'src/app/models/Medicos';
+import { map, Observable } from 'rxjs';
+import { ListarMedicos } from 'src/app/models/Medicos';
 
-import { MedicoService } from '../services/medico.service';
 import { MedicoDialogService } from '../services/medico-dialog.service';
-import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
-import { DatePipe } from '@angular/common';
+import { MedicoService } from '../services/medico.service';
 
 @Component({
   selector: 'app-listar-medicos',
@@ -19,12 +17,13 @@ export class ListarMedicosComponent implements OnInit {
   links = ['Todos', 'Ativos', 'Inativos'];
   activeLink = this.links[0];
 
+  crmPesquisar?: string
+
   constructor(
     private route: ActivatedRoute,
     private service: MedicoService,
     private modalService: MedicoDialogService,
-    private router: Router,
-    private datePipe: DateTimePipe) { }
+    private router: Router) { }
 
 
   ngOnInit(): void {
@@ -42,7 +41,6 @@ export class ListarMedicosComponent implements OnInit {
   }
 
   excluir(event: ListarMedicos) {
-
     let result = this.modalService.excluirMedicoDialog(event)
 
     result.afterClosed().subscribe((x) => {
@@ -60,8 +58,7 @@ export class ListarMedicosComponent implements OnInit {
   }
 
   mostrarTop10() {
-
-    var result = this.modalService.mostrarTop10Dialog()
+    this.modalService.mostrarTop10Dialog()
     this.modalService.datasTop10?.asObservable().subscribe(x => {
 
       this.service.buscarTop10(x?.dt1, x?.dt2)
@@ -69,7 +66,11 @@ export class ListarMedicosComponent implements OnInit {
           this.modalService.top10MedicosEvent.next(x)
         })
     })
+  }
 
+  pesquisarPorCRM() {
+    this.service.buscarPorCRM(this.crmPesquisar!)
+      .subscribe(x => this.modalService.detalharMedicoDialog(x, true))
   }
 
 }
