@@ -1,8 +1,8 @@
+import { TemaService } from './../../shared/services/tema.service';
 import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-shell',
@@ -17,4 +17,11 @@ export class ShellComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+    constructor(private temaService:TemaService){}
+
+
+    alterarTema() {
+      this.temaService.alterarTema()
+    }
 }

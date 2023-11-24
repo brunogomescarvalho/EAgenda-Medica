@@ -30,7 +30,7 @@
 
       <section>
         <div>
-          <button mat-raised-button type="submit" color="primary">Salvar</button>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">Salvar</button>
           <button routerLink="/cirurgias/listar" class="mx-2" mat-raised-button type="button" color="accent">Voltar</button>
         </div>
       </section>

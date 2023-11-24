@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { FormCirurgia } from 'src/app/models/Atividades';
 import { ListarMedicos } from 'src/app/models/Medicos';
@@ -28,10 +28,10 @@ export class FormCirurgiaComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      dataInicio: new FormControl(),
-      horaInicio: new FormControl(),
-      duracaoEmMinutos: new FormControl(),
-      medicosIds: new FormControl()
+      dataInicio: new FormControl(null, [Validators.required]),
+      horaInicio: new FormControl(null, [Validators.required]),
+      duracaoEmMinutos: new FormControl(null, [Validators.required]),
+      medicosIds: new FormControl(null, [Validators.required])
     });
 
     if (this.cirurgia) {
@@ -46,8 +46,10 @@ export class FormCirurgiaComponent implements OnInit {
   }
 
   salvar() {
-    let cirurgia: FormCirurgia = this.form.value;
-    this.onEnviarCirurgia.emit(cirurgia)
+    if (this.form.valid) {
+      let cirurgia: FormCirurgia = this.form.value;
+      this.onEnviarCirurgia.emit(cirurgia)
+    }
   }
 }
 

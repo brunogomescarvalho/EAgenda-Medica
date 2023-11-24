@@ -30,6 +30,7 @@ namespace EAgendaMedica.WebApi.Configs.AutoMapper.Profiles
             CreateMap<FormCirurgiaViewModel, Cirurgia>()
                   .ForMember(origem => origem.Medicos, opt => opt.Ignore())
                   .AfterMap<InserirMedicosMappingAction>();
+
         }
     }
 

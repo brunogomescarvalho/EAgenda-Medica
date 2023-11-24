@@ -93,7 +93,10 @@ namespace EAgendaMedica.ConsoleApp
 
                     crmCadastrado.Add(crm);
 
-                    medicos.Add(new Medico($"Medico-{i}", $"{crm}-SC"));
+                    if (i < nomes.Count)
+                        medicos.Add(new Medico(nomes[i], $"{crm}-SC"));
+                    else
+                        medicos.Add(new Medico($"Medico-{i}", $"{crm}-SC"));
 
                     break;
 
@@ -161,7 +164,9 @@ namespace EAgendaMedica.ConsoleApp
 
                 var horaInicial = TimeSpan.Parse($"{hora}:00");
 
-                var medicosParticipantes = medicos.Take(i + 1).ToList();
+                var qtd = i % 5 == 0 ? 4 : i % 5;
+
+                var medicosParticipantes = medicos.GetRange(qtd, qtd);
 
                 var cirurgia = new Cirurgia(data, horaInicial, 120, medicosParticipantes);
 
@@ -183,6 +188,29 @@ namespace EAgendaMedica.ConsoleApp
             dbContext.Set<Medico>().RemoveRange(dbContext.Set<Medico>());
             dbContext.SaveChanges();
         }
+
+        private static List<string> nomes = new List<string>() {
+                "João Silva",
+                "Pedro Oliveira",
+                "José Souza",
+                "Carlos Machado",
+                "Francisco Lima",
+                "Antônio Santos",
+                "Luiz Pereira",
+                "Miguel Araújo",
+                "Matheus Nunes",
+                "Lucas Ferreira",
+                "Maria Almeida",
+                "Ana Cardoso",
+                "Flávia Martins",
+                "Letícia Ribeiro",
+                "Isabela Gomes",
+                "Carolina Costa",
+                "Bruna Andrade",
+                "Julia Gonçalves",
+                "Heloísa Pinto",
+                "Emanuelly Soares"
+            };
     }
 
 }

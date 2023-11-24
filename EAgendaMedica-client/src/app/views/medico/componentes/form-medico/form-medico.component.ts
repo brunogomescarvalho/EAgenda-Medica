@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormMedico } from 'src/app/models/Medicos';
 
 @Component({
@@ -19,8 +19,8 @@ export class FormMedicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nome: new FormControl(),
-      crm: new FormControl()
+      nome: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      crm: new FormControl(null, [Validators.required])
     })
 
     if (this.medico)

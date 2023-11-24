@@ -20,4 +20,5 @@ namespace EAgendaMedica.WebApi.ViewModels.Cirurgias
         [Display(Name = "Médicos Ids")]
         public List<Guid>? MedicosIds { get; set; }
     }
+
 }

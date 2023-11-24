@@ -31,6 +31,8 @@ export class DialogTop10Component implements OnInit {
   }
 
   enviarData() {
+    this.medicos = []
+
     if (this.form?.valid) {
       let datas = {
         dt1: new Date(this.form.value.start).toISOString(),
