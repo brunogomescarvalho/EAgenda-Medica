@@ -1,4 +1,6 @@
-﻿using FluentResults;
+﻿using EAgendaMedica.Dominio.ModuloCirurgia;
+using EAgendaMedica.Dominio.ModuloConsulta;
+using FluentResults;
 using FluentValidation;
 using Serilog;
 namespace EAgendaMedica.Aplicacao.Compartilhado
@@ -25,6 +27,23 @@ namespace EAgendaMedica.Aplicacao.Compartilhado
                 return Result.Fail(erros);
 
             return Result.Ok();
+        }
+
+
+        protected Result<List<TAtividade>> Processarlista(List<TAtividade> atividades)
+        {
+            var tipo = typeof(TAtividade);
+
+            var msg = $"Nenhuma {tipo.Name.ToLower()} foi encontrada para a opção selecionada.";
+
+            if (atividades.Count == 0)
+            {
+                Log.Logger.Warning(msg);
+
+                return Result.Fail(msg);
+            }
+
+            return Result.Ok(atividades);
         }
     }
 }

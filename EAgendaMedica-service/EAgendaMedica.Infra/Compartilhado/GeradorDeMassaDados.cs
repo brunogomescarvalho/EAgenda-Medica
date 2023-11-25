@@ -132,7 +132,7 @@ namespace EAgendaMedica.ConsoleApp
 
                 var consulta = new Consulta(data, horaInicial, 120, medico);
 
-                var ehValida = consulta.VerificarDescansoMedico();
+                var ehValida = consulta.VerificarDescansoMedico() && consulta.VerificarAgendaMedico();
 
                 if (ehValida == true)
                     consultas.Add(consulta);
@@ -170,7 +170,7 @@ namespace EAgendaMedica.ConsoleApp
 
                 var cirurgia = new Cirurgia(data, horaInicial, 120, medicosParticipantes);
 
-                var ehValida = cirurgia.VerificarDescansoMedico();
+                var ehValida = cirurgia.VerificarDescansoMedico() && cirurgia.VerificarAgendaMedico(); ;
 
                 if (ehValida == true)
                     cirurgias.Add(cirurgia);
@@ -208,7 +208,7 @@ namespace EAgendaMedica.ConsoleApp
                 "Carolina Costa",
                 "Bruna Andrade",
                 "Julia Gonçalves",
-                "Heloísa Pinto",
+                "Heloísa Ramos",
                 "Emanuelly Soares"
             };
     }

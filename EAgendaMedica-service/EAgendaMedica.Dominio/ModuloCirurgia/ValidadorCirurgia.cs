@@ -13,6 +13,10 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
                .GreaterThan(119)
                .WithMessage("O tempo mínimo para uma cirurgia é de 120 minutos");
 
+            RuleFor(x => x.DataInicio.Date)
+               .NotEqual(DateTime.MinValue)
+               .WithMessage("Data Inválida");
+
             RuleFor(x => x.Medicos).Custom(VerificarDisponibilidade);
         }
 

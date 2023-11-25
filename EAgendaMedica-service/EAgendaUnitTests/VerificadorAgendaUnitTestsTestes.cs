@@ -6,7 +6,7 @@ using FluentAssertions;
 namespace EAgendaUnitTests
 {
     [TestClass]
-    public class VerificaAgendaUnitTestsTestes
+    public class VerificadorAgendaUnitTestsTestes
     {
         private readonly DateTime hoje = DateTime.Now;
         private readonly TimeSpan vinteHoras = TimeSpan.Parse("20:00");

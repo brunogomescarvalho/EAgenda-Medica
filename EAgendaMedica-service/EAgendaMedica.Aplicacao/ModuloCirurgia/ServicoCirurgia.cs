@@ -1,6 +1,7 @@
 ﻿using EAgendaMedica.Aplicacao.Compartilhado;
 using EAgendaMedica.Dominio.Copartilhado;
 using EAgendaMedica.Dominio.ModuloCirurgia;
+using EAgendaMedica.Dominio.ModuloConsulta;
 using FluentResults;
 using Serilog;
 
@@ -75,7 +76,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.SelecionarTodos();
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
 
         }
 
@@ -83,7 +84,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.SelecionarParaHoje();
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
 
         }
 
@@ -91,7 +92,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.SelecionarProximos30Dias();
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
 
         }
 
@@ -99,7 +100,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.SelecionarUltimos30Dias();
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
 
         }
 
@@ -107,7 +108,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.SelecionarPorPeriodo(dataInicial, dataFinal);
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
 
         }
 
@@ -115,7 +116,7 @@ namespace EAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgias = await repositorioCirurgia.ObterCirurgiasPorMedico(CRM);
 
-            return Result.Ok(cirurgias);
+            return Processarlista(cirurgias);
         }
 
     }

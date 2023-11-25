@@ -37,7 +37,7 @@ export class EditarCirurgiaComponent implements OnInit {
         error: (e: Error) => this.snack.open(e.message, 'Erro'),
         next: () => {
           this.router.navigate(["/cirurgias/listar"])
-          this.snack.open('Cirurgia editada com sucesso.', 'Sucesso')
+          this.snack.open(`Cirurgia editada com sucesso.`, 'Sucesso')
         }
       })
   }

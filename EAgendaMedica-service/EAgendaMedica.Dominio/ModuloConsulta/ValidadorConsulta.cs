@@ -8,6 +8,10 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
         {
             RuleFor(x => x.Medico).NotNull();
 
+            RuleFor(x => x.DataInicio.Date)
+                .NotEqual(DateTime.MinValue)
+                .WithMessage("Data Inválida");
+
             RuleFor(x => x.DuracaoEmMinutos)
                .LessThan(121)
                .WithMessage("O tempo máximo para uma consulta é de 120 minutos");
@@ -30,7 +34,7 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
 
             if (ehValido == false)
             {
-                context.AddFailure("A consulta não pode ser agendada no horário solicitado, pois conflita com outros procedimentos do médico.");             
+                context.AddFailure("A consulta não pode ser agendada no horário solicitado, pois conflita com outros procedimentos do médico.");
             }
         }
     }

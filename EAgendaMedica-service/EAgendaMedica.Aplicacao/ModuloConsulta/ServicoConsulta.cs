@@ -74,7 +74,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.SelecionarTodos();
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
 
         }
 
@@ -82,7 +82,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.SelecionarParaHoje();
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
 
         }
 
@@ -90,7 +90,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.SelecionarProximos30Dias();
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
 
         }
 
@@ -98,7 +98,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.SelecionarUltimos30Dias();
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
 
         }
 
@@ -106,7 +106,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.SelecionarPorPeriodo(dataInicial, dataFinal);
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
 
         }
 
@@ -114,7 +114,7 @@ namespace EAgendaMedica.Aplicacao.ModuloConsulta
         {
             var consultas = await repositorioConsulta.ObterConsultasPorMedico(CRM);
 
-            return Result.Ok(consultas);
+            return Processarlista(consultas);
         }
     }
 }
