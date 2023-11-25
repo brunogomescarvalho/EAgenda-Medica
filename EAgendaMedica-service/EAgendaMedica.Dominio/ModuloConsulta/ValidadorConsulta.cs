@@ -1,5 +1,4 @@
-﻿using EAgendaMedica.Dominio.ModuloCirurgia;
-using EAgendaMedica.Dominio.ModuloMedico;
+﻿using EAgendaMedica.Dominio.ModuloMedico;
 
 namespace EAgendaMedica.Dominio.ModuloConsulta
 {
@@ -13,18 +12,26 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
                .LessThan(121)
                .WithMessage("O tempo máximo para uma consulta é de 120 minutos");
 
-            RuleFor(x => x.Medico).Custom(VerificarConflitos);
+            RuleFor(x => x.Medico).Custom(VerificarDisponibilidade);
         }
 
-        private void VerificarConflitos(Medico medico, ValidationContext<Consulta> context)
+        private void VerificarDisponibilidade(Medico medico, ValidationContext<Consulta> context)
         {
             var ehValido = context.InstanceToValidate.VerificarDescansoMedico();
 
             if (ehValido == false)
             {
-                context.AddFailure("A consulta não pode ser agendada no horário solicitado, pois conflita com outros procedimentos do médico.");
+                context.AddFailure("O médico da consulta não possui descanso suficiente de 20 minutos");
+
+                return;
             }
 
+            ehValido = context.InstanceToValidate.VerificarAgendaMedico();
+
+            if (ehValido == false)
+            {
+                context.AddFailure("A consulta não pode ser agendada no horário solicitado, pois conflita com outros procedimentos do médico.");             
+            }
         }
     }
 }

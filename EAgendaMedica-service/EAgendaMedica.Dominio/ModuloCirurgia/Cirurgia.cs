@@ -60,6 +60,23 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
             return true;
         }
 
+
+        public bool VerificarAgendaMedico()
+        {
+            var verificador = new VerificarAgendaMedico(this);
+
+            foreach (var item in this.Medicos)
+            {
+                bool ehValido = verificador.VerificarAgenda(item.AtividadesDoDia(this.DataInicio));
+
+                if (!ehValido)
+                    return false;
+            }
+
+            return true;
+        }
+
+
         public override string ToString()
         {
             var passouDaMeiaNoite = DataInicio.Date != DataTermino.Date;

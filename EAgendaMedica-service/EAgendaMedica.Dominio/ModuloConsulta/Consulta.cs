@@ -48,6 +48,11 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
             return new VerificadorDescanso(this).Verificar(Medico);
         }
 
+        public bool VerificarAgendaMedico()
+        {
+            return new VerificarAgendaMedico(this).VerificarAgenda(medico.AtividadesDoDia(this.DataInicio));
+        }
+
         public override string ToString()
         {
             var passouDaMeiaNoite = DataInicio.Date != DataTermino.Date;

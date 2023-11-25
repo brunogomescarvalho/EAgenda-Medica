@@ -1,5 +1,6 @@
 ﻿using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloConsulta;
+using EAgendaMedica.Dominio.Servicos;
 using Taikandi;
 
 namespace EAgendaMedica.Dominio.ModuloMedico
@@ -76,6 +77,7 @@ namespace EAgendaMedica.Dominio.ModuloMedico
             return HorasTrabalhadasNoPeriodo;
 
         }
+
 
         private static void CarregarInformacoesAtividades(List<Atividade> atividades)
         {

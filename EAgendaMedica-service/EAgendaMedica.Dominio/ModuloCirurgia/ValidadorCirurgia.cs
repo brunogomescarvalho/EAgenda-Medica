@@ -13,17 +13,26 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
                .GreaterThan(119)
                .WithMessage("O tempo mínimo para uma cirurgia é de 120 minutos");
 
-            RuleFor(x => x.Medicos).Custom(VerificarConflitos);
+            RuleFor(x => x.Medicos).Custom(VerificarDisponibilidade);
         }
 
-        private void VerificarConflitos(List<Medico> list, ValidationContext<Cirurgia> context)
+        private void VerificarDisponibilidade(List<Medico> list, ValidationContext<Cirurgia> context)
         {
             var ehValido = context.InstanceToValidate.VerificarDescansoMedico();
 
             if (ehValido == false)
             {
-                context.AddFailure("A cirurgia não pode ser agendada no horário solicitado, pois conflita com outros procedimentos de um ou mais médicos.");
+                context.AddFailure("A cirurgia possui um ou mais médicos com descanso inferior a 240 minutos");
+
+                return;
             }
+
+            ehValido = context.InstanceToValidate.VerificarAgendaMedico();
+
+            if (ehValido == false)
+            {
+                context.AddFailure("A cirurgia não pode ser agendada no horário solicitado, pois conflita com outros procedimentos de um ou mais médicos.");
+            };
 
         }
     }

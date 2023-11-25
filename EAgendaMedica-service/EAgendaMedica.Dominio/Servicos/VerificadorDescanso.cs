@@ -27,14 +27,12 @@ namespace EAgendaMedica.Dominio.Servicos
             ObterRegistroAnterior(atividades);
 
             ObterRegistroPosterior(atividades);
-
-            bool intervaloValido = VerificaSeHaAtividadeNoIntervalo(atividades);
-
+     
             bool inicioValido = VerificarInicio();
 
             bool terminoValido = VerificarTermino();
 
-            return terminoValido && inicioValido && intervaloValido;
+            return terminoValido && inicioValido;
         }
 
         private void ObterRegistroPosterior(List<Atividade> atividades)
@@ -51,15 +49,7 @@ namespace EAgendaMedica.Dominio.Servicos
              .OrderBy(x => x.HoraTermino).FirstOrDefault()!;
         }
 
-        public bool VerificaSeHaAtividadeNoIntervalo(List<Atividade> atividades)
-        {
-            var encontrado = atividades.Where(x => x.Equals(atividadeParaVerificar) == false &&
-
-            TemConflito(x, atividadeParaVerificar)).FirstOrDefault();
-
-            return encontrado == null;
-        }
-
+      
         private bool VerificarInicio()
         {
             if (registroAnterior != null)
@@ -91,20 +81,7 @@ namespace EAgendaMedica.Dominio.Servicos
                 return diferenca > tempo;
             }
             return true;
-        }
-
-        private static bool TemConflito(Atividade outro, Atividade paraVerificar)
-        {
-            return
-              (outro.HoraInicio >= paraVerificar.HoraInicio && outro.HoraInicio <= paraVerificar.HoraTermino)
-
-           || (outro.HoraTermino >= paraVerificar.HoraInicio && outro.HoraTermino <= paraVerificar.HoraTermino)
-
-           || (outro.HoraInicio <= paraVerificar.HoraInicio && outro.HoraTermino >= paraVerificar.HoraTermino)
-
-           || (outro.HoraInicio >= paraVerificar.HoraInicio && outro.HoraTermino <= paraVerificar.HoraTermino);
-
-        }
+        }      
     }
 
 }
