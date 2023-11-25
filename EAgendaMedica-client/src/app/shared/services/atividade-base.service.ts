@@ -48,6 +48,12 @@ export abstract class AtividadeBaseService {
         catchError((erro: HttpErrorResponse) => erro.processarErro()));
   }
 
+  public selecionarPorPeriodo(dataInicio: Date, dataFim:Date){
+    return this.httpClient.get(this.url + this.endpoint + `/periodo?dataInicio=${dataInicio}&dataFim=${dataFim}`)
+      .pipe(map((x: any) => x.dados),
+        catchError((erro: HttpErrorResponse) => erro.processarErro()));
+  }
+
 }
 
 

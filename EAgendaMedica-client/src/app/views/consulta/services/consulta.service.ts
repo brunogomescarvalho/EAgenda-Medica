@@ -62,4 +62,9 @@ export class ConsultaService extends AtividadeBaseService {
     return super.obterDetalhes(id)
   }
 
+  public override selecionarPorPeriodo(dataInicio: Date, dataFim: Date) {
+    this.endpoint = "consultas"
+    return super.selecionarPorPeriodo(dataInicio, dataFim)
+  }
+
 }

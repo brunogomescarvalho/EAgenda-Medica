@@ -54,10 +54,8 @@ namespace EAgendaMedica.Dominio.Servicos
         public bool VerificaSeHaAtividadeNoIntervalo(List<Atividade> atividades)
         {
             var encontrado = atividades.Where(x => x.Equals(atividadeParaVerificar) == false &&
-             (atividadeParaVerificar.HoraInicio >= x.HoraInicio && atividadeParaVerificar.HoraInicio <= x.HoraTermino ||
-               atividadeParaVerificar.HoraTermino >= x.HoraInicio && atividadeParaVerificar.HoraTermino <= x.HoraTermino ||
-                atividadeParaVerificar.HoraInicio <= x.HoraInicio && atividadeParaVerificar.HoraTermino >= x.HoraTermino))
-                 .FirstOrDefault();
+
+            TemConflito(x, atividadeParaVerificar)).FirstOrDefault();
 
             return encontrado == null;
         }
@@ -68,7 +66,10 @@ namespace EAgendaMedica.Dominio.Servicos
             {
                 var tempo = registroAnterior is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-                var diferenca = Math.Abs(atividadeParaVerificar.DataInicio.Subtract(registroAnterior.DataTermino).TotalMinutes);
+                var diferenca = atividadeParaVerificar.DataInicio.Subtract(registroAnterior.DataTermino).TotalMinutes;
+
+                if (diferenca < 0)
+                    return false;
 
                 return diferenca > tempo;
             }
@@ -82,11 +83,28 @@ namespace EAgendaMedica.Dominio.Servicos
             {
                 var tempo = atividadeParaVerificar is Consulta ? TempoAposConsulta : TempoAposCirurgia;
 
-                var diferenca = Math.Abs(registroPosterior.DataInicio.Subtract(atividadeParaVerificar.DataTermino).TotalMinutes);
+                var diferenca = registroPosterior.DataInicio.Subtract(atividadeParaVerificar.DataTermino).TotalMinutes;
+
+                if (diferenca < 0)
+                    return false;
 
                 return diferenca > tempo;
             }
             return true;
         }
+
+        private static bool TemConflito(Atividade outro, Atividade paraVerificar)
+        {
+            return
+              (outro.HoraInicio >= paraVerificar.HoraInicio && outro.HoraInicio <= paraVerificar.HoraTermino)
+
+           || (outro.HoraTermino >= paraVerificar.HoraInicio && outro.HoraTermino <= paraVerificar.HoraTermino)
+
+           || (outro.HoraInicio <= paraVerificar.HoraInicio && outro.HoraTermino >= paraVerificar.HoraTermino)
+
+           || (outro.HoraInicio >= paraVerificar.HoraInicio && outro.HoraTermino <= paraVerificar.HoraTermino);
+
+        }
     }
+
 }

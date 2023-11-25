@@ -30,9 +30,9 @@
 
       <section>
         <div>
-          <button mat-raised-button type="submit" color="primary">Salvar</button>
+          <button [disabled]="!form.valid" mat-raised-button type="submit" color="accent">Salvar</button>
           <button routerLink="/consultas/listar" class="mx-2" mat-raised-button type="button"
-            color="accent">Voltar</button>
+            color="primary">Voltar</button>
         </div>
       </section>
     </form>

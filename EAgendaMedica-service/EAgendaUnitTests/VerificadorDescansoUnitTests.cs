@@ -10,7 +10,6 @@ namespace EAgendaUnitTests
     {
         private readonly DateTime hoje = DateTime.Now;
 
-        private readonly TimeSpan dezHoras = TimeSpan.Parse("10:00");
         private readonly TimeSpan dozeHoras = TimeSpan.Parse("12:00");
         private readonly TimeSpan quatorzeHoras = TimeSpan.Parse("14:00");
         private readonly TimeSpan vinteHoras = TimeSpan.Parse("20:00");
@@ -19,32 +18,9 @@ namespace EAgendaUnitTests
 
 
         [TestMethod]
-        public void Deve_Validar_Consulta()
+        public void VerificaDescancoAposConsulta_RegistroAnterior()
         {
-            var consulta = new Consulta(hoje, dezHoras, 60, medico);
-
-            bool ehValido = consulta.VerificarDescansoMedico();
-
-            ehValido.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void Nao_Pode_Aceitar_HoraInicioMenor_E_HoraFinalMaior_RetornaFalse()
-        {
-            medico.AdicionarConsulta(new Consulta(hoje, dozeHoras, 60, medico));
-
-            var consulta = new Consulta(hoje, dezHoras, 240, medico);
-
-            bool ehValido = consulta.VerificarDescansoMedico();
-
-            ehValido.Should().BeFalse();
-        }
-
-
-        [TestMethod]
-        public void Se_RegistroAnterior_ForConsulta_E_DescansoForMenor_Que20Minutos_Entao_Retorna_False()
-        {
-            medico.AdicionarConsulta(new Consulta(hoje, dezHoras, 120, medico));
+            medico.AdicionarConsulta(new Consulta(hoje, TimeSpan.Parse("11:00"), 60, medico));
 
             var consulta = new Consulta(hoje, dozeHoras, 60, medico);
 
@@ -52,66 +28,94 @@ namespace EAgendaUnitTests
         }
 
         [TestMethod]
-        public void Se_RegistroAnterior_ForConsulta_E_DescansoForMaior_Que20Minutos_Entao_Retorna_True()
+        public void VerificaDescancoAposConsulta_ResgistroPosterior()
         {
-            medico.AdicionarConsulta(new Consulta(hoje, dezHoras, 90, medico));
+            medico.AdicionarConsulta(new Consulta(hoje, TimeSpan.Parse("11:00"), 60, medico));
 
-            var consulta = new Consulta(hoje, dozeHoras, 60, medico);
+            var consulta = new Consulta(hoje, TimeSpan.Parse("09:55"), 60, medico);
 
-            consulta.VerificarDescansoMedico().Should().BeTrue();
+            consulta.VerificarDescansoMedico().Should().BeFalse();
         }
 
-
+       
         [TestMethod]
-        public void Ao_MarcarCirurgia_DeveHaverIntervalo_240Minutos_RegistroPosterior_RetornaFalse()
+        public void VerificaDescansoAposCirurgia_ResgistroAnterior()
         {
             var medicos = new List<Medico>() { medico };
 
-            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 180, medicos));
+            medico.AdicionarCirurgia(new Cirurgia(hoje, quatorzeHoras, 120, medicos));
 
-            var cirurgia = new Cirurgia(hoje, quatorzeHoras, 240, medicos);
+            var cirurgia = new Cirurgia(hoje, vinteHoras, 120, medicos);
+
+            cirurgia.VerificarDescansoMedico().Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void VerificaDescansoAposCirurgia_ResgistroPosterior()
+        {
+            var medicos = new List<Medico>() { medico };
+
+            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 120, medicos));
+
+            var cirurgia = new Cirurgia(hoje, TimeSpan.Parse("17:00"), 120, medicos);
 
             cirurgia.VerificarDescansoMedico().Should().BeFalse();
         }
 
 
         [TestMethod]
-        public void Ao_MarcarCirurgia_DeveHaverIntervalo_240Minutos_RegistroPosterior_RetornaTrue()
+        public void VerificaConflitoHoraInicial()
         {
             var medicos = new List<Medico>() { medico };
 
-            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 179, medicos));
+            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 60, medicos));
 
-            var cirurgia = new Cirurgia(hoje, dezHoras, 240, medicos);
-
-            cirurgia.VerificarDescansoMedico().Should().BeTrue();
-        }
-
-
-        [TestMethod]
-        public void Ao_MarcarCirurgia_Devera_Verificar_Se_Existe_Conflito()
-        {
-            var medicos = new List<Medico>() { medico };
-
-            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 180, medicos));
-
-            var cirurgia = new Cirurgia(hoje, vinteHoras, 240, medicos);
+            var cirurgia = new Cirurgia(hoje, vinteHoras, 120, medicos);
 
             cirurgia.VerificarDescansoMedico().Should().BeFalse();
         }
 
 
         [TestMethod]
-        public void Ao_MarcarCirurgia_Devera_Verificar_Se_Existe_Conflito_Entre_Range()
+        public void VerificaAtividadeAcabaDurante()
         {
-            var medicos = new List<Medico>() { medico };
+            _ = new Consulta(hoje, vinteHoras, 120, medico);
 
-            medico.AdicionarCirurgia(new Cirurgia(hoje, vinteHoras, 240, medicos));
+            var paraVerificar = new Consulta(hoje, TimeSpan.Parse("19:00"), 120, medico);
 
-            var cirurgia = new Cirurgia(hoje, TimeSpan.Parse("20:30"), 120, medicos);
-
-            cirurgia.VerificarDescansoMedico().Should().BeFalse();
+            paraVerificar.VerificarDescansoMedico().Should().Be(false);
         }
+
+        [TestMethod]
+        public void VerificaAtividadeComecaDurante()
+        {
+            _ = new Consulta(hoje, vinteHoras, 120, medico);
+
+            var paraVerificar = new Consulta(hoje, TimeSpan.Parse("21:00"), 120, medico);
+
+            paraVerificar.VerificarDescansoMedico().Should().Be(false);
+        }
+
+        [TestMethod]
+        public void VerificaAtividadeComecaAntesETerminaDepois()
+        {
+            _ = new Consulta(hoje, vinteHoras, 60, medico);
+
+            var paraVerificar = new Consulta(hoje, TimeSpan.Parse("19:00"), 240, medico);
+
+            paraVerificar.VerificarDescansoMedico().Should().Be(false);
+        }
+
+        [TestMethod]
+        public void VerificaAtividadeComecaETerminaDurante()
+        {
+            _ = new Consulta(hoje, vinteHoras, 120, medico);
+
+            var paraVerificar = new Consulta(hoje, TimeSpan.Parse("20:30"), 60, medico);
+
+            paraVerificar.VerificarDescansoMedico().Should().Be(false);
+        }
+
 
     }
 }

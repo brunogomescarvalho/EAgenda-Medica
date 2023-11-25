@@ -21,6 +21,7 @@ import { DialogExcluirComponent } from './componentes/dialog-excluir/dialog-excl
   imports: [
     CommonModule,
     AppMaterialModule,
+    ReactiveFormsModule
 
   ],
   exports: [

@@ -1,12 +1,18 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-lg-6 col-sm-12">
+    <div class="col-lg-4 col-sm-12">
       <h2>Listar {{tipo}}</h2>
       <p>Abaixo, você pode filtrar as {{tipoCadastro}} cadastradas</p>
     </div>
-    <div class="col-lg-6 col-sm-12 mt-1  d-flex gap-3 align-items-center ">
+    <div class="col-lg-3 col-sm-12 mt-1  d-flex gap-3 align-items-center ">
       <a mat-flat-button color="accent" href="/{{tipoCadastro}}/inserir">Inserir {{tipo}}</a>
+
     </div>
+<div class="col">
+      <ng-template [ngTemplateOutlet]="filtroBusca">
+      </ng-template>
+
+</div>
   </div>
 
   <mat-divider></mat-divider>
@@ -20,7 +26,7 @@
   </section>
 
   <div class="row mt-3">
-    <div class="col-lg-3 col-sm-12 mb-3" *ngFor="let atividade of atividades$ | async">
+    <div class="col-lg-3 col-sm-12 mb-3" *ngFor="let atividade of atividades$ | async as atividades; ">
       <mat-card appCardHover>
         <mat-card-header>
           <mat-card-title>{{atividade.dataInicio}}</mat-card-title>
@@ -39,3 +45,20 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #filtroBusca>
+  <form [formGroup]="form" class="d-flex align-items-center gap-2" (ngSubmit)="enviarData()">
+    <mat-form-field>
+      <mat-label>Pesquisar por período</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="YYYY-MM-DD">
+        <input matEndDate formControlName="end" placeholder="YYYY-MM-DD">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <section><button [disabled]="!form.valid" mat-raised-button type="submit" color="primary">Buscar</button></section>
+  </form>
+</ng-template>

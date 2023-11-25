@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { FormConsulta } from 'src/app/models/Atividades';
 import { ListarMedicos } from 'src/app/models/Medicos';
@@ -27,10 +27,10 @@ export class FormConsultaComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      dataInicio: new FormControl(new Date()),
-      horaInicio: new FormControl(),
-      duracaoEmMinutos: new FormControl(),
-      medicoId: new FormControl()
+      dataInicio: new FormControl(null, Validators.required),
+      horaInicio: new FormControl(null, Validators.required),
+      duracaoEmMinutos: new FormControl(null, Validators.required),
+      medicoId: new FormControl(null, Validators.required)
     });
 
     if (this.consulta) {

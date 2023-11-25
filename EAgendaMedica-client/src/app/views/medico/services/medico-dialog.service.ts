@@ -31,7 +31,7 @@ export class MedicoDialogService {
       data: {
         titulo:"Excluír",
         registro: "Médico(a)",
-        msg: `Confirma excluir o Médico: ${data.nome} - ${data.crm} ? Todos os dados relacionado a esse registro também serão excluídos.`
+        msg: `Confirma excluir o registro: ${data.nome} - ${data.crm} ? Todos os dados relacionado a esse registro também serão excluídos.`
       }
     })
   }

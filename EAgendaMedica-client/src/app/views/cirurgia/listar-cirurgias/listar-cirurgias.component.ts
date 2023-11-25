@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { ListarAtividades } from 'src/app/models/Atividades';
 import { DialogService } from 'src/app/views/cirurgia/services/dialog-cirurgia.service';
 
@@ -52,6 +52,15 @@ export class ListarCirurgiasComponent implements OnInit {
           })
       }
     })
+  }
+
+  public buscarPorPeriodo(event: any) {
+    this.cirurgiaService.selecionarPorPeriodo(event.dt1, event.dt2)
+      .subscribe((x: ListarAtividades[]) => {
+        if (x.length == 0)
+          this.snack.open("Nenhuma cirurgia no período informado")
+        this.cirurgias$ = of(x)
+      })
   }
 
   public alterarLista(event: string) {

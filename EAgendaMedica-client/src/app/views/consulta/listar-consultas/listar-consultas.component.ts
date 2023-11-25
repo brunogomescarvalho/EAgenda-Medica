@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { ListarAtividades } from 'src/app/models/Atividades';
 
 import { ConsultaDialogService } from '../services/consulta-dialog.service';
@@ -53,6 +53,16 @@ export class ListarConsultasComponent implements OnInit {
       }
     })
   }
+
+  public buscarPorPeriodo(event: any) {
+    this.consultaService.selecionarPorPeriodo(event.dt1, event.dt2)
+      .subscribe((x: ListarAtividades[]) => {
+        if (x.length == 0)
+          this.snack.open("Nenhuma consulta no período informado")
+        this.consultas$ = of(x)
+      })
+  }
+
 
   public alterarLista(event: string) {
 

@@ -63,5 +63,10 @@ export class CirurgiaService extends AtividadeBaseService {
     this.endpoint = "cirurgias"
     return super.obterDetalhes(id)
   }
+
+  public override selecionarPorPeriodo(dataInicio: Date, dataFim: Date) {
+    this.endpoint = "cirurgias"
+    return super.selecionarPorPeriodo(dataInicio, dataFim)
+  }
 }
 
