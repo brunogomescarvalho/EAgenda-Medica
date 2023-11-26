@@ -1,7 +1,7 @@
 import './extensions/http-error-response.extension';
 
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { TemaService } from './shared/services/tema.service';
+import { interceptorLoading } from './shared/loading/interceptor-loading';
+import { LoadingService } from './shared/loading/loadingService';
 
 
 const locale = 'pt-BR'
@@ -47,8 +49,10 @@ export function atribuirTemaUsuarioFactory(temaService: TemaService) {
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 }
     },
-    provideHttpClient(),
-    TemaService
+
+    provideHttpClient(withInterceptors([interceptorLoading])),
+    TemaService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

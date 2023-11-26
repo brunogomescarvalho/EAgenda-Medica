@@ -6,16 +6,11 @@ namespace EAgendaMedica.Dominio.ModuloCirurgia
     {
         public ValidadorCirurgia()
         {
-            RuleFor(x => x.Medicos).NotEmpty().NotNull()
-                .WithMessage("Falha oa incluir médicos. Verifique os dados informados");
+            RuleFor(x => x.Medicos).NotEmpty().NotNull().WithMessage("Falha oa incluir médicos. Verifique os dados informados");
 
-            RuleFor(x => x.DuracaoEmMinutos)
-               .GreaterThan(119)
-               .WithMessage("O tempo mínimo para uma cirurgia é de 120 minutos");
+            RuleFor(x => x.DuracaoEmMinutos).GreaterThan(119).WithMessage("O tempo mínimo para uma cirurgia é de 120 minutos");
 
-            RuleFor(x => x.DataInicio.Date)
-               .NotEqual(DateTime.MinValue)
-               .WithMessage("Data Inválida");
+            RuleFor(x => x.DataInicio.Date).NotEqual(DateTime.MinValue).WithMessage("Data Inválida");
 
             RuleFor(x => x.Medicos).Custom(VerificarDisponibilidade);
         }

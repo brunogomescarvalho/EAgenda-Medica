@@ -7,6 +7,7 @@ import { ListaAtividadesComponent } from './componentes/lista-atividades/lista-a
 import { CardHoverDirective } from './directives/card-hover-directve';
 import { DateTimePipe } from './pipes/date-time.pipe';
 import { DialogExcluirComponent } from './componentes/dialog-excluir/dialog-excluir.component';
+import { LoadingService } from './loading/loadingService';
 
 
 

@@ -1,6 +1,7 @@
 using eAgendaWebApi.Configs.AutoMapper;
 using eAgendaWebApi.Configs;
 using Microsoft.AspNetCore.Mvc;
+using EAgendaMedica.WebApi.Configs;
 
 namespace EAgendaMedica.WebApi
 {
@@ -10,13 +11,7 @@ namespace EAgendaMedica.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("Desenvolvimento",
-                     x => x.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
+            builder.Services.ConfigurarCors();
 
             builder.Services.InjetarDependencias(builder.Configuration);
 

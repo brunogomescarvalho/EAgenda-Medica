@@ -1,5 +1,4 @@
 ﻿using EAgendaMedica.Dominio.ModuloCirurgia;
-using EAgendaMedica.Dominio.ModuloCirurgia;
 using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.TestesIntegracao.Compartilhado;
 using FizzWare.NBuilder;

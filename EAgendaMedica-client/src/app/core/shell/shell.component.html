@@ -19,7 +19,8 @@
       <span class="spacer"></span>
       <button class="mx-2" mat-raised-button color="accent" (click)="alterarTema()">Tema</button>
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <mat-spinner *ngIf="(mostrarCarregamento$|async)" class="carregamento"
+    style="position: fixed; top: 15%; left: 80%;  margin: auto; z-index: 1000"></mat-spinner>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

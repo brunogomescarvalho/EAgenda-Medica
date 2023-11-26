@@ -8,13 +8,9 @@ namespace EAgendaMedica.Dominio.ModuloConsulta
         {
             RuleFor(x => x.Medico).NotNull();
 
-            RuleFor(x => x.DataInicio.Date)
-                .NotEqual(DateTime.MinValue)
-                .WithMessage("Data Inválida");
+            RuleFor(x => x.DataInicio.Date).NotEqual(DateTime.MinValue).WithMessage("Data Inválida");
 
-            RuleFor(x => x.DuracaoEmMinutos)
-               .LessThan(121)
-               .WithMessage("O tempo máximo para uma consulta é de 120 minutos");
+            RuleFor(x => x.DuracaoEmMinutos).LessThan(121).WithMessage("O tempo máximo para uma consulta é de 120 minutos");
 
             RuleFor(x => x.Medico).Custom(VerificarDisponibilidade);
         }
