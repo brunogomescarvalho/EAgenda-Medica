@@ -121,22 +121,6 @@ namespace EAgendaMedica.AplicacaoUnitTests
 
 
         [TestMethod]
-        public async Task DeveInformarQuandoListaRetornarVazia()
-        {
-            repositorioMoq.Setup(i => i.SelecionarProximos30Dias())
-                .ReturnsAsync(new List<Consulta>());
-
-            var result = await servicoConsulta.SelecionarProximos30Dias();
-
-            result.IsSuccess.Should().Be(false);
-
-            var msg = result.Reasons.Select(x => x.Message).FirstOrDefault();
-
-            msg.Should().Be("Nenhuma consulta foi encontrada para a opção selecionada.");
-
-        }
-
-        [TestMethod]
         public async Task DeveInformarQuandoConsultaNaoForEncontrada()
         {
             Consulta consulta = null!;

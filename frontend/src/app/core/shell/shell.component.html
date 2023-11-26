@@ -3,10 +3,30 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item  href="/dashboard"><mat-icon        class="mx-2 icons"><span class="d-flex align-items-end">dashboard</span></mat-icon>       Dashboard</a>
-      <a mat-list-item  href="/consultas/listar"><mat-icon class="mx-2 icons"><span class="d-flex align-items-end">medical_services</span></mat-icon>Consultas</a>
-      <a mat-list-item  href="/cirurgias/listar"><mat-icon class="mx-2 icons"><span class="d-flex align-items-end">local_hospital</span></mat-icon>  Cirugias </a>
-      <a mat-list-item  href="/medicos/listar"><mat-icon   class="mx-2 icons"><span class="d-flex align-items-end">add_reaction</span></mat-icon>    Médicos  </a>
+
+      <a mat-list-item href="/dashboard">
+        <div class="d-flex align-items-center"><mat-icon color="primary" class="fs-4 me-2">dashboard</mat-icon>
+          <span class="fs-5">Dashboard</span>
+        </div>
+      </a>
+
+      <a mat-list-item href="/consultas/listar">
+        <div class="d-flex align-items-center"><mat-icon color="primary" class="fs-4 me-2">medical_services</mat-icon>
+          <span class="fs-5">Consultas</span>
+        </div>
+      </a>
+
+      <a mat-list-item href="/cirurgias/listar">
+        <div class="d-flex align-items-center"><mat-icon color="primary" class="fs-4 me-2">local_hospital</mat-icon>
+          <span class="fs-5">Cirurgias</span>
+        </div>
+      </a>
+
+      <a mat-list-item href="/medicos/listar">
+        <div class="d-flex align-items-center"><mat-icon color="primary" class="fs-4 me-2">add_reaction</mat-icon>
+          <span class="fs-5">Medicos</span>
+        </div>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,7 +40,7 @@
       <button class="mx-2" mat-raised-button color="accent" (click)="alterarTema()">Tema</button>
     </mat-toolbar>
     <mat-spinner *ngIf="(mostrarCarregamento$|async)" class="carregamento"
-    style="position: fixed; top: 15%; left: 80%;  margin: auto; z-index: 1000"></mat-spinner>
+      style="position: fixed; top: 15%; left: 80%;  margin: auto; z-index: 1000"></mat-spinner>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

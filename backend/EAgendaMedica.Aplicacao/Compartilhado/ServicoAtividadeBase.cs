@@ -40,7 +40,7 @@ namespace EAgendaMedica.Aplicacao.Compartilhado
             {
                 Log.Logger.Warning(msg);
 
-                return Result.Fail(msg);
+                return Result.Ok(atividades);
             }
 
             return Result.Ok(atividades);

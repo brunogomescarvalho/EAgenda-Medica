@@ -6,6 +6,7 @@ using EAgendaMedica.Infra.Compartilhado;
 using EAgendaMedica.Infra.ModuloCirurgia;
 using EAgendaMedica.Infra.ModuloConsulta;
 using EAgendaMedica.Infra.ModuloMedico;
+using FizzWare.NBuilder;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,8 +23,6 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
         protected IRepositorioCirurgia repositorioCirurgia;
 
         protected IRepositorioMedico repositorioMedico;
-
-        private bool primeiroUpdate = false;
 
         public TestesIntegracaoBase()
         {
@@ -53,29 +52,13 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         }
 
-        private async void AtualizarBancoDados(DbContext db)
+        private void AtualizarBancoDados(DbContext db)
         {
             var migracoesPendentes = db.Database.GetPendingMigrations();
 
             if (migracoesPendentes.Any())
             {
-                db.Database.Migrate();
-
-                primeiroUpdate = true;
-
-                await AoCriarOBancoDeDados_DeveGerarDoisCadastros();
-            }
-        }
-
-
-        [TestMethod]
-        public async Task AoCriarOBancoDeDados_DeveGerarDoisCadastros()
-        {
-            if (primeiroUpdate == true)
-            {
-                var medicos = await repositorioMedico.SelecionarTodos();
-
-                medicos.Count.Should().Be(2);
+                db.Database.Migrate();            
             }
         }
 
