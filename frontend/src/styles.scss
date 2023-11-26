@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$my-primary: mat.define-palette(mat.$teal-palette,  300, 400);
+$my-primary: mat.define-palette(mat.$teal-palette, 300, 400);
 $my-accent: mat.define-palette(mat.$pink-palette, 400);
 $my-warn: mat.define-palette(mat.$red-palette);
 
@@ -23,7 +23,6 @@ $dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$tea
 
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
-  @include mat.button-theme($dark-theme);
 
   .material-icons {
     color: #EC407A

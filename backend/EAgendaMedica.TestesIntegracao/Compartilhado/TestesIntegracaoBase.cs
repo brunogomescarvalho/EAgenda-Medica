@@ -27,13 +27,13 @@ namespace EAgendaMedica.TestesIntegracao.Compartilhado
 
         public TestesIntegracaoBase()
         {
-            this.dbContext = ObterContext();
+            dbContext = ObterContext();
 
-            this.repositorioConsulta = new RepositorioConsulta(dbContext);
+            repositorioConsulta = new RepositorioConsulta(dbContext);
 
-            this.repositorioMedico = new RepositorioMedico(dbContext);
+            repositorioMedico = new RepositorioMedico(dbContext);
 
-            this.repositorioCirurgia = new RepositorioCirurgia(dbContext);
+            repositorioCirurgia = new RepositorioCirurgia(dbContext);
 
             LimparTabelas(dbContext);
 

@@ -7,16 +7,28 @@
         <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="yyyy-mm-dd">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form?.get('dataInicio')!.hasError('required')">
+          Informe a data!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Hora Inicio</mat-label>
         <input type="time" matInput formControlName="horaInicio">
+        <mat-error *ngIf="form?.get('horaInicio')!.hasError('required')">
+          Informe a hora de inicio!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Duração em minutos</mat-label>
-        <input type="number" min="120" value="120" formControlName="duracaoEmMinutos" matInput placeholder="minutos">
+        <input type="number" formControlName="duracaoEmMinutos" matInput placeholder="minutos">
+        <mat-error *ngIf="form?.get('duracaoEmMinutos')!.hasError('min')">
+          120 minutos é o mínimo para uma cirurgia!
+        </mat-error>
+        <mat-error *ngIf="form?.get('duracaoEmMinutos')!.hasError('max')">
+          O máximo para uma cirurgia é de 1440 minutos, equivalente a 24hs
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -26,12 +38,16 @@
             <mat-option [value]="medico.id">{{medico.nome}} - {{medico.crm}}</mat-option>
           </div>
         </mat-select>
+        <mat-error *ngIf="form?.get('medicosIds')!.hasError('required')">
+          Informe um médico!
+        </mat-error>
       </mat-form-field>
 
       <section>
         <div>
           <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">Salvar</button>
-          <button routerLink="/cirurgias/listar" class="mx-2" mat-raised-button type="button" color="accent">Voltar</button>
+          <button routerLink="/cirurgias/listar" class="mx-2" mat-raised-button type="button"
+            color="accent">Voltar</button>
         </div>
       </section>
     </form>

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EAgendaMedica.Dominio;
 using EAgendaMedica.Dominio.ModuloCirurgia;
-using EAgendaMedica.Dominio.ModuloMedico;
 using EAgendaMedica.WebApi.ViewModels.Cirurgias;
 
 namespace EAgendaMedica.WebApi.Configs.AutoMapper

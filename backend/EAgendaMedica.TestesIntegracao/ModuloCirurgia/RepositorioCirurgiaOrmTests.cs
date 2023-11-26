@@ -152,7 +152,7 @@ namespace EAgendaMedica.TestesIntegracao.ModuloCirurgia
                 new Cirurgia(DateTime.Now, TimeSpan.Parse("12:00"), 170, new List<Medico>(){medico4}), // registro com medico diferente
                 new Cirurgia(DateTime.Now, TimeSpan.Parse("14:01"), 160, medicos),
                 new Cirurgia(DateTime.Now, TimeSpan.Parse("15:02"), 150, medicos),
-                new Cirurgia(DateTime.Now, TimeSpan.Parse("15:02"), 150, medicos) 
+                new Cirurgia(DateTime.Now, TimeSpan.Parse("15:02"), 150, medicos)
             };
 
             Cirurgias.ForEach(async (x) => await repositorioCirurgia.Inserir(x));

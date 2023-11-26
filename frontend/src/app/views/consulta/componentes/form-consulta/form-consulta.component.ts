@@ -29,7 +29,7 @@ export class FormConsultaComponent implements OnInit {
     this.form = this.fb.group({
       dataInicio: new FormControl(null, Validators.required),
       horaInicio: new FormControl(null, Validators.required),
-      duracaoEmMinutos: new FormControl(null, Validators.required),
+      duracaoEmMinutos: new FormControl(null, [Validators.required, Validators.min(30), Validators.max(120)]),
       medicoId: new FormControl(null, Validators.required)
     });
 

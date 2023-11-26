@@ -38,8 +38,8 @@ namespace EAgendaMedica.TestesIntegracao.ModuloMedico
                 new Consulta(DateTime.Now, TimeSpan.Parse("15:02"), 150, medico4),
 
                 new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("10:00"), 100, medicos.GetRange(1, 1)), //medico 1
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(2, 1)), 
-                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(3, 1)), 
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("12:00"), 100, medicos.GetRange(2, 1)),
+                new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("14:01"), 100, medicos.GetRange(3, 1)),
                 new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("15:02"), 100, medicos.GetRange(4, 1)),
                 new Cirurgia(DateTime.Now.AddDays(1), TimeSpan.Parse("16:03"), 100, medicos.GetRange(1, 1)),
 
